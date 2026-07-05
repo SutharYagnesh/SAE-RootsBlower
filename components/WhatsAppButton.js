@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 
 export default function WhatsAppButton() {
-  const [whatsappNumber, setWhatsappNumber] = useState('916354586037');
+  const [whatsappNumber, setWhatsappNumber] = useState('+916354586037');
 
   useEffect(() => {
     fetch('/api/settings')

@@ -19,7 +19,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [settings, setSettings] = useState({
-    phone: '+91 63545 86037',
+    phone: '+916354586037',
     email: 'sales@saerootsblower.com',
     socialLinks: {
       facebook: 'https://facebook.com/saerootsblower',

@@ -8,7 +8,7 @@ import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaTwitter, FaLinke
 export default function Footer() {
   const pathname = usePathname();
   const [settings, setSettings] = useState({
-    phone: '+91 63545 86037, +91 81550 78276',
+    phone: '+916354586037, +91 81550 78276',
     email: 'sales@saerootsblower.com',
     address: 'Plot No. 136, Phase 1, Nr Pushpak Industrial Estate, Vatva GIDC, Ahmedabad - 382418, Gujarat, India',
     socialLinks: {
