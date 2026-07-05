@@ -19,7 +19,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [settings, setSettings] = useState({
-    phone: '+91 63545 486037',
+    phone: '+91 63545 86037',
     email: 'sales@saerootsblower.com',
     socialLinks: {
       facebook: 'https://facebook.com/saerootsblower',
@@ -64,17 +64,29 @@ export default function Navbar() {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'About Us', path: '/about' },
     { name: 'Products', path: '/products' },
+    {
+      name: 'Company',
+      dropdown: [
+        { name: 'About Us', path: '/about' },
+        { name: 'Blogs', path: '/blogs' },
+        { name: 'Contact', path: '/contact' },
+      ],
+    },
     { name: 'Applications', path: '/applications' },
     { name: 'Gallery', path: '/gallery' },
-    { name: 'Blogs', path: '/blogs' },
-    { name: 'Contact', path: '/contact' },
   ];
 
   const isActive = (path) => {
     if (path === '/') return pathname === '/';
     return pathname.startsWith(path);
+  };
+
+  const isParentActive = (link) => {
+    if (link.dropdown) {
+      return link.dropdown.some((subLink) => pathname === subLink.path || (subLink.path !== '/' && pathname.startsWith(subLink.path)));
+    }
+    return isActive(link.path);
   };
 
   // Hide default navbar on admin pages
@@ -86,11 +98,10 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
           ? 'bg-primary/95 backdrop-blur-md shadow-md'
           : 'bg-primary'
-      }`}
+        }`}
     >
       {/* 1. Slim Topbar Section */}
       <div className="bg-[#0a2948] border-b border-white/5 py-2">
@@ -167,40 +178,79 @@ export default function Navbar() {
 
       {/* 2. Main Navbar Row */}
       <div
-        className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300 ${
-          isScrolled ? 'py-3.5' : 'py-5'
-        }`}
+        className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300 ${isScrolled ? 'py-3.5' : 'py-5'
+          }`}
       >
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 group">
+          {/* Logo with Brand Text */}
+          <Link href="/" className="flex items-center space-x-2.5 group">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/sae-logo.webp"
               alt="Shree Ambika Engineering Logo"
-              className="h-11 w-auto object-contain bg-white px-2.5 py-1 rounded shadow-sm group-hover:scale-102 transition-transform"
+              className="h-11 w-auto object-contain bg-white px-2 py-1 rounded shadow-sm group-hover:scale-102 transition-transform"
             />
+            <div className="flex flex-col">
+              <span className="text-white font-extrabold tracking-wide leading-none text-xs sm:text-sm md:text-base font-heading uppercase">
+                SHREE AMBIKE ENGINEERING
+              </span>
+              <span className="text-accent text-[8px] sm:text-[9px] font-bold tracking-widest uppercase mt-0.5">
+                Industrial Air Experts
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-1 lg:space-x-4 items-center">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                href={link.path}
-                className={`px-3 py-2 rounded-md text-sm font-semibold tracking-wide transition-colors duration-200 ${
-                  isActive(link.path)
-                    ? 'text-accent'
-                    : 'text-white/85 hover:text-white hover:bg-white/10'
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
+          <nav className="hidden md:flex space-x-1 lg:space-x-3 items-center">
+            {navLinks.map((link) => {
+              if (link.dropdown) {
+                return (
+                  <div key={link.name} className="relative group py-2">
+                    <button
+                      className={`px-3 py-1.5 rounded-md text-sm font-semibold tracking-wide transition-colors duration-200 flex items-center space-x-1 cursor-pointer ${isParentActive(link)
+                          ? 'text-accent'
+                          : 'text-white/85 hover:text-white hover:bg-white/10'
+                        }`}
+                    >
+                      <span>{link.name}</span>
+                      <svg className="w-4 h-4 fill-current transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 20 20">
+                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                      </svg>
+                    </button>
+                    {/* Hover Dropdown Menu */}
+                    <div className="absolute left-0 mt-0 w-48 rounded-lg shadow-lg bg-primary border border-white/10 py-1.5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                      {link.dropdown.map((subLink) => (
+                        <Link
+                          key={subLink.path}
+                          href={subLink.path}
+                          className={`block px-4 py-2 text-xs font-semibold hover:bg-white/10 transition-colors ${isActive(subLink.path) ? 'text-accent' : 'text-white/85 hover:text-white'
+                            }`}
+                        >
+                          {subLink.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={link.path}
+                  href={link.path}
+                  className={`px-3 py-2 rounded-md text-sm font-semibold tracking-wide transition-colors duration-200 ${isActive(link.path)
+                      ? 'text-accent'
+                      : 'text-white/85 hover:text-white hover:bg-white/10'
+                    }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
 
             <Link
               href="/contact"
-              className="ml-4 bg-accent hover:bg-accent/90 text-primary font-bold px-5 py-2.5 rounded-md text-sm transition-all duration-300 hover:scale-105 shadow-md shadow-accent/20"
+              className="ml-2 bg-accent hover:bg-accent/90 text-primary font-bold px-4 py-2 rounded-md text-xs transition-all duration-300 hover:scale-105 shadow-md shadow-accent/20"
             >
               Get A Quote
             </Link>
@@ -222,24 +272,48 @@ export default function Navbar() {
 
       {/* Mobile Navigation Drawer */}
       <div
-        className={`md:hidden absolute top-full inset-x-0 bg-primary border-t border-white/10 shadow-lg transition-all duration-300 ease-in-out transform ${
-          isOpen ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-4 invisible'
-        }`}
+        className={`md:hidden absolute top-full inset-x-0 bg-primary border-t border-white/10 shadow-lg transition-all duration-300 ease-in-out transform ${isOpen ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-4 invisible'
+          }`}
       >
-        <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              href={link.path}
-              className={`block px-3 py-3 rounded-md text-base font-semibold ${
-                isActive(link.path)
-                  ? 'bg-accent/15 text-accent'
-                  : 'text-white/85 hover:bg-white/5 hover:text-white'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
+        <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3 max-h-[80vh] overflow-y-auto">
+          {navLinks.map((link) => {
+            if (link.dropdown) {
+              return (
+                <div key={link.name} className="space-y-1 py-1">
+                  <div className="px-3 py-1.5 text-xs font-bold text-white/40 uppercase tracking-widest">
+                    {link.name}
+                  </div>
+                  <div className="pl-4 border-l border-white/10 ml-3 space-y-1">
+                    {link.dropdown.map((subLink) => (
+                      <Link
+                        key={subLink.path}
+                        href={subLink.path}
+                        className={`block px-3 py-2 rounded-md text-sm font-semibold ${isActive(subLink.path)
+                            ? 'bg-accent/15 text-accent'
+                            : 'text-white/85 hover:bg-white/5 hover:text-white'
+                          }`}
+                      >
+                        {subLink.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <Link
+                key={link.path}
+                href={link.path}
+                className={`block px-3 py-2.5 rounded-md text-base font-semibold ${isActive(link.path)
+                    ? 'bg-accent/15 text-accent'
+                    : 'text-white/85 hover:bg-white/5 hover:text-white'
+                  }`}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
           <div className="pt-4 px-3">
             <Link
               href="/contact"

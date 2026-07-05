@@ -32,9 +32,9 @@ export async function GET() {
       settings = new Settings({
         companyName: 'Shree Ambika Engineering',
         address: 'Plot No. 136, Phase 1, Nr Pushpak Industrial Estate, Vatva GIDC, Ahmedabad - 382418, Gujarat, India',
-        phone: '+91 63545 486037, +91 81550 78276',
+        phone: '+91 63545 86037, +91 81550 78276',
         email: 'sales@saerootsblower.com',
-        whatsappNumber: '+9163545486037',
+        whatsappNumber: '+916354586037',
         socialLinks: {
           facebook: 'https://facebook.com/saerootsblower',
           twitter: 'https://twitter.com/saerootsblower',
@@ -47,8 +47,8 @@ export async function GET() {
     } else {
       // Update with exact live details
       settings.address = 'Plot No. 136, Phase 1, Nr Pushpak Industrial Estate, Vatva GIDC, Ahmedabad - 382418, Gujarat, India';
-      settings.phone = '+91 63545 486037, +91 81550 78276';
-      settings.whatsappNumber = '+9163545486037';
+      settings.phone = '+91 63545 86037, +91 81550 78276';
+      settings.whatsappNumber = '+916354586037';
       await settings.save();
     }
 

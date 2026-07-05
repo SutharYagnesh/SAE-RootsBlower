@@ -45,9 +45,9 @@ export async function generateMetadata() {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable} h-full antialiased`} suppressHydrationWarning>
-      <body suppressHydrationWarning>
-        <div className="min-h-full flex flex-col font-sans bg-bg-custom text-dark-custom">
+    <html lang="en" className={`${inter.variable} ${poppins.variable} h-full antialiased overflow-x-hidden`} suppressHydrationWarning>
+      <body className="overflow-x-hidden" suppressHydrationWarning>
+        <div className="min-h-full flex flex-col font-sans bg-bg-custom text-dark-custom overflow-x-hidden">
           <Navbar />
           <main className="flex-grow pt-[105px] md:pt-[125px]">{children}</main>
           <Footer />

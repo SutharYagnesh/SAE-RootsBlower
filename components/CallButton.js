@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { FaPhoneAlt } from 'react-icons/fa';
 
 export default function CallButton() {
-  const [phoneNumber, setPhoneNumber] = useState('+9163545486037');
+  const [phoneNumber, setPhoneNumber] = useState('+916354586037');
 
   useEffect(() => {
     fetch('/api/settings')

@@ -18,7 +18,7 @@ export default function HomeContactForm({ products = [] }) {
     error: null,
   });
 
-  const [whatsappNum, setWhatsappNum] = useState('9163545486037'); // Default fallback
+  const [whatsappNum, setWhatsappNum] = useState('916354586037'); // Default fallback
 
   // Fetch settings to get active WhatsApp number
   useEffect(() => {
@@ -72,7 +72,7 @@ ${formData.message}`;
       const whatsappUrl = `https://wa.me/${whatsappNum}?text=${encodeURIComponent(whatsappText)}`;
 
       setStatus({ submitting: false, success: true, error: null });
-      
+
       // Redirect to WhatsApp
       window.open(whatsappUrl, '_blank');
 
@@ -151,7 +151,7 @@ ${formData.message}`;
               required
               value={formData.phone}
               onChange={handleChange}
-              placeholder="+91 63545 486037"
+              placeholder="+91 63545 86037"
               className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
             />
           </div>

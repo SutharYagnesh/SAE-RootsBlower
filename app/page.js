@@ -20,7 +20,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function Home() {
   await connectDB();
-  
+
   // Optimize: project only necessary fields for products to make the site faster
   const products = await Product.find({ status: 'published' })
     .select('title slug shortDescription specifications images')
@@ -39,7 +39,7 @@ export default async function Home() {
     .lean();
 
   const settings = (await Settings.findOne({})) || {
-    phone: '+91 63545 486037, +91 81550 78276',
+    phone: '+91 63545 86037, +91 81550 78276',
     email: 'sales@saerootsblower.com',
     address:
       'Plot No. 136, Phase 1, Nr Pushpak Industrial Estate, Vatva GIDC, Ahmedabad - 382418, Gujarat, India',

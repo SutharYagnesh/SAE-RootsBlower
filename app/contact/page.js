@@ -12,10 +12,10 @@ export const metadata = {
 export default async function ContactPage() {
   await connectDB();
   const settings = await Settings.findOne({}) || {
-    phone: '+91 63545 486037, +91 79 2583 1234',
+    phone: '+91 63545 86037, +91 79 2583 1234',
     email: 'sales@saerootsblower.com',
     address: 'Plot No. 4710, G.I.D.C. Vatva, Phase IV, Ahmedabad - 382445, Gujarat, India',
-    whatsappNumber: '+9163545486037',
+    whatsappNumber: '+916354586037',
     googleMapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3673.2081684724017!2d72.617478!3d22.9803123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e87b7a13c9e6d%3A0xe54d3ccbe1d1ba0a!2sVatva%20GIDC%2C%20Ahmedabad%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin',
   };
 

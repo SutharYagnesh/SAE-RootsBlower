@@ -18,7 +18,7 @@ export default function ProductInquiryForm({ productId, productTitle }) {
     error: null,
   });
 
-  const [whatsappNum, setWhatsappNum] = useState('9163545486037'); // Default fallback
+  const [whatsappNum, setWhatsappNum] = useState('916354586037'); // Default fallback
 
   // Fetch settings to get active WhatsApp number
   useEffect(() => {
@@ -146,7 +146,7 @@ ${formData.message}`;
             required
             value={formData.phone}
             onChange={handleChange}
-            placeholder="+91 63545 486037"
+            placeholder="+91 63545 86037"
             className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-transparent outline-none text-sm transition-all"
           />
         </div>
