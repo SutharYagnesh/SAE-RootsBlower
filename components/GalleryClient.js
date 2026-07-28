@@ -68,7 +68,7 @@ export default function GalleryClient({ initialItems = [] }) {
               className="bg-white border border-borders-custom rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 group cursor-pointer"
             >
               {/* Media Thumb */}
-              <div className="aspect-square bg-gray-55 flex items-center justify-center overflow-hidden relative">
+              <div className="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden relative">
                 {item.type === 'image' && item.image ? (
                   /* eslint-disable-next-line @next/next/no-img-element */
                   <img

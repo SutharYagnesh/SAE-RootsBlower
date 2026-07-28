@@ -44,7 +44,9 @@ export default async function Home() {
     address:
       'Plot No. 136, Phase 1, Nr Pushpak Industrial Estate, Vatva GIDC, Ahmedabad - 382418, Gujarat, India',
     googleMapEmbed:
-      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3673.2081684724017!2d72.617478!3d22.9803123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e87b7a13c9e6d%3A0xe54d3ccbe1d1ba0a!2sVatva%20GIDC%2C%20Ahmedabad%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin',
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7346.752869004515!2d72.62734677770999!3d22.973181100000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e89b0e7cd54e5%3A0xd3ceb43cc42a6433!2sShree%20Ambika%20Engineering%2C%20Root%20blower%20manufacturer!5e0!3m2!1sen!2sus!4v1784869188802!5m2!1sen!2sus',
+    metaTitle: 'Root Blower Manufacturer in India | SAE Roots Blower',
+    metaDescription: 'Leading root blower manufacturer in India offering premium three lobe roots blowers, positive displacement blowers, vacuum blowers and OEM industrial solutions.',
   };
 
   const industries = [
@@ -552,6 +554,49 @@ export default async function Home() {
           title="Shree Ambika Engineering Factory Location Map"
         ></iframe>
       </section>
+
+      {/* JSON-LD Schema.org Metadata */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'SAE Roots Blower',
+            alternateName: 'Shree Ambika Engineering',
+            url: 'https://saerootsblower.com',
+            logo: 'https://saerootsblower.com/images/sae-logo.webp',
+            contactPoint: {
+              '@type': 'ContactPoint',
+              telephone: '+91-63545-86037',
+              contactType: 'sales',
+              areaServed: 'IN',
+              availableLanguage: ['en', 'hi'],
+            },
+            sameAs: [
+              'https://facebook.com/saerootsblower',
+              'https://twitter.com/saerootsblower',
+              'https://linkedin.com/company/shree-ambika-engineering',
+            ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'SAE Roots Blower',
+            url: 'https://saerootsblower.com',
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: 'https://saerootsblower.com/products?search={search_term_string}',
+              'query-input': 'required name=search_term_string',
+            },
+          }),
+        }}
+      />
     </div>
   );
 }

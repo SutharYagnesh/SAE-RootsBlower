@@ -41,7 +41,9 @@ export async function GET() {
           linkedin: 'https://linkedin.com/company/shree-ambika-engineering',
           youtube: 'https://youtube.com/saerootsblower',
         },
-        googleMapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3673.2081684724017!2d72.617478!3d22.9803123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e87b7a13c9e6d%3A0xe54d3ccbe1d1ba0a!2sVatva%20GIDC%2C%20Ahmedabad%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin',
+        googleMapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7346.752869004515!2d72.62734677770999!3d22.973181100000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e89b0e7cd54e5%3A0xd3ceb43cc42a6433!2sShree%20Ambika%20Engineering%2C%20Root%20blower%20manufacturer!5e0!3m2!1sen!2sus!4v1784869188802!5m2!1sen!2sus',
+        metaTitle: 'Root Blower Manufacturer in India | SAE Roots Blower',
+        metaDescription: 'Leading root blower manufacturer in India offering premium three lobe roots blowers, positive displacement blowers, vacuum blowers and OEM industrial solutions.',
       });
       await settings.save();
     } else {
@@ -49,6 +51,9 @@ export async function GET() {
       settings.address = 'Plot No. 136, Phase 1, Nr Pushpak Industrial Estate, Vatva GIDC, Ahmedabad - 382418, Gujarat, India';
       settings.phone = '+91 63545 86037, +91 81550 78276';
       settings.whatsappNumber = '+916354586037';
+      settings.googleMapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7346.752869004515!2d72.62734677770999!3d22.973181100000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e89b0e7cd54e5%3A0xd3ceb43cc42a6433!2sShree%20Ambika%20Engineering%2C%20Root%20blower%20manufacturer!5e0!3m2!1sen!2sus!4v1784869188802!5m2!1sen!2sus';
+      settings.metaTitle = 'Root Blower Manufacturer in India | SAE Roots Blower';
+      settings.metaDescription = 'Leading root blower manufacturer in India offering premium three lobe roots blowers, positive displacement blowers, vacuum blowers and OEM industrial solutions.';
       await settings.save();
     }
 
@@ -203,18 +208,17 @@ export async function GET() {
     // 5. Clear and Re-seed Gallery
     await Gallery.deleteMany({});
     const galleryData = [
-      { title: 'CNC Rotor Machining Center', category: 'Infrastructure', type: 'image', image: '/images/about-us/about-us-1.webp' },
-      { title: 'Roots Blower Quality Testing Bench', category: 'Quality Control', type: 'image', image: '/images/about-us/about-us-2.webp' },
-      { title: 'Heavy Duty Blower Casing Casting', category: 'Manufacturing', type: 'image', image: '/images/products/roots-blower.webp' },
-      { title: 'Tri-Lobe Blower Assembly Line', category: 'Manufacturing', type: 'image', image: '/images/products/twin-lobe-roots-blower.webp' },
-      { title: 'Bulker Unloading System - Installation', category: 'Installation', type: 'image', image: 'https://saerootsblower.com/images/gallery/buker-unloading-system-1.webp' },
-      { title: 'Bulker Unloading Site View', category: 'Installation', type: 'image', image: 'https://saerootsblower.com/images/gallery/buker-unloading-system-2.webp' },
-      { title: 'Pneumatic Bulker Unloader Assembly', category: 'Installation', type: 'image', image: 'https://saerootsblower.com/images/gallery/buker-unloading-system-3.webp' },
-      { title: 'Dual Cement Feeding Machine Setup', category: 'Manufacturing', type: 'image', image: 'https://saerootsblower.com/images/gallery/dual-cement-feeding-machine-1.webp' },
-      { title: 'Cement Feeding System Factory Testing', category: 'Quality Control', type: 'image', image: 'https://saerootsblower.com/images/gallery/dual-cement-feeding-machine-2.webp' },
-      { title: 'Dual Cement Feeding System at Client Site', category: 'Installation', type: 'image', image: 'https://saerootsblower.com/images/gallery/dual-cement-feeding-machine-3.webp' },
-      { title: 'ETP STP Roots Blower Package', category: 'Manufacturing', type: 'image', image: 'https://saerootsblower.com/images/gallery/etp-stp-roots-blower-1.webp' },
-      { title: 'Water Treatment Plant Blower Installation', category: 'Installation', type: 'image', image: 'https://saerootsblower.com/images/gallery/etp-stp-roots-blower-2.webp' }
+      { title: 'CNC Rotor Machining Center', category: 'Infrastructure', type: 'image', image: '/images/gallery/gallery_cnc_machining.png' },
+      { title: 'Roots Blower Quality Testing Bench', category: 'Quality Control', type: 'image', image: '/images/gallery/gallery_roots_blower_testing.png' },
+      { title: 'Heavy Duty Blower Casing Casting', category: 'Manufacturing', type: 'image', image: '/images/gallery/gallery_heavy_duty_casting.png' },
+      { title: 'Tri-Lobe Blower Assembly Line', category: 'Manufacturing', type: 'image', image: '/images/gallery/gallery_blower_assembly.png' },
+      { title: 'Wastewater Aeration System', category: 'Installation', type: 'image', image: '/images/gallery/gallery_wastewater_aeration.png' },
+      { title: 'Aquaculture Water Aeration Tanks', category: 'Installation', type: 'image', image: '/images/gallery/gallery_aquaculture_blower.png' },
+      { title: 'Pneumatic Conveying Layout', category: 'Installation', type: 'image', image: '/images/gallery/gallery_pneumatic_conveying.png' },
+      { title: 'Acoustic Soundproof Enclosure Package', category: 'Manufacturing', type: 'image', image: '/images/gallery/gallery_soundproof_enclosure.png' },
+      { title: 'Finished Twin-Lobe Blower Unit', category: 'Manufacturing', type: 'image', image: '/images/gallery/gallery_finished_twin_lobe.png' },
+      { title: 'Finished Tri-Lobe Blower Unit', category: 'Manufacturing', type: 'image', image: '/images/gallery/gallery_finished_tri_lobe.png' },
+      { title: 'Shree Ambika Engineering Factory Exterior', category: 'Infrastructure', type: 'image', image: '/images/gallery/gallery_factory_facade.png' }
     ];
     await Gallery.insertMany(galleryData);
 

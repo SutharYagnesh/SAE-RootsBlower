@@ -288,7 +288,7 @@ export default function AdminProductsCMS() {
             <div className="overflow-x-auto text-sm">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead>
-                  <tr className="bg-gray-55 text-left text-gray-500 font-bold uppercase tracking-wider text-[10px]">
+                  <tr className="bg-gray-100 text-left text-gray-500 font-bold uppercase tracking-wider text-[10px]">
                     <th className="px-6 py-3">Product Name</th>
                     <th className="px-6 py-3">Short Description</th>
                     <th className="px-6 py-3">Status</th>

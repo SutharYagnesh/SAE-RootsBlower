@@ -196,6 +196,62 @@ export default async function BlogDetailPage({ params }) {
           </aside>
         </div>
       </div>
+
+      {/* JSON-LD Schema.org Metadata */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: blog.title,
+            image: blog.featuredImage ? `https://saerootsblower.com${blog.featuredImage}` : '',
+            datePublished: blog.createdAt,
+            author: {
+              '@type': 'Organization',
+              name: 'SAE Roots Blower',
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: 'SAE Roots Blower',
+              logo: {
+                '@type': 'ImageObject',
+                url: 'https://saerootsblower.com/images/sae-logo.webp',
+              },
+            },
+            description: blog.excerpt,
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: 'https://saerootsblower.com',
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Blogs',
+                item: 'https://saerootsblower.com/blogs',
+              },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                name: blog.title,
+                item: `https://saerootsblower.com/blogs/${blog.slug}`,
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

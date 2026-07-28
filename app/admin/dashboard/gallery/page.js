@@ -292,7 +292,7 @@ export default function AdminGalleryCMS() {
                 key={item._id}
                 className="border border-borders-custom rounded-lg overflow-hidden group flex flex-col justify-between"
               >
-                <div className="aspect-square bg-gray-55 flex items-center justify-center relative overflow-hidden">
+                <div className="aspect-square bg-gray-100 flex items-center justify-center relative overflow-hidden">
                   {item.type === 'image' && item.image ? (
                     /* eslint-disable-next-line @next/next/no-img-element */
                     <img src={item.image} alt={item.title} className="w-full h-full object-cover" />

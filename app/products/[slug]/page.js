@@ -117,7 +117,7 @@ export default async function ProductDetailPage({ params }) {
                 <div className="overflow-x-auto">
                   <table className="min-w-full divide-y divide-gray-200 text-sm">
                     <thead>
-                      <tr className="bg-gray-55 text-left text-gray-500 font-bold uppercase tracking-wider text-xs">
+                      <tr className="bg-gray-100 text-left text-gray-500 font-bold uppercase tracking-wider text-xs">
                         <th className="px-6 py-3 font-semibold">Parameter Description</th>
                         <th className="px-6 py-3 font-semibold">Specification Rating</th>
                       </tr>
@@ -187,6 +187,58 @@ export default async function ProductDetailPage({ params }) {
           </div>
         </div>
       </div>
+
+      {/* JSON-LD Schema.org Metadata */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            name: product.title,
+            image: product.images && product.images[0] ? `https://saerootsblower.com${product.images[0]}` : '',
+            description: product.shortDescription,
+            brand: {
+              '@type': 'Brand',
+              name: 'SAE Roots Blower',
+            },
+            offers: {
+              '@type': 'AggregateOffer',
+              priceCurrency: 'INR',
+              price: 'Contact for Quote',
+            },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: 'https://saerootsblower.com',
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Products',
+                item: 'https://saerootsblower.com/products',
+              },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                name: product.title,
+                item: `https://saerootsblower.com/products/${product.slug}`,
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

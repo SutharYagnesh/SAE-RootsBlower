@@ -99,8 +99,8 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-          ? 'bg-primary/95 backdrop-blur-md shadow-md'
-          : 'bg-primary'
+        ? 'bg-primary/95 backdrop-blur-md shadow-md'
+        : 'bg-primary'
         }`}
     >
       {/* 1. Slim Topbar Section */}
@@ -188,7 +188,7 @@ export default function Navbar() {
             <img
               src="/images/sae-logo.webp"
               alt="Shree Ambika Engineering Logo"
-              className="h-11 w-auto object-contain bg-white px-2 py-1 rounded shadow-sm group-hover:scale-102 transition-transform"
+              className="h-11 w-auto bg-white/100 object-contain px-2 py-1 rounded shadow-sm group-hover:scale-102 transition-transform"
             />
             <div className="flex flex-col">
               <span className="text-white font-extrabold tracking-wide leading-none text-xs sm:text-sm md:text-base font-heading uppercase">
@@ -208,8 +208,8 @@ export default function Navbar() {
                   <div key={link.name} className="relative group py-2">
                     <button
                       className={`px-3 py-1.5 rounded-md text-sm font-semibold tracking-wide transition-colors duration-200 flex items-center space-x-1 cursor-pointer ${isParentActive(link)
-                          ? 'text-accent'
-                          : 'text-white/85 hover:text-white hover:bg-white/10'
+                        ? 'text-accent'
+                        : 'text-white/85 hover:text-white hover:bg-white/10'
                         }`}
                     >
                       <span>{link.name}</span>
@@ -239,8 +239,8 @@ export default function Navbar() {
                   key={link.path}
                   href={link.path}
                   className={`px-3 py-2 rounded-md text-sm font-semibold tracking-wide transition-colors duration-200 ${isActive(link.path)
-                      ? 'text-accent'
-                      : 'text-white/85 hover:text-white hover:bg-white/10'
+                    ? 'text-accent'
+                    : 'text-white/85 hover:text-white hover:bg-white/10'
                     }`}
                 >
                   {link.name}
@@ -289,8 +289,8 @@ export default function Navbar() {
                         key={subLink.path}
                         href={subLink.path}
                         className={`block px-3 py-2 rounded-md text-sm font-semibold ${isActive(subLink.path)
-                            ? 'bg-accent/15 text-accent'
-                            : 'text-white/85 hover:bg-white/5 hover:text-white'
+                          ? 'bg-accent/15 text-accent'
+                          : 'text-white/85 hover:bg-white/5 hover:text-white'
                           }`}
                       >
                         {subLink.name}
@@ -306,8 +306,8 @@ export default function Navbar() {
                 key={link.path}
                 href={link.path}
                 className={`block px-3 py-2.5 rounded-md text-base font-semibold ${isActive(link.path)
-                    ? 'bg-accent/15 text-accent'
-                    : 'text-white/85 hover:bg-white/5 hover:text-white'
+                  ? 'bg-accent/15 text-accent'
+                  : 'text-white/85 hover:bg-white/5 hover:text-white'
                   }`}
               >
                 {link.name}
