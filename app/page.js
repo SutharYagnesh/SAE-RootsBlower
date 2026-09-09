@@ -6,7 +6,8 @@ import Gallery from '@/models/Gallery';
 import Link from 'next/link';
 import HomeContactForm from '@/components/HomeContactForm';
 import ImageCarousel from '@/components/ImageCarousel';
-import { FaCogs, FaAward, FaShieldAlt, FaArrowRight } from 'react-icons/fa';
+import HeroBackgroundCarousel from '@/components/HeroBackgroundCarousel';
+import { FaCogs, FaAward, FaShieldAlt, FaArrowRight, FaIndustry, FaCheckCircle } from 'react-icons/fa';
 import {
   FadeUp,
   FadeIn,
@@ -46,7 +47,7 @@ export default async function Home() {
     googleMapEmbed:
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7346.752869004515!2d72.62734677770999!3d22.973181100000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e89b0e7cd54e5%3A0xd3ceb43cc42a6433!2sShree%20Ambika%20Engineering%2C%20Root%20blower%20manufacturer!5e0!3m2!1sen!2sus!4v1784869188802!5m2!1sen!2sus',
     metaTitle: 'Root Blower Manufacturer in India | SAE Roots Blower',
-    metaDescription: 'Leading root blower manufacturer in India offering premium three lobe roots blowers, positive displacement blowers, vacuum blowers and OEM industrial solutions.',
+    metaDescription: 'Leading root blower manufacturer in India offering premium three lobe roots blowers, positive displacement blowers, vacuum blowers, cement feeding machine systems and OEM industrial solutions.',
   };
 
   const industries = [
@@ -94,10 +95,13 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* 1. Hero Section */}
+      {/* 1. Hero Section with Desktop Background Carousel */}
       <section className="relative bg-gradient-to-br from-primary via-primary to-[#08223c] text-white py-20 lg:py-32 overflow-hidden border-b-2 border-accent/25">
-        {/* Animated Background Overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+        {/* Background Carousel Component (Hidden on Mobile) */}
+        <HeroBackgroundCarousel />
+
+        {/* Animated Background Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -112,12 +116,12 @@ export default async function Home() {
               <FadeUp delay={0.25}>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-heading tracking-tight leading-tight">
                   High Performance <br />
-                  <span className="text-accent drop-shadow-sm">Roots Blowers</span>
+                  <span className="text-accent drop-shadow-sm">Roots Blowers</span> & Systems
                 </h1>
               </FadeUp>
               <FadeUp delay={0.35}>
-                <p className="text-white/85 text-base sm:text-lg leading-relaxed max-w-xl">
-                  Shree Ambika Engineering designs, manufactures, and supplies premium heavy-duty Twin Lobe & Tri Lobe Rotary Air Blowers engineered for maximum volumetric efficiency.
+                <p className="text-white/90 text-base sm:text-lg leading-relaxed max-w-xl">
+                  Shree Ambika Engineering designs, manufactures, and supplies heavy-duty Twin Lobe & Tri Lobe Rotary Air Blowers, Cement Feeding Machine Systems, and Vacuum Blowers engineered for maximum volumetric efficiency.
                 </p>
               </FadeUp>
               <FadeUp delay={0.45}>
@@ -130,7 +134,7 @@ export default async function Home() {
                   </Link>
                   <Link
                     href="/contact"
-                    className="bg-transparent border border-white/20 hover:bg-white hover:text-primary text-white font-bold px-8 py-3.5 rounded-lg text-sm transition-all duration-300 hover:scale-105"
+                    className="bg-transparent border border-white/30 hover:bg-white hover:text-primary text-white font-bold px-8 py-3.5 rounded-lg text-sm transition-all duration-300 hover:scale-105 backdrop-blur-sm"
                   >
                     Contact Sales
                   </Link>
@@ -138,21 +142,21 @@ export default async function Home() {
               </FadeUp>
             </div>
 
-            {/* Hero Right - Actual Blower Image */}
-            <div className="relative justify-center hidden lg:flex lg:col-span-5 w-full">
+            {/* Hero Right - Primary Blower Product Showcase */}
+            <div className="relative justify-center hidden lg:flex lg:col-span-5 w-full z-10">
               <FadeIn delay={0.4}>
-                <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 shadow-2xl overflow-hidden w-full max-w-[420px] hover:border-white/20 transition-all duration-300">
+                <div className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 shadow-2xl overflow-hidden w-full max-w-[420px] hover:border-accent/50 transition-all duration-300">
                   <div className="absolute -top-3 -left-3 w-10 h-10 border-t-2 border-l-2 border-accent"></div>
                   <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-accent"></div>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/images/banner/sae-banner-1.webp"
-                    alt="SAE Roots Blower System Assembly"
+                    alt="SAE Heavy-Duty Roots Blower System Manufacturer India"
                     className="rounded-xl w-full object-cover shadow-md aspect-4/3 hover:scale-[1.02] transition-transform duration-500"
                   />
-                  <div className="mt-4 flex justify-between items-center text-xs text-white/70 px-1 font-semibold">
+                  <div className="mt-4 flex justify-between items-center text-xs text-white/90 px-1 font-semibold">
                     <span>Capacity: 10 - 10,000 m³/hr</span>
-                    <span className="text-accent">100% Oil-Free</span>
+                    <span className="text-accent font-bold">100% Oil-Free Air</span>
                   </div>
                 </div>
               </FadeIn>
@@ -179,8 +183,8 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 3. Company Introduction & Overlapping Images */}
-      <section className="py-24 bg-white relative">
+      {/* 3. Section 2 / Company Introduction & Cement Feeding Machine System Showcase */}
+      <section className="py-24 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
             <div className="lg:col-span-7 space-y-6">
@@ -188,58 +192,70 @@ export default async function Home() {
                 <span className="text-secondary font-bold text-sm tracking-wider uppercase">
                   Welcome to Shree Ambika Engineering
                 </span>
-                <h2 className="text-3xl sm:text-4xl font-bold font-heading text-primary mt-2 mb-6">
-                  Pioneering Excellence in Industrial Blower Manufacturing
+                <h2 className="text-3xl sm:text-4xl font-bold font-heading text-primary mt-2 mb-6 leading-tight">
+                  Pioneering Excellence in Industrial Blowers & Cement Feeding Machine Systems
                 </h2>
                 <div className="space-y-4 text-gray-600 leading-relaxed text-sm sm:text-base">
                   <p>
-                    Established with a commitment to quality and engineering precision, Shree Ambika Engineering has emerged as a trusted name in the manufacturing of positive displacement rotary air blowers (Roots Blowers).
+                    Established with a commitment to quality and engineering precision, Shree Ambika Engineering has emerged as a trusted name in manufacturing positive displacement rotary air blowers (Roots Blowers) and specialized heavy-duty <strong>Cement Feeding Machine Systems</strong>.
                   </p>
                   <p>
-                    Our blowers are constructed using advanced CNC machining tools and undergo rigorous mechanical testing benches to ensure they deliver 100% oil-free air under continuous operating pressure. We specialize in custom setups including acoustic silencing hoods, water-jacketed casings, and belt-drive systems tailored for challenging process parameters.
+                    Our blowers and pneumatic conveying systems are constructed using advanced CNC machining tools and undergo rigorous mechanical testing benches to ensure they deliver 100% oil-free air under continuous high operating pressure. We specialize in custom industrial setups including acoustic silencing hoods, water-jacketed casings, and automated cement bulk feeding units.
                   </p>
                 </div>
-                <div className="mt-8 flex flex-wrap gap-6 text-sm">
-                  <div className="flex items-center space-x-2.5 text-primary font-semibold">
-                    <FaAward className="text-accent" size={18} />
-                    <span>ISO 9001:2015 Standards</span>
+                <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex items-center space-x-3 p-3 bg-bg-custom rounded-xl border border-borders-custom">
+                    <FaCheckCircle className="text-accent flex-shrink-0" size={20} />
+                    <span className="text-sm font-semibold text-primary">ISO 9001:2015 Standards</span>
                   </div>
-                  <div className="flex items-center space-x-2.5 text-primary font-semibold">
-                    <FaShieldAlt className="text-secondary" size={18} />
-                    <span>100% Oil-Free Air Certified</span>
+                  <div className="flex items-center space-x-3 p-3 bg-bg-custom rounded-xl border border-borders-custom">
+                    <FaCheckCircle className="text-secondary flex-shrink-0" size={20} />
+                    <span className="text-sm font-semibold text-primary">100% Oil-Free Air Certified</span>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 bg-bg-custom rounded-xl border border-borders-custom">
+                    <FaIndustry className="text-accent flex-shrink-0" size={20} />
+                    <span className="text-sm font-semibold text-primary">Pneumatic Conveying Duty</span>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 bg-bg-custom rounded-xl border border-borders-custom">
+                    <FaAward className="text-secondary flex-shrink-0" size={20} />
+                    <span className="text-sm font-semibold text-primary">Heavy Duty CNC Precision</span>
                   </div>
                 </div>
               </FadeUp>
             </div>
 
-            {/* Overlapping about images layout */}
-            <div className="lg:col-span-5 relative h-[380px] w-full flex items-center justify-center lg:justify-end mt-10 lg:mt-0">
+            {/* Section 2 Featured Product Image Display: Cement Feeding Machine System */}
+            <div className="lg:col-span-5 relative w-full flex items-center justify-center lg:justify-end mt-10 lg:mt-0">
               <FadeUp delay={0.2}>
-                <div className="relative w-full max-w-[380px] h-[340px]">
-                  {/* Image 1 */}
-                  <div className="absolute top-0 left-0 w-[72%] h-[78%] rounded-2xl overflow-hidden shadow-xl border-4 border-white bg-gray-100 hover:scale-[1.01] hover:z-20 transition-all duration-300">
+                <div className="relative w-full max-w-[440px] bg-gradient-to-br from-bg-custom to-white p-4 sm:p-6 rounded-3xl border border-borders-custom shadow-xl group hover:shadow-2xl transition-all duration-300">
+                  <div className="relative aspect-4/3 w-full rounded-2xl overflow-hidden bg-gray-100 border border-gray-200">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src="/images/about-us/about-us-1.webp"
-                      alt="SAE Manufacturing Facility"
-                      className="w-full h-full object-cover"
+                      src="/images/products/cement-feeding-machine-system.webp"
+                      alt="Cement Feeding Machine System and Pneumatic Conveying Blower - Shree Ambika Engineering"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
+                    <div className="absolute top-3 right-3 bg-primary/95 text-accent text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-accent/30 backdrop-blur-sm shadow-md">
+                      Flagship System
+                    </div>
                   </div>
-                  {/* Image 2 */}
-                  <div className="absolute bottom-0 right-0 w-[68%] h-[72%] rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-gray-100 hover:scale-[1.01] hover:z-20 transition-all duration-300">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src="/images/about-us/about-us-2.webp"
-                      alt="SAE Roots Blower Quality Check"
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                  {/* Experience Badge */}
-                  <div className="absolute bottom-4 left-4 bg-accent text-primary p-4 rounded-xl shadow-lg border border-accent/20 flex flex-col justify-center items-center text-center w-24 h-24 hover:scale-105 transition-all">
-                    <span className="text-2xl font-extrabold font-heading leading-none">10+</span>
-                    <span className="text-[9px] uppercase font-bold tracking-widest mt-1">Years Exp</span>
+                  <div className="mt-5 space-y-2 text-left">
+                    <h3 className="text-lg font-bold font-heading text-primary group-hover:text-accent transition-colors">
+                      Cement Feeding Machine System
+                    </h3>
+                    <p className="text-xs text-gray-500 leading-relaxed">
+                      High-efficiency pneumatic conveying system engineered for continuous transfer of cement, fly ash, and dry bulk materials.
+                    </p>
+                    <div className="pt-2 flex justify-between items-center text-xs font-semibold text-primary">
+                      <span className="text-secondary">Duty: Heavy-Duty Continuous</span>
+                      <Link
+                        href="/products/twin-lobe-roots-blower"
+                        className="text-primary hover:text-accent flex items-center gap-1 group-hover:translate-x-1 transition-transform"
+                      >
+                        Learn More <FaArrowRight size={10} />
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </FadeUp>
@@ -275,7 +291,7 @@ export default async function Home() {
                           /* eslint-disable-next-line @next/next/no-img-element */
                           <img
                             src={product.images[0]}
-                            alt={product.title}
+                            alt={`${product.title} - SAE Roots Blower`}
                             className="object-contain max-h-full max-w-full group-hover:scale-105 transition-transform duration-300"
                             loading="lazy"
                           />
@@ -351,7 +367,7 @@ export default async function Home() {
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={ind.image}
-                          alt={ind.name}
+                          alt={`${ind.name} - SAE Blower Industrial Application`}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           loading="lazy"
                         />
@@ -434,9 +450,10 @@ export default async function Home() {
                       {/* Blog Image */}
                       <div className="aspect-video w-full bg-gray-50 rounded-xl flex items-center justify-center mb-4 overflow-hidden relative border border-gray-100">
                         {blog.featuredImage ? (
+                          /* eslint-disable-next-line @next/next/no-img-element */
                           <img
                             src={blog.featuredImage}
-                            alt={blog.title}
+                            alt={`${blog.title} - SAE Roots Blower Technical Article`}
                             className="object-cover h-full w-full group-hover:scale-105 transition-transform duration-500"
                             loading="lazy"
                           />
@@ -510,10 +527,10 @@ export default async function Home() {
                   Contact Our Sales Engineers
                 </span>
                 <h2 className="text-3xl sm:text-4xl font-bold font-heading text-primary mt-1">
-                  Need a Custom Roots Blower Configuration?
+                  Need a Custom Roots Blower or Cement Feeding System?
                 </h2>
                 <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-                  Our team is ready to analyze your volume, pressure, temperature, and environment parameters to recommend the most optimal twin-lobe or tri-lobe assembly.
+                  Our team is ready to analyze your airflow, pressure, operating environment, and conveying parameters to recommend the most optimal twin-lobe, tri-lobe, or cement feeding machine assembly.
                 </p>
                 <div className="space-y-3.5 pt-4">
                   <div className="flex items-center space-x-3 text-gray-700 text-sm">
@@ -561,42 +578,37 @@ export default async function Home() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
-            '@type': 'Organization',
-            name: 'SAE Roots Blower',
-            alternateName: 'Shree Ambika Engineering',
-            url: 'https://saerootsblower.com',
-            logo: 'https://saerootsblower.com/images/sae-logo.webp',
-            contactPoint: {
-              '@type': 'ContactPoint',
-              telephone: '+91-63545-86037',
-              contactType: 'sales',
-              areaServed: 'IN',
-              availableLanguage: ['en', 'hi'],
-            },
-            sameAs: [
-              'https://facebook.com/saerootsblower',
-              'https://twitter.com/saerootsblower',
-              'https://linkedin.com/company/shree-ambika-engineering',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'What is a Roots Blower and how does it operate?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'A Roots blower is a positive displacement rotary air blower that delivers 100% oil-free air by trapping air between twin or tri-lobe rotors and discharging it against system resistance.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'What are the main applications of Cement Feeding Machine Systems?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Cement Feeding Machine Systems are used for bulk pneumatic conveying of cement, fly ash, lime, and dry minerals into silos and batching plants efficiently.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'Do SAE roots blowers provide oil-free air?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Yes, Shree Ambika Engineering blowers feature separate oil lubrication chambers with non-contact labyrinth seals ensuring 100% oil-free air delivery.',
+                },
+              },
             ],
-          }),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'WebSite',
-            name: 'SAE Roots Blower',
-            url: 'https://saerootsblower.com',
-            potentialAction: {
-              '@type': 'SearchAction',
-              target: 'https://saerootsblower.com/products?search={search_term_string}',
-              'query-input': 'required name=search_term_string',
-            },
           }),
         }}
       />
     </div>
   );
 }
+

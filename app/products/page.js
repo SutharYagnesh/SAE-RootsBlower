@@ -2,10 +2,24 @@ import connectDB from '@/lib/db';
 import Product from '@/models/Product';
 import Link from 'next/link';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
+
 export const metadata = {
-  title: 'Roots Blower Catalog | Shree Ambika Engineering',
-  description: 'Browse the complete range of rotary blowers manufactured by Shree Ambika Engineering, including Twin Lobe Roots Blowers, Tri Lobe Roots Blowers, and Water Cooled systems.',
+  title: 'Roots Blower Catalog & Products | Shree Ambika Engineering',
+  description: 'Browse the complete catalog of industrial rotary blowers by Shree Ambika Engineering: Twin Lobe Roots Blowers, Three Lobe Roots Blowers, Cement Feeding Systems, and Vacuum Blowers.',
+  keywords: 'roots blower catalog, twin lobe roots blower, tri lobe roots blower, cement feeding machine system, positive displacement blower catalog, air cooled roots blower',
+  alternates: {
+    canonical: `${siteUrl}/products`,
+  },
+  openGraph: {
+    title: 'Industrial Roots Blower Catalog | Shree Ambika Engineering',
+    description: 'Explore twin lobe, tri lobe, cement feeding machine systems and vacuum blowers.',
+    url: `${siteUrl}/products`,
+    siteName: 'SAE Roots Blower',
+    images: [{ url: `${siteUrl}/images/banner/sae-banner-1.webp` }],
+  },
 };
+
 
 export const dynamic = 'force-dynamic';
 
