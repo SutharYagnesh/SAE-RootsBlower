@@ -129,25 +129,28 @@ export default async function Home() {
               </FadeUp>
             </div>
 
-            {/* Hero Right - Section 1 Image: /images/about-us/about-us-2.webp */}
+            {/* Hero Right - Section 1 Image */}
             <div className="relative justify-center flex lg:col-span-5 w-full z-10">
               <FadeIn delay={0.4}>
-                <div className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 sm:p-5 shadow-2xl overflow-hidden w-full max-w-[440px] hover:border-accent/50 transition-all duration-300">
-                  <div className="absolute -top-3 -left-3 w-10 h-10 border-t-2 border-l-2 border-accent"></div>
-                  <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-accent"></div>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/about-us/about-us-2.webp"
-                    alt="Roots Blower Manufacturer in India - Shree Ambika Engineering Assembly"
-                    className="rounded-xl w-full object-cover shadow-md aspect-4/3 hover:scale-[1.02] transition-transform duration-500"
-                  />
-                  <div className="mt-4 flex justify-between items-center text-xs text-white/90 px-1 font-semibold">
+                <div className="relative bg-white p-3 sm:p-4 rounded-2xl shadow-2xl overflow-hidden w-full max-w-[440px] border-2 border-accent/40 hover:border-accent transition-all duration-300">
+                  <div className="absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 border-accent z-20 pointer-events-none"></div>
+                  <div className="absolute bottom-2 right-2 w-8 h-8 border-b-2 border-r-2 border-accent z-20 pointer-events-none"></div>
+                  <div className="bg-gray-50 rounded-xl p-2 flex items-center justify-center overflow-hidden aspect-4/3 border border-gray-150">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/images/about-us/about-us-2.webp"
+                      alt="Roots Blower Manufacturer in India - Shree Ambika Engineering Assembly"
+                      className="rounded-lg max-h-[280px] w-full object-contain hover:scale-[1.03] transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="mt-3 flex justify-between items-center text-xs text-primary px-1 font-semibold">
                     <span>Capacity: 10 - 10,000 m³/hr</span>
-                    <span className="text-accent font-bold">100% Oil-Free Air</span>
+                    <span className="text-secondary font-bold">100% Oil-Free Air</span>
                   </div>
                 </div>
               </FadeIn>
             </div>
+
           </div>
         </div>
       </section>

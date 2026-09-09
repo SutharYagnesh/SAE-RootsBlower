@@ -62,11 +62,11 @@ export async function generateMetadata() {
     keywords: keywords.join(', '),
     icons: {
       icon: [
-        { url: '/images/footer-logo.webp', type: 'image/webp' },
+        { url: '/images/sae.png', type: 'image/png' },
         { url: '/favicon.ico' }
       ],
-      shortcut: '/images/footer-logo.webp',
-      apple: '/images/footer-logo.webp',
+      shortcut: '/images/sae.png',
+      apple: '/images/sae.png',
     },
     alternates: {
       canonical: siteUrl,
@@ -78,7 +78,7 @@ export async function generateMetadata() {
       siteName: 'SAE Roots Blower',
       images: [
         {
-          url: `${siteUrl}/images/footer-logo.webp`,
+          url: `${siteUrl}/images/sae.png`,
           width: 800,
           height: 600,
           alt: 'Shree Ambika Engineering Logo',
@@ -97,7 +97,7 @@ export async function generateMetadata() {
       card: 'summary_large_image',
       title: metaTitle,
       description: metaDesc,
-      images: [`${siteUrl}/images/footer-logo.webp`],
+      images: [`${siteUrl}/images/sae.png`],
     },
     robots: {
       index: true,
@@ -121,8 +121,8 @@ export default function RootLayout({ children }) {
     name: 'Shree Ambika Engineering',
     alternateName: 'SAE Roots Blower',
     url: siteUrl,
-    logo: `${siteUrl}/images/footer-logo.webp`,
-    image: `${siteUrl}/images/footer-logo.webp`,
+    logo: `${siteUrl}/images/sae.png`,
+    image: `${siteUrl}/images/sae.png`,
     description: 'Premier Roots Blower Manufacturer in India offering high-efficiency Twin Lobe & Tri Lobe Blowers, Vacuum Blowers, and Cement Feeding Machine Systems.',
     address: {
       '@type': 'PostalAddress',
@@ -164,9 +164,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} h-full antialiased overflow-x-hidden`} suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/images/footer-logo.webp" type="image/webp" />
-        <link rel="shortcut icon" href="/images/footer-logo.webp" type="image/webp" />
-        <link rel="apple-touch-icon" href="/images/footer-logo.webp" />
+        <link rel="icon" href="/images/sae.png" type="image/png" />
+        <link rel="shortcut icon" href="/images/sae.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/images/sae.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
@@ -176,6 +176,7 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
+
       <body className="overflow-x-hidden" suppressHydrationWarning>
         <div className="min-h-full flex flex-col font-sans bg-bg-custom text-dark-custom overflow-x-hidden">
           <Navbar />
