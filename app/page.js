@@ -132,24 +132,30 @@ export default async function Home() {
             {/* Hero Right - Section 1 Image */}
             <div className="relative justify-center flex lg:col-span-5 w-full z-10">
               <FadeIn delay={0.4}>
-                <div className="relative bg-white p-3 sm:p-4 rounded-2xl shadow-2xl overflow-hidden w-full max-w-[440px] border-2 border-accent/40 hover:border-accent transition-all duration-300">
-                  <div className="absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 border-accent z-20 pointer-events-none"></div>
-                  <div className="absolute bottom-2 right-2 w-8 h-8 border-b-2 border-r-2 border-accent z-20 pointer-events-none"></div>
-                  <div className="bg-gray-50 rounded-xl p-2 flex items-center justify-center overflow-hidden aspect-4/3 border border-gray-150">
+                <div className="relative bg-gradient-to-b from-[#e5e7eb] to-[#d1d5db] p-3 sm:p-4 rounded-3xl shadow-2xl border-2 border-accent/50 hover:border-accent transition-all duration-300 w-full max-w-[480px]">
+                  <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-accent z-20 pointer-events-none"></div>
+                  <div className="absolute bottom-14 right-3 w-8 h-8 border-b-2 border-r-2 border-accent z-20 pointer-events-none"></div>
+                  <div className="relative w-full h-[320px] sm:h-[380px] lg:h-[400px] rounded-2xl overflow-hidden bg-white shadow-md flex items-center justify-center p-2">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src="/images/about-us/about-us-2.webp"
                       alt="Roots Blower Manufacturer in India - Shree Ambika Engineering Assembly"
-                      className="rounded-lg max-h-[280px] w-full object-contain hover:scale-[1.03] transition-transform duration-500"
+                      className="w-full h-full object-contain hover:scale-[1.03] transition-transform duration-500"
                     />
                   </div>
-                  <div className="mt-3 flex justify-between items-center text-xs text-primary px-1 font-semibold">
-                    <span>Capacity: 10 - 10,000 m³/hr</span>
-                    <span className="text-secondary font-bold">100% Oil-Free Air</span>
+                  <div className="mt-3.5 flex justify-between items-center text-xs font-semibold px-1 gap-2">
+                    <span className="bg-primary/90 text-white px-3 py-1 rounded-full text-[11px] sm:text-xs shadow-sm border border-white/10">
+                      Capacity: 10 - 10,000 m³/hr
+                    </span>
+                    <span className="bg-accent text-primary px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold shadow-sm">
+                      100% Oil-Free Air
+                    </span>
                   </div>
                 </div>
               </FadeIn>
             </div>
+
+
 
           </div>
         </div>

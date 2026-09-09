@@ -62,8 +62,7 @@ export async function generateMetadata() {
     keywords: keywords.join(', '),
     icons: {
       icon: [
-        { url: '/images/sae.png', type: 'image/png' },
-        { url: '/favicon.ico' }
+        { url: '/images/sae.png', type: 'image/png' }
       ],
       shortcut: '/images/sae.png',
       apple: '/images/sae.png',
