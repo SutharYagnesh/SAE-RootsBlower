@@ -1,25 +1,26 @@
 import connectDB from '@/lib/db';
 import Product from '@/models/Product';
+import Gallery from '@/models/Gallery';
 import Link from 'next/link';
+import ImageCarousel from '@/components/ImageCarousel';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
 
 export const metadata = {
-  title: 'Roots Blower Catalog & Products | Shree Ambika Engineering',
-  description: 'Browse the complete catalog of industrial rotary blowers by Shree Ambika Engineering: Twin Lobe Roots Blowers, Three Lobe Roots Blowers, Cement Feeding Systems, and Vacuum Blowers.',
-  keywords: 'roots blower catalog, twin lobe roots blower, tri lobe roots blower, cement feeding machine system, positive displacement blower catalog, air cooled roots blower',
+  title: 'Roots Blower Supplier & Price in India | Industrial Blower Catalog',
+  description: 'Explore industrial roots blowers & twin lobe blowers from SAE. Request a Roots Blower quotation & competitive price in India today.',
+  keywords: 'Twin Lobe Blower Manufacturer, Industrial Roots Blower, Roots Blower Price in India, Roots Blower Supplier, Roots Blower Quotation, Buy Roots Blower',
   alternates: {
     canonical: `${siteUrl}/products`,
   },
   openGraph: {
-    title: 'Industrial Roots Blower Catalog | Shree Ambika Engineering',
-    description: 'Explore twin lobe, tri lobe, cement feeding machine systems and vacuum blowers.',
+    title: 'Roots Blower Supplier & Price in India | Industrial Blower Catalog',
+    description: 'Explore industrial twin lobe blowers & positive displacement blowers. Request an instant Roots Blower quotation.',
     url: `${siteUrl}/products`,
     siteName: 'SAE Roots Blower',
-    images: [{ url: `${siteUrl}/images/banner/sae-banner-1.webp` }],
+    images: [{ url: `${siteUrl}/images/about-us/about-us-2.webp` }],
   },
 };
-
 
 export const dynamic = 'force-dynamic';
 
@@ -29,6 +30,12 @@ export default async function ProductsPage() {
     .select('title slug shortDescription specifications images')
     .sort({ createdAt: -1 });
 
+  // Fetch gallery items for the Product Page Carousel
+  const galleryItems = await Gallery.find({})
+    .select('title category image')
+    .sort({ createdAt: -1 })
+    .lean();
+
   return (
     <div className="flex flex-col min-h-screen bg-bg-custom">
       {/* Header */}
@@ -37,12 +44,12 @@ export default async function ProductsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h1 className="text-4xl font-extrabold font-heading mb-4">Industrial Roots Blower Catalog</h1>
           <p className="text-white/80 text-lg max-w-2xl">
-            Precision engineering solutions for high-volumetric and continuous air displacement.
+            High-efficiency Twin Lobe Blowers, Tri Lobe Blowers & Positive Displacement Blower Systems. Request a competitive Roots Blower price & quotation.
           </p>
         </div>
       </section>
 
-      {/* Grid */}
+      {/* Product Grid */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {products.length === 0 ? (
@@ -63,13 +70,12 @@ export default async function ProductsPage() {
                   className="bg-white border border-borders-custom rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group"
                 >
                   <div className="p-6">
-                    {/* Visual Placeholder for base64 images */}
                     <div className="aspect-video w-full bg-gray-100 rounded-lg flex items-center justify-center mb-6 overflow-hidden border border-gray-150 relative">
                       {product.images && product.images[0] ? (
                         /* eslint-disable-next-line @next/next/no-img-element */
                         <img
                           src={product.images[0]}
-                          alt={product.title}
+                          alt={`${product.title} - Industrial Roots Blower Supplier in India`}
                           className="object-contain h-full w-full p-4 group-hover:scale-105 transition-transform duration-300"
                         />
                       ) : (
@@ -117,6 +123,28 @@ export default async function ProductsPage() {
           )}
         </div>
       </section>
+
+      {/* Product Page Installation & Manufacturing Carousel */}
+      {galleryItems && galleryItems.length > 0 && (
+        <section className="py-16 bg-white border-t border-borders-custom relative">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-3xl mx-auto mb-10">
+              <span className="text-secondary font-bold text-xs tracking-widest uppercase font-semibold">
+                Factory & Field Experience
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-bold font-heading text-primary mt-2">
+                On-Site Installations & Manufacturing Showcase
+              </h2>
+              <p className="text-gray-500 mt-2 text-sm">
+                Explore live installation photos of our Twin Lobe & Tri Lobe Roots Blowers across water treatment, aquaculture, and pneumatic conveying plants.
+              </p>
+            </div>
+
+            <ImageCarousel items={JSON.parse(JSON.stringify(galleryItems))} />
+          </div>
+        </section>
+      )}
     </div>
   );
 }
+

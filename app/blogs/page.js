@@ -2,10 +2,24 @@ import connectDB from '@/lib/db';
 import Blog from '@/models/Blog';
 import Link from 'next/link';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
+
 export const metadata = {
-  title: 'Engineering Blog & Insights | Shree Ambika Engineering',
-  description: 'Read technical engineering articles about positive displacement blowers, dissolved oxygen in wastewater aeration, and pneumatic conveying tips.',
+  title: 'Roots Blower Technical Guides & Engineering Insights | SAE',
+  description: 'Technical articles and engineering resources on roots blower selection, aeration efficiency, and positive displacement blower maintenance.',
+  keywords: 'Roots blower technical guide, twin lobe blower design, aeration efficiency, positive displacement blower maintenance',
+  alternates: {
+    canonical: `${siteUrl}/blogs`,
+  },
+  openGraph: {
+    title: 'Roots Blower Technical Guides & Engineering Insights | SAE',
+    description: 'Technical engineering articles on rotary air blowers by Shree Ambika Engineering.',
+    url: `${siteUrl}/blogs`,
+    siteName: 'SAE Roots Blower',
+    images: [{ url: `${siteUrl}/images/footer-logo.webp` }],
+  },
 };
+
 
 export const dynamic = 'force-dynamic';
 

@@ -25,8 +25,8 @@ const poppins = Poppins({
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
 
 export async function generateMetadata() {
-  let metaTitle = 'Root Blower Manufacturer in India | SAE Roots Blower';
-  let metaDesc = 'Leading root blower manufacturer in India offering premium three lobe roots blowers, positive displacement blowers, vacuum blowers, cement feeding machine systems, and industrial aeration solutions.';
+  let metaTitle = 'Roots Blower Manufacturer in India | Shree Ambika Engineering';
+  let metaDesc = 'Shree Ambika Engineering is a leading Roots Blower Manufacturer in India offering high-performance twin lobe blowers, industrial roots blowers & positive displacement blowers.';
 
   try {
     await connectDB();
@@ -40,19 +40,18 @@ export async function generateMetadata() {
   }
 
   const keywords = [
-    'root blower manufacturer',
-    'roots blower manufacturer',
-    'three lobe roots blower',
-    'twin lobe roots blower',
-    'industrial roots blower',
-    'positive displacement blower',
-    'roots blower supplier',
-    'roots blower exporter',
-    'cement feeding machine system',
-    'wastewater treatment blower',
-    'pneumatic conveying blower',
-    'air cooled roots blower',
-    'vacuum blower manufacturer India',
+    'Roots Blower Manufacturer in India',
+    'Roots Blower Manufacturer',
+    'Twin Lobe Blower Manufacturer',
+    'Roots Blower Supplier in India',
+    'Industrial Roots Blower',
+    'Positive Displacement Blower Manufacturer',
+    'Roots Blower Manufacturer in Ahmedabad',
+    'Roots Blower Manufacturer in Gujarat',
+    'Roots Blower Price in India',
+    'Roots Blower Supplier',
+    'Roots Blower Quotation',
+    'Buy Roots Blower',
     'Shree Ambika Engineering',
   ];
 
@@ -63,11 +62,11 @@ export async function generateMetadata() {
     keywords: keywords.join(', '),
     icons: {
       icon: [
-        { url: '/images/sae-logo.webp', type: 'image/webp' },
+        { url: '/images/footer-logo.webp', type: 'image/webp' },
         { url: '/favicon.ico' }
       ],
-      shortcut: '/images/sae-logo.webp',
-      apple: '/images/sae-logo.webp',
+      shortcut: '/images/footer-logo.webp',
+      apple: '/images/footer-logo.webp',
     },
     alternates: {
       canonical: siteUrl,
@@ -79,16 +78,16 @@ export async function generateMetadata() {
       siteName: 'SAE Roots Blower',
       images: [
         {
-          url: `${siteUrl}/images/sae-logo.webp`,
+          url: `${siteUrl}/images/footer-logo.webp`,
           width: 800,
           height: 600,
           alt: 'Shree Ambika Engineering Logo',
         },
         {
-          url: `${siteUrl}/images/banner/sae-banner-1.webp`,
+          url: `${siteUrl}/images/about-us/about-us-2.webp`,
           width: 1200,
           height: 630,
-          alt: 'SAE Industrial Roots Blower Systems',
+          alt: 'Roots Blower Manufacturer in India - Shree Ambika Engineering',
         },
       ],
       locale: 'en_US',
@@ -98,7 +97,7 @@ export async function generateMetadata() {
       card: 'summary_large_image',
       title: metaTitle,
       description: metaDesc,
-      images: [`${siteUrl}/images/sae-logo.webp`],
+      images: [`${siteUrl}/images/footer-logo.webp`],
     },
     robots: {
       index: true,
@@ -122,9 +121,9 @@ export default function RootLayout({ children }) {
     name: 'Shree Ambika Engineering',
     alternateName: 'SAE Roots Blower',
     url: siteUrl,
-    logo: `${siteUrl}/images/sae-logo.webp`,
-    image: `${siteUrl}/images/sae-logo.webp`,
-    description: 'Leading manufacturer of Roots Blowers, Three Lobe Air Blowers, Twin Lobe Blowers, Cement Feeding Machine Systems, and Vacuum Blowers in India.',
+    logo: `${siteUrl}/images/footer-logo.webp`,
+    image: `${siteUrl}/images/footer-logo.webp`,
+    description: 'Premier Roots Blower Manufacturer in India offering high-efficiency Twin Lobe & Tri Lobe Blowers, Vacuum Blowers, and Cement Feeding Machine Systems.',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Plot No. 136, Phase 1, Nr Pushpak Industrial Estate, Vatva GIDC',
@@ -165,8 +164,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} h-full antialiased overflow-x-hidden`} suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/images/sae-logo.webp" type="image/webp" />
-        <link rel="apple-touch-icon" href="/images/sae-logo.webp" />
+        <link rel="icon" href="/images/footer-logo.webp" type="image/webp" />
+        <link rel="shortcut icon" href="/images/footer-logo.webp" type="image/webp" />
+        <link rel="apple-touch-icon" href="/images/footer-logo.webp" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
@@ -189,4 +189,5 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
 

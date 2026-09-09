@@ -4,10 +4,24 @@ import Product from '@/models/Product';
 import HomeContactForm from '@/components/HomeContactForm';
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaWhatsapp } from 'react-icons/fa';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
+
 export const metadata = {
-  title: 'Contact Us | Shree Ambika Engineering | Vatva, Ahmedabad',
-  description: 'Contact Shree Ambika Engineering for Twin Lobe & Tri Lobe roots blower quotes. Factory at Vatva GIDC, Ahmedabad, Gujarat, India.',
+  title: 'Contact Us | Get Roots Blower Quotation & Price | SAE',
+  description: 'Contact Shree Ambika Engineering for Roots Blower prices in India, custom technical parameters & factory direct quotations. Vatva GIDC, Ahmedabad, Gujarat.',
+  keywords: 'Roots Blower Quotation, Roots Blower Price in India, Roots Blower Supplier, Buy Roots Blower, Roots Blower Manufacturer in Ahmedabad',
+  alternates: {
+    canonical: `${siteUrl}/contact`,
+  },
+  openGraph: {
+    title: 'Contact Us | Get Roots Blower Quotation & Price | SAE',
+    description: 'Contact Shree Ambika Engineering for instant Roots Blower quotations & pricing.',
+    url: `${siteUrl}/contact`,
+    siteName: 'SAE Roots Blower',
+    images: [{ url: `${siteUrl}/images/footer-logo.webp` }],
+  },
 };
+
 
 export default async function ContactPage() {
   await connectDB();

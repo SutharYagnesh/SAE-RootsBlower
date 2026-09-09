@@ -1,9 +1,23 @@
 import Link from 'next/link';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
+
 export const metadata = {
-  title: 'Roots Blower Applications | Shree Ambika Engineering',
-  description: 'Learn about the primary applications of Twin Lobe and Tri Lobe roots blowers, including sewage aeration, pond aeration, pneumatic material conveying, and gas compression.',
+  title: 'Roots Blower Applications | Sewage, Aquaculture & Pneumatic Conveying',
+  description: 'Industrial applications of Roots blowers by SAE including STP & ETP aeration, pneumatic material conveying, chemical gas handling, and aquaculture oxygen supply.',
+  keywords: 'Roots blower applications, sewage aeration blower, aquaculture pond aeration, pneumatic conveying blower, industrial blower uses',
+  alternates: {
+    canonical: `${siteUrl}/applications`,
+  },
+  openGraph: {
+    title: 'Roots Blower Applications | Sewage, Aquaculture & Pneumatic Conveying',
+    description: 'Discover industrial process applications of positive displacement rotary blowers by Shree Ambika Engineering.',
+    url: `${siteUrl}/applications`,
+    siteName: 'SAE Roots Blower',
+    images: [{ url: `${siteUrl}/images/footer-logo.webp` }],
+  },
 };
+
 
 export const applicationsList = [
   {

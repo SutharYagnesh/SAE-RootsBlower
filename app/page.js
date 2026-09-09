@@ -2,11 +2,8 @@ import connectDB from '@/lib/db';
 import Product from '@/models/Product';
 import Blog from '@/models/Blog';
 import Settings from '@/models/Settings';
-import Gallery from '@/models/Gallery';
 import Link from 'next/link';
 import HomeContactForm from '@/components/HomeContactForm';
-import ImageCarousel from '@/components/ImageCarousel';
-import HeroBackgroundCarousel from '@/components/HeroBackgroundCarousel';
 import { FaCogs, FaAward, FaShieldAlt, FaArrowRight, FaIndustry, FaCheckCircle } from 'react-icons/fa';
 import {
   FadeUp,
@@ -33,12 +30,6 @@ export default async function Home() {
     .sort({ createdAt: -1 })
     .limit(3);
 
-  // Fetch all gallery items for the carousel
-  const galleryItems = await Gallery.find({})
-    .select('title category image')
-    .sort({ createdAt: -1 })
-    .lean();
-
   const settings = (await Settings.findOne({})) || {
     phone: '+91 63545 86037, +91 81550 78276',
     email: 'sales@saerootsblower.com',
@@ -46,8 +37,8 @@ export default async function Home() {
       'Plot No. 136, Phase 1, Nr Pushpak Industrial Estate, Vatva GIDC, Ahmedabad - 382418, Gujarat, India',
     googleMapEmbed:
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7346.752869004515!2d72.62734677770999!3d22.973181100000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e89b0e7cd54e5%3A0xd3ceb43cc42a6433!2sShree%20Ambika%20Engineering%2C%20Root%20blower%20manufacturer!5e0!3m2!1sen!2sus!4v1784869188802!5m2!1sen!2sus',
-    metaTitle: 'Root Blower Manufacturer in India | SAE Roots Blower',
-    metaDescription: 'Leading root blower manufacturer in India offering premium three lobe roots blowers, positive displacement blowers, vacuum blowers, cement feeding machine systems and OEM industrial solutions.',
+    metaTitle: 'Roots Blower Manufacturer in India | Shree Ambika Engineering',
+    metaDescription: 'Shree Ambika Engineering is a leading Roots Blower Manufacturer in India offering high-performance twin lobe blowers, industrial roots blowers & positive displacement blowers.',
   };
 
   const industries = [
@@ -95,12 +86,9 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* 1. Hero Section with Desktop Background Carousel */}
+      {/* 1. Hero Section */}
       <section className="relative bg-gradient-to-br from-primary via-primary to-[#08223c] text-white py-20 lg:py-32 overflow-hidden border-b-2 border-accent/25">
-        {/* Background Carousel Component (Hidden on Mobile) */}
-        <HeroBackgroundCarousel />
-
-        {/* Animated Background Grid Pattern */}
+        {/* Background Grid Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
 
@@ -115,13 +103,12 @@ export default async function Home() {
               </FadeUp>
               <FadeUp delay={0.25}>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-heading tracking-tight leading-tight">
-                  High Performance <br />
-                  <span className="text-accent drop-shadow-sm">Roots Blowers</span> & Systems
+                  Premier <span className="text-accent drop-shadow-sm">Roots Blower</span> Manufacturer in India
                 </h1>
               </FadeUp>
               <FadeUp delay={0.35}>
                 <p className="text-white/90 text-base sm:text-lg leading-relaxed max-w-xl">
-                  Shree Ambika Engineering designs, manufactures, and supplies heavy-duty Twin Lobe & Tri Lobe Rotary Air Blowers, Cement Feeding Machine Systems, and Vacuum Blowers engineered for maximum volumetric efficiency.
+                  Shree Ambika Engineering is a trusted <strong>Twin Lobe Blower Manufacturer</strong> and <strong>Roots Blower Supplier in India</strong>, designing heavy-duty industrial roots blowers and positive displacement blowers engineered for maximum volumetric efficiency.
                 </p>
               </FadeUp>
               <FadeUp delay={0.45}>
@@ -142,16 +129,16 @@ export default async function Home() {
               </FadeUp>
             </div>
 
-            {/* Hero Right - Primary Blower Product Showcase */}
-            <div className="relative justify-center hidden lg:flex lg:col-span-5 w-full z-10">
+            {/* Hero Right - Section 1 Image: /images/about-us/about-us-2.webp */}
+            <div className="relative justify-center flex lg:col-span-5 w-full z-10">
               <FadeIn delay={0.4}>
-                <div className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 shadow-2xl overflow-hidden w-full max-w-[420px] hover:border-accent/50 transition-all duration-300">
+                <div className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 sm:p-5 shadow-2xl overflow-hidden w-full max-w-[440px] hover:border-accent/50 transition-all duration-300">
                   <div className="absolute -top-3 -left-3 w-10 h-10 border-t-2 border-l-2 border-accent"></div>
                   <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-accent"></div>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/images/banner/sae-banner-1.webp"
-                    alt="SAE Heavy-Duty Roots Blower System Manufacturer India"
+                    src="/images/about-us/about-us-2.webp"
+                    alt="Roots Blower Manufacturer in India - Shree Ambika Engineering Assembly"
                     className="rounded-xl w-full object-cover shadow-md aspect-4/3 hover:scale-[1.02] transition-transform duration-500"
                   />
                   <div className="mt-4 flex justify-between items-center text-xs text-white/90 px-1 font-semibold">
@@ -183,7 +170,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 3. Section 2 / Company Introduction & Cement Feeding Machine System Showcase */}
+      {/* 3. Section 2 / Company Overview & Flagship System Showcase */}
       <section className="py-24 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
@@ -193,14 +180,14 @@ export default async function Home() {
                   Welcome to Shree Ambika Engineering
                 </span>
                 <h2 className="text-3xl sm:text-4xl font-bold font-heading text-primary mt-2 mb-6 leading-tight">
-                  Pioneering Excellence in Industrial Blowers & Cement Feeding Machine Systems
+                  Leading Industrial Roots Blower Manufacturer & Positive Displacement Blower Expert
                 </h2>
                 <div className="space-y-4 text-gray-600 leading-relaxed text-sm sm:text-base">
                   <p>
-                    Established with a commitment to quality and engineering precision, Shree Ambika Engineering has emerged as a trusted name in manufacturing positive displacement rotary air blowers (Roots Blowers) and specialized heavy-duty <strong>Cement Feeding Machine Systems</strong>.
+                    Established with a commitment to quality and precision engineering, Shree Ambika Engineering has emerged as a premier <strong>Positive Displacement Blower Manufacturer</strong> and leading <strong>Roots Blower Supplier in India</strong>.
                   </p>
                   <p>
-                    Our blowers and pneumatic conveying systems are constructed using advanced CNC machining tools and undergo rigorous mechanical testing benches to ensure they deliver 100% oil-free air under continuous high operating pressure. We specialize in custom industrial setups including acoustic silencing hoods, water-jacketed casings, and automated cement bulk feeding units.
+                    Our blowers and pneumatic conveying systems are constructed using advanced CNC machining tools and undergo rigorous mechanical testing to ensure they deliver 100% oil-free air under continuous operating pressure. We supply custom twin lobe blowers, tri-lobe blowers, acoustic silencing enclosures, and heavy-duty cement feeding machine systems tailored for demanding industrial requirements.
                   </p>
                 </div>
                 <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -224,7 +211,7 @@ export default async function Home() {
               </FadeUp>
             </div>
 
-            {/* Section 2 Featured Product Image Display: Cement Feeding Machine System */}
+            {/* Section 2 Image Display: Cement Feeding Machine System */}
             <div className="lg:col-span-5 relative w-full flex items-center justify-center lg:justify-end mt-10 lg:mt-0">
               <FadeUp delay={0.2}>
                 <div className="relative w-full max-w-[440px] bg-gradient-to-br from-bg-custom to-white p-4 sm:p-6 rounded-3xl border border-borders-custom shadow-xl group hover:shadow-2xl transition-all duration-300">
@@ -232,7 +219,7 @@ export default async function Home() {
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src="/images/products/cement-feeding-machine-system.webp"
-                      alt="Cement Feeding Machine System and Pneumatic Conveying Blower - Shree Ambika Engineering"
+                      alt="Cement Feeding Machine System - Industrial Roots Blower Manufacturer in India"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
@@ -272,10 +259,10 @@ export default async function Home() {
               Our Product Portfolio
             </span>
             <h2 className="text-3xl sm:text-4xl font-bold font-heading text-primary mt-2">
-              High-Performance Blower Systems
+              High-Performance Industrial Roots Blowers
             </h2>
             <p className="text-gray-500 mt-4 text-sm sm:text-base">
-              Explore our standard range of rotary blowers. All designs are optimized for durability, high volumetric efficiency, and continuous industrial operation.
+              Explore our range of twin lobe blowers, tri lobe blowers, and positive displacement blower assemblies engineered for continuous heavy-duty industrial operation.
             </p>
           </div>
 
@@ -291,7 +278,7 @@ export default async function Home() {
                           /* eslint-disable-next-line @next/next/no-img-element */
                           <img
                             src={product.images[0]}
-                            alt={`${product.title} - SAE Roots Blower`}
+                            alt={`${product.title} - Roots Blower Manufacturer in India`}
                             className="object-contain max-h-full max-w-full group-hover:scale-105 transition-transform duration-300"
                             loading="lazy"
                           />
@@ -353,7 +340,7 @@ export default async function Home() {
               Industries We Serve
             </h2>
             <p className="text-gray-500 mt-4 text-sm sm:text-base">
-              Roots blowers are vital components across multiple process frameworks. Shree Ambika Engineering provides specialized designs to optimize airflow requirements.
+              Roots blowers are vital components across multiple process frameworks. Shree Ambika Engineering provides specialized positive displacement blower designs to optimize airflow requirements.
             </p>
           </div>
 
@@ -367,7 +354,7 @@ export default async function Home() {
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={ind.image}
-                          alt={`${ind.name} - SAE Blower Industrial Application`}
+                          alt={`${ind.name} - SAE Industrial Roots Blower Application`}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           loading="lazy"
                         />
@@ -396,37 +383,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 5.25 On-Site Installations & Factory Gallery Section */}
-      <section className="py-24 bg-white border-t border-borders-custom relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="text-secondary font-bold text-sm tracking-wider uppercase font-semibold">
-              Visual Showcase
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold font-heading text-primary mt-2">
-              On-Site Installations & Factory Gallery
-            </h2>
-            <p className="text-gray-500 mt-4 text-sm sm:text-base">
-              A glimpse of our high-quality installations, advanced manufacturing facility, and rigorous quality check processes.
-            </p>
-          </div>
-
-          <FadeUp>
-            <ImageCarousel items={JSON.parse(JSON.stringify(galleryItems))} />
-          </FadeUp>
-
-          <div className="text-center mt-8">
-            <Link
-              href="/gallery"
-              className="bg-white border border-primary text-primary hover:bg-primary hover:text-white font-bold px-8 py-3 rounded-lg transition-all duration-300 inline-block shadow-sm text-sm"
-            >
-              Explore Full Photo Gallery
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 5.5 Brand-New Homepage Blogs Section */}
+      {/* 5.5 Homepage Technical Blogs Section */}
       <section className="py-24 bg-bg-custom border-t border-borders-custom relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
@@ -437,7 +394,7 @@ export default async function Home() {
               Latest Engineering Insights
             </h2>
             <p className="text-gray-500 mt-4 text-sm sm:text-base">
-              Read technical articles and guidelines on roots blower operation, aeration efficiency, and maintenance parameters.
+              Read technical articles and guidelines on roots blower operation, twin lobe blower design, and aeration efficiency.
             </p>
           </div>
 
@@ -453,7 +410,7 @@ export default async function Home() {
                           /* eslint-disable-next-line @next/next/no-img-element */
                           <img
                             src={blog.featuredImage}
-                            alt={`${blog.title} - SAE Roots Blower Technical Article`}
+                            alt={`${blog.title} - Roots Blower Engineering Article`}
                             className="object-cover h-full w-full group-hover:scale-105 transition-transform duration-500"
                             loading="lazy"
                           />
@@ -527,10 +484,10 @@ export default async function Home() {
                   Contact Our Sales Engineers
                 </span>
                 <h2 className="text-3xl sm:text-4xl font-bold font-heading text-primary mt-1">
-                  Need a Custom Roots Blower or Cement Feeding System?
+                  Need a Custom Roots Blower Quotation?
                 </h2>
                 <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-                  Our team is ready to analyze your airflow, pressure, operating environment, and conveying parameters to recommend the most optimal twin-lobe, tri-lobe, or cement feeding machine assembly.
+                  As a leading <strong>Roots Blower Supplier in India</strong>, our team is ready to analyze your airflow volume, operating pressure, and environment parameters to provide competitive Roots Blower prices and quotations.
                 </p>
                 <div className="space-y-3.5 pt-4">
                   <div className="flex items-center space-x-3 text-gray-700 text-sm">
@@ -568,11 +525,11 @@ export default async function Home() {
           style={{ border: 0 }}
           allowFullScreen=""
           loading="lazy"
-          title="Shree Ambika Engineering Factory Location Map"
+          title="Shree Ambika Engineering Factory Location Map Vatva Ahmedabad"
         ></iframe>
       </section>
 
-      {/* JSON-LD Schema.org Metadata */}
+      {/* JSON-LD FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -582,26 +539,26 @@ export default async function Home() {
             mainEntity: [
               {
                 '@type': 'Question',
-                name: 'What is a Roots Blower and how does it operate?',
+                name: 'Who is the leading Roots Blower Manufacturer in India?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'A Roots blower is a positive displacement rotary air blower that delivers 100% oil-free air by trapping air between twin or tri-lobe rotors and discharging it against system resistance.',
+                  text: 'Shree Ambika Engineering is a premier Roots Blower Manufacturer in India, engineering high-precision twin lobe blowers, tri-lobe blowers, and positive displacement air blowers since 2011.',
                 },
               },
               {
                 '@type': 'Question',
-                name: 'What are the main applications of Cement Feeding Machine Systems?',
+                name: 'What is the difference between a Twin Lobe Blower and a Tri Lobe Blower?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Cement Feeding Machine Systems are used for bulk pneumatic conveying of cement, fly ash, lime, and dry minerals into silos and batching plants efficiently.',
+                  text: 'Twin lobe blowers feature two figure-eight lobes providing high volumetric capacity, while tri lobe blowers feature three lobes for lower pressure pulsation and lower noise levels.',
                 },
               },
               {
                 '@type': 'Question',
-                name: 'Do SAE roots blowers provide oil-free air?',
+                name: 'How can I request a Roots Blower quotation or price in India?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Yes, Shree Ambika Engineering blowers feature separate oil lubrication chambers with non-contact labyrinth seals ensuring 100% oil-free air delivery.',
+                  text: 'You can contact Shree Ambika Engineering directly via our website inquiry form or call +91 63545 86037 to receive a custom technical quotation and competitive Roots Blower price.',
                 },
               },
             ],
@@ -611,4 +568,5 @@ export default async function Home() {
     </div>
   );
 }
+
 

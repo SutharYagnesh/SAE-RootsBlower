@@ -3,20 +3,21 @@ import { FaCheckCircle, FaIndustry, FaBullseye, FaSearchPlus } from 'react-icons
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
 
 export const metadata = {
-  title: 'About Us | Shree Ambika Engineering | Leading Roots Blower Manufacturer',
-  description: 'Discover Shree Ambika Engineering (SAE Roots Blower). Established in 2011 in Vatva GIDC, Ahmedabad, we manufacture premium Twin Lobe & Tri Lobe Roots Blowers and Cement Feeding Machine Systems.',
-  keywords: 'about SAE roots blower, roots blower manufacturer Ahmedabad, Shree Ambika Engineering, positive displacement blower company India, twin lobe blower manufacturer',
+  title: 'About SAE | Roots Blower Manufacturer in Ahmedabad, Gujarat',
+  description: 'Shree Ambika Engineering is a leading Roots Blower Manufacturer in Ahmedabad, Gujarat, producing precision positive displacement blowers since 2011.',
+  keywords: 'Roots Blower Manufacturer in Ahmedabad, Roots Blower Manufacturer in Gujarat, Roots Blower Manufacturer, Twin Lobe Blower Manufacturer, Shree Ambika Engineering',
   alternates: {
     canonical: `${siteUrl}/about`,
   },
   openGraph: {
-    title: 'About Us | Shree Ambika Engineering | Roots Blower Manufacturer',
-    description: 'Learn about Shree Ambika Engineering, leading Roots Blower manufacturer in India since 2011.',
+    title: 'About SAE | Roots Blower Manufacturer in Ahmedabad, Gujarat',
+    description: 'Shree Ambika Engineering is a leading Roots Blower Manufacturer in Ahmedabad, Gujarat.',
     url: `${siteUrl}/about`,
     siteName: 'SAE Roots Blower',
     images: [{ url: `${siteUrl}/images/about-us/about-us-1.webp` }],
   },
 };
+
 
 
 export default function About() {

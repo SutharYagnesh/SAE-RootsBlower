@@ -3,10 +3,24 @@ import Gallery from '@/models/Gallery';
 import GalleryClient from '@/components/GalleryClient';
 import Link from 'next/link';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
+
 export const metadata = {
-  title: 'Media Gallery | Shree Ambika Engineering',
-  description: 'View photos and videos of our manufacturing facility, CNC machinery, product lines, and heavy-duty roots blower quality testing systems at Vatva, Ahmedabad.',
+  title: 'Roots Blower Manufacturing & Installation Gallery | SAE',
+  description: 'Visual gallery of SAE roots blower manufacturing facility, CNC machining tooling, and on-site industrial installations.',
+  keywords: 'Roots blower photos, roots blower installation gallery, Shree Ambika Engineering manufacturing facility',
+  alternates: {
+    canonical: `${siteUrl}/gallery`,
+  },
+  openGraph: {
+    title: 'Roots Blower Manufacturing & Installation Gallery | SAE',
+    description: 'Visual photo gallery of SAE roots blower manufacturing & installations.',
+    url: `${siteUrl}/gallery`,
+    siteName: 'SAE Roots Blower',
+    images: [{ url: `${siteUrl}/images/footer-logo.webp` }],
+  },
 };
+
 
 export const dynamic = 'force-dynamic';
 
