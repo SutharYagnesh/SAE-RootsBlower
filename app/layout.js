@@ -62,10 +62,10 @@ export async function generateMetadata() {
     keywords: keywords.join(', '),
     icons: {
       icon: [
-        { url: '/images/sae.png', type: 'image/png' }
+        { url: '/images/footer-logo.webp', type: 'image/webp' }
       ],
-      shortcut: '/images/sae.png',
-      apple: '/images/sae.png',
+      shortcut: '/images/footer-logo.webp',
+      apple: '/images/footer-logo.webp',
     },
     alternates: {
       canonical: siteUrl,
@@ -163,9 +163,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} h-full antialiased overflow-x-hidden`} suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/images/sae.png" type="image/png" />
-        <link rel="shortcut icon" href="/images/sae.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/images/sae.png" />
+        <link rel="icon" href="/images/footer-logo.webp" type="image/webp" />
+        <link rel="shortcut icon" href="/images/footer-logo.webp" type="image/webp" />
+        <link rel="apple-touch-icon" href="/images/footer-logo.webp" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
