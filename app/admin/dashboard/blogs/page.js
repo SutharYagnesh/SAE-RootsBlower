@@ -449,7 +449,7 @@ export default function AdminBlogsCMS() {
               {formData.featuredImage && (
                 <div className="relative aspect-video w-full sm:w-48 border border-gray-200 rounded overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={formData.featuredImage} alt="Featured Preview" className="w-full h-full object-cover" />
+                  <img src={formData.featuredImage} alt="Featured Preview" width={640} height={360} className="w-full h-full object-cover" />
                   <button
                     type="button"
                     onClick={() => setFormData({ ...formData, featuredImage: '' })}

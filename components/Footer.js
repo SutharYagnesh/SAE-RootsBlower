@@ -49,7 +49,10 @@ export default function Footer() {
               <img
                 src="/images/footer-logo.webp"
                 alt="Shree Ambika Engineering Footer Logo"
-                className="h-18w-auto object-contain px-3 py-1.5 rounded shadow-sm"
+                width={150}
+                height={104}
+                loading="lazy"
+                className="h-[104px] w-[150px] object-contain px-3 py-1.5 rounded shadow-sm"
               />
             </Link>
             <p className="text-white/60 text-sm leading-relaxed">

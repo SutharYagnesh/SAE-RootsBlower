@@ -14,7 +14,7 @@ export const metadata = {
     description: 'Discover industrial process applications of positive displacement rotary blowers by Shree Ambika Engineering.',
     url: `${siteUrl}/applications`,
     siteName: 'SAE Roots Blower',
-    images: [{ url: `${siteUrl}/images/footer-logo.webp` }],
+    images: [{ url: `${siteUrl}/images/sae-logo.webp` }],
   },
 };
 

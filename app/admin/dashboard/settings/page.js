@@ -337,7 +337,7 @@ export default function AdminSettingsCMS() {
                 {formData.logo && (
                   <div className="relative aspect-video w-full sm:w-32 border border-gray-200 rounded bg-gray-50 flex items-center justify-center p-1.5">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={formData.logo} alt="Corporate Logo" className="max-h-full max-w-full object-contain" />
+                    <img src={formData.logo} alt="Corporate Logo" width={500} height={300} className="max-h-full max-w-full object-contain" />
                     <button
                       type="button"
                       onClick={() => handleInputChange('logo', '')}
@@ -370,7 +370,7 @@ export default function AdminSettingsCMS() {
                 {formData.favicon && (
                   <div className="relative aspect-square w-12 border border-gray-200 rounded flex items-center justify-center p-1">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={formData.favicon} alt="Favicon" className="max-h-full max-w-full object-contain" />
+                    <img src={formData.favicon} alt="Favicon" width={64} height={64} className="max-h-full max-w-full object-contain" />
                     <button
                       type="button"
                       onClick={() => handleInputChange('favicon', '')}

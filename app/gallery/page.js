@@ -17,7 +17,7 @@ export const metadata = {
     description: 'Visual photo gallery of SAE roots blower manufacturing & installations.',
     url: `${siteUrl}/gallery`,
     siteName: 'SAE Roots Blower',
-    images: [{ url: `${siteUrl}/images/footer-logo.webp` }],
+    images: [{ url: `${siteUrl}/images/sae-logo.webp` }],
   },
 };
 

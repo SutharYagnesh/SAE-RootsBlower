@@ -18,7 +18,7 @@ export const metadata = {
     description: 'Contact Shree Ambika Engineering for instant Roots Blower quotations & pricing.',
     url: `${siteUrl}/contact`,
     siteName: 'SAE Roots Blower',
-    images: [{ url: `${siteUrl}/images/footer-logo.webp` }],
+    images: [{ url: `${siteUrl}/images/sae-logo.webp` }],
   },
 };
 

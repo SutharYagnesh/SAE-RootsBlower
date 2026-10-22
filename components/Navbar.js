@@ -188,6 +188,8 @@ export default function Navbar() {
             <img
               src="/images/sae-logo.webp"
               alt="Shree Ambika Engineering Logo"
+              width={150}
+              height={104}
               className="h-11 w-auto bg-white/100 object-contain px-2 py-1 rounded shadow-sm group-hover:scale-102 transition-transform"
             />
             <div className="flex flex-col">

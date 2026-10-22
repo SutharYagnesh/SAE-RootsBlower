@@ -19,18 +19,18 @@ export const dynamic = 'force-dynamic';
 export default async function Home() {
   await connectDB();
 
-  // Optimize: project only necessary fields for products to make the site faster
-  const products = await Product.find({ status: 'published' })
-    .select('title slug shortDescription specifications images')
-    .limit(4);
+  const [products, blogs, savedSettings] = await Promise.all([
+    Product.find({ status: 'published' })
+      .select('title slug shortDescription specifications images')
+      .limit(4),
+    Blog.find({ status: 'published' })
+      .select('title slug excerpt category featuredImage createdAt')
+      .sort({ createdAt: -1 })
+      .limit(3),
+    Settings.findOne({}),
+  ]);
 
-  // Fetch the latest 3 blogs for the homepage
-  const blogs = await Blog.find({ status: 'published' })
-    .select('title slug excerpt category featuredImage createdAt')
-    .sort({ createdAt: -1 })
-    .limit(3);
-
-  const settings = (await Settings.findOne({})) || {
+  const settings = savedSettings || {
     phone: '+91 63545 86037, +91 81550 78276',
     email: 'sales@saerootsblower.com',
     address:
@@ -140,6 +140,8 @@ export default async function Home() {
                     <img
                       src="/images/about-us/about-us-2.webp"
                       alt="Roots Blower Manufacturer in India - Shree Ambika Engineering Assembly"
+                      width={300}
+                      height={504}
                       className="w-full h-full object-contain hover:scale-[1.03] transition-transform duration-500"
                     />
                   </div>
@@ -229,6 +231,8 @@ export default async function Home() {
                     <img
                       src="/images/products/cement-feeding-machine-system.webp"
                       alt="Cement Feeding Machine System - Industrial Roots Blower Manufacturer in India"
+                      width={490}
+                      height={500}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
@@ -288,6 +292,8 @@ export default async function Home() {
                           <img
                             src={product.images[0]}
                             alt={`${product.title} - Roots Blower Manufacturer in India`}
+                            width={490}
+                            height={500}
                             className="object-contain max-h-full max-w-full group-hover:scale-105 transition-transform duration-300"
                             loading="lazy"
                           />
@@ -364,6 +370,8 @@ export default async function Home() {
                         <img
                           src={ind.image}
                           alt={`${ind.name} - SAE Industrial Roots Blower Application`}
+                          width={640}
+                          height={360}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           loading="lazy"
                         />
@@ -420,6 +428,8 @@ export default async function Home() {
                           <img
                             src={blog.featuredImage}
                             alt={`${blog.title} - Roots Blower Engineering Article`}
+                            width={640}
+                            height={360}
                             className="object-cover h-full w-full group-hover:scale-105 transition-transform duration-500"
                             loading="lazy"
                           />
@@ -577,5 +587,3 @@ export default async function Home() {
     </div>
   );
 }
-
-

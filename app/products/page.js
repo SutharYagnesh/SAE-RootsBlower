@@ -76,6 +76,9 @@ export default async function ProductsPage() {
                         <img
                           src={product.images[0]}
                           alt={`${product.title} - Industrial Roots Blower Supplier in India`}
+                          width={490}
+                          height={500}
+                          loading="lazy"
                           className="object-contain h-full w-full p-4 group-hover:scale-105 transition-transform duration-300"
                         />
                       ) : (
@@ -147,4 +150,3 @@ export default async function ProductsPage() {
     </div>
   );
 }
-

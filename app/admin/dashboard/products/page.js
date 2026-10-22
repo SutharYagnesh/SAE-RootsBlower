@@ -528,7 +528,7 @@ export default function AdminProductsCMS() {
                 {formData.images.map((img, idx) => (
                   <div key={idx} className="relative aspect-square border border-gray-200 rounded overflow-hidden group">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={img} alt="Blower" className="w-full h-full object-contain p-1" />
+                    <img src={img} alt="Blower" width={490} height={500} className="w-full h-full object-contain p-1" />
                     <button
                       type="button"
                       onClick={() => removeImage(idx)}

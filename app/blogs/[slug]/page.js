@@ -88,6 +88,8 @@ export default async function BlogDetailPage({ params }) {
                 <img
                   src={blog.featuredImage}
                   alt={blog.title}
+                  width={1200}
+                  height={675}
                   className="w-full h-full object-cover"
                 />
               </div>

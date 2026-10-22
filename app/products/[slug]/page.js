@@ -66,6 +66,8 @@ export default async function ProductDetailPage({ params }) {
                   <img
                     src={product.images[0]}
                     alt={product.title}
+                    width={490}
+                    height={500}
                     className="max-h-[320px] object-contain"
                   />
                 ) : (

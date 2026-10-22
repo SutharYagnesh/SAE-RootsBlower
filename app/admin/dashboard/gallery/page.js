@@ -236,7 +236,7 @@ export default function AdminGalleryCMS() {
                 {formData.image && (
                   <div className="relative aspect-square w-24 border border-gray-200 rounded overflow-hidden">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={formData.image} alt="Upload Preview" className="w-full h-full object-cover" />
+                    <img src={formData.image} alt="Upload Preview" width={600} height={600} className="w-full h-full object-cover" />
                   </div>
                 )}
               </div>
@@ -295,7 +295,7 @@ export default function AdminGalleryCMS() {
                 <div className="aspect-square bg-gray-100 flex items-center justify-center relative overflow-hidden">
                   {item.type === 'image' && item.image ? (
                     /* eslint-disable-next-line @next/next/no-img-element */
-                    <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                    <img src={item.image} alt={item.title} width={600} height={600} className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full bg-primary/10 flex flex-col items-center justify-center p-2">
                       <FaVideo className="text-primary mb-1" size={24} />

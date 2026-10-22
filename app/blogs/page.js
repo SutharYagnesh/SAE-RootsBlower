@@ -16,7 +16,7 @@ export const metadata = {
     description: 'Technical engineering articles on rotary air blowers by Shree Ambika Engineering.',
     url: `${siteUrl}/blogs`,
     siteName: 'SAE Roots Blower',
-    images: [{ url: `${siteUrl}/images/footer-logo.webp` }],
+    images: [{ url: `${siteUrl}/images/sae-logo.webp` }],
   },
 };
 
@@ -95,6 +95,9 @@ export default async function BlogsPage({ searchParams }) {
                             <img
                               src={blog.featuredImage}
                               alt={blog.title}
+                              width={640}
+                              height={360}
+                              loading="lazy"
                               className="object-cover h-full w-full group-hover:scale-105 transition-transform duration-300"
                             />
                           ) : (

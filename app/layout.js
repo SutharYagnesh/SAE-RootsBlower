@@ -13,13 +13,13 @@ export const dynamic = 'force-dynamic';
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700'],
 });
 
 const poppins = Poppins({
   variable: '--font-poppins',
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['600', '700', '800'],
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
@@ -62,10 +62,10 @@ export async function generateMetadata() {
     keywords: keywords.join(', '),
     icons: {
       icon: [
-        { url: '/images/footer-logo.webp', type: 'image/webp' }
+        { url: '/images/sae-logo.webp', type: 'image/webp' }
       ],
-      shortcut: '/images/footer-logo.webp',
-      apple: '/images/footer-logo.webp',
+      shortcut: '/images/sae-logo.webp',
+      apple: '/images/sae-logo.webp',
     },
     alternates: {
       canonical: siteUrl,
@@ -162,21 +162,19 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} h-full antialiased overflow-x-hidden`} suppressHydrationWarning>
-      <head>
-        <link rel="icon" href="/images/footer-logo.webp" type="image/webp" />
-        <link rel="shortcut icon" href="/images/footer-logo.webp" type="image/webp" />
-        <link rel="apple-touch-icon" href="/images/footer-logo.webp" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-        />
-      </head>
-
       <body className="overflow-x-hidden" suppressHydrationWarning>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema).replace(/</g, '\\u003c'),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema).replace(/</g, '\\u003c'),
+          }}
+        />
         <div className="min-h-full flex flex-col font-sans bg-bg-custom text-dark-custom overflow-x-hidden">
           <Navbar />
           <main className="flex-grow pt-[105px] md:pt-[125px]">{children}</main>
@@ -189,5 +187,3 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
-
-

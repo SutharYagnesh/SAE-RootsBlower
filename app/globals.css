@@ -52,3 +52,19 @@ h1, h2, h3, h4, h5, h6 {
 .swiper-pagination-bullet-active {
   background: #0D3B66 !important;
 }
+
+@keyframes client-logo-marquee {
+  to {
+    transform: translateX(-33.333%);
+  }
+}
+
+.client-logo-marquee {
+  animation: client-logo-marquee 25s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .client-logo-marquee {
+    animation: none;
+  }
+}

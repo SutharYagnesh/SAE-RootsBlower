@@ -74,6 +74,9 @@ export default function GalleryClient({ initialItems = [] }) {
                   <img
                     src={item.image}
                     alt={item.title}
+                    width={600}
+                    height={600}
+                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 ) : (
@@ -145,6 +148,8 @@ export default function GalleryClient({ initialItems = [] }) {
               <img
                 src={activeItem.image}
                 alt={activeItem.title}
+                width={1200}
+                height={800}
                 className="max-h-[75vh] object-contain rounded shadow-2xl"
               />
             ) : (
