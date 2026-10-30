@@ -125,7 +125,7 @@ export default function RootLayout({ children }) {
     description: 'Premier Roots Blower Manufacturer in India offering high-efficiency Twin Lobe & Tri Lobe Blowers, Vacuum Blowers, and Cement Feeding Machine Systems.',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Plot No. 136, Phase 1, Nr Pushpak Industrial Estate, Vatva GIDC',
+      streetAddress: 'Vatva GIDC',
       addressLocality: 'Ahmedabad',
       addressRegion: 'Gujarat',
       postalCode: '382418',
