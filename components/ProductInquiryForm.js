@@ -85,7 +85,7 @@ ${formData.message}`;
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6 border border-borders-custom sticky top-28">
+    <div id="request-quote" className="bg-white rounded-xl shadow-md p-6 border border-borders-custom sticky top-28 scroll-mt-32">
       <h3 className="text-xl font-bold font-heading text-primary mb-4">
         Request Technical Quote
       </h3>

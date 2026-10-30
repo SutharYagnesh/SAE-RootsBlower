@@ -20,6 +20,12 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Product prices and images
+
+Manage genuine product variant prices in the admin product editor. Leave offers empty for products that are quote-only; the product page then omits price-offer structured data rather than publishing an estimate.
+
+To serve catalog images from Cloudflare R2, upload the WebP files in `public/images/products/` with their existing relative paths as object keys, then set `CLOUDFLARE_R2_PUBLIC_URL` to the public base URL for that bucket. Only matching product image paths are switched to R2; other images continue to use their existing source.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

@@ -48,6 +48,25 @@ export async function PUT(req, { params }) {
     const { id } = await params;
     const data = await req.json();
 
+    if (
+      data.offers !== undefined &&
+      (!Array.isArray(data.offers) ||
+        data.offers.some(
+          (offer) =>
+            !offer ||
+            typeof offer.name !== 'string' ||
+            !offer.name.trim() ||
+            !Number.isFinite(Number(offer.price)) ||
+            Number(offer.price) < 10000 ||
+            Number(offer.price) > 200000
+        ))
+    ) {
+      return NextResponse.json(
+        { error: 'Each offer must have a variant name and a price between INR 10,000 and INR 200,000' },
+        { status: 400 }
+      );
+    }
+
     let product = await Product.findById(id);
     if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
@@ -73,6 +92,7 @@ export async function PUT(req, { params }) {
     product.features = data.features !== undefined ? data.features : product.features;
     product.applications = data.applications !== undefined ? data.applications : product.applications;
     product.images = data.images !== undefined ? data.images : product.images;
+    product.offers = data.offers !== undefined ? data.offers : product.offers;
     product.seoTitle = data.seoTitle !== undefined ? data.seoTitle : product.seoTitle;
     product.seoDescription = data.seoDescription !== undefined ? data.seoDescription : product.seoDescription;
     product.status = data.status !== undefined ? data.status : product.status;

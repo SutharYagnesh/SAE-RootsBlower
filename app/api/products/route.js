@@ -62,6 +62,25 @@ export async function POST(req) {
       );
     }
 
+    if (
+      data.offers !== undefined &&
+      (!Array.isArray(data.offers) ||
+        data.offers.some(
+          (offer) =>
+            !offer ||
+            typeof offer.name !== 'string' ||
+            !offer.name.trim() ||
+            !Number.isFinite(Number(offer.price)) ||
+            Number(offer.price) < 10000 ||
+            Number(offer.price) > 200000
+        ))
+    ) {
+      return NextResponse.json(
+        { error: 'Each offer must have a variant name and a price between INR 10,000 and INR 200,000' },
+        { status: 400 }
+      );
+    }
+
     // Generate unique slug
     let baseSlug = slugify(title);
     let slug = baseSlug;
@@ -80,6 +99,7 @@ export async function POST(req) {
       features: features || [],
       applications: applications || [],
       images: images || [],
+      offers: data.offers || [],
       seoTitle: data.seoTitle || title,
       seoDescription: data.seoDescription || shortDescription,
       status: status || 'draft',

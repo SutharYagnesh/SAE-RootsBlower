@@ -18,6 +18,7 @@ export default function AdminProductsCMS() {
     features: [''],
     applications: [''],
     images: [],
+    offers: [],
     seoTitle: '',
     seoDescription: '',
     status: 'draft',
@@ -55,6 +56,10 @@ export default function AdminProductsCMS() {
       features: prod.features && prod.features.length > 0 ? [...prod.features] : [''],
       applications: prod.applications && prod.applications.length > 0 ? [...prod.applications] : [''],
       images: prod.images || [],
+      offers: (prod.offers || []).map((offer) => ({
+        name: offer.name || '',
+        price: offer.price?.toString() || '',
+      })),
       seoTitle: prod.seoTitle || '',
       seoDescription: prod.seoDescription || '',
       status: prod.status || 'draft',
@@ -71,6 +76,7 @@ export default function AdminProductsCMS() {
       features: [''],
       applications: ['Wastewater Treatment', 'Aquaculture Aeration'],
       images: [],
+      offers: [],
       seoTitle: '',
       seoDescription: '',
       status: 'draft',
@@ -99,6 +105,29 @@ export default function AdminProductsCMS() {
   const removeSpecField = (index) => {
     const updated = formData.specifications.filter((_, i) => i !== index);
     setFormData({ ...formData, specifications: updated });
+  };
+
+  const addOffer = () => {
+    setFormData((prev) => ({
+      ...prev,
+      offers: [...prev.offers, { name: '', price: '' }],
+    }));
+  };
+
+  const updateOffer = (index, field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      offers: prev.offers.map((offer, offerIndex) =>
+        offerIndex === index ? { ...offer, [field]: value } : offer
+      ),
+    }));
+  };
+
+  const removeOffer = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      offers: prev.offers.filter((_, offerIndex) => offerIndex !== index),
+    }));
   };
 
   // Dynamic Features handler
@@ -197,12 +226,38 @@ export default function AdminProductsCMS() {
     const cleanSpecs = formData.specifications.filter((s) => s.key && s.value);
     const cleanFeatures = formData.features.filter((f) => f.trim());
     const cleanApps = formData.applications.map(a => a.trim()).filter(Boolean);
+    const enteredOffers = formData.offers.filter(
+      (offer) => offer.name.trim() || offer.price !== ''
+    );
+
+    if (
+      enteredOffers.some(
+        (offer) =>
+          !offer.name.trim() ||
+          !Number.isFinite(Number(offer.price)) ||
+          Number(offer.price) < 10000 ||
+          Number(offer.price) > 200000
+      )
+    ) {
+      setMessage({
+        type: 'error',
+        text: 'Complete each offer with a variant name and its actual INR price between 10,000 and 200,000, or remove the empty row.',
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    const cleanOffers = enteredOffers.map((offer) => ({
+      name: offer.name.trim(),
+      price: Number(offer.price),
+    }));
 
     const payload = {
       ...formData,
       specifications: cleanSpecs,
       features: cleanFeatures,
       applications: cleanApps,
+      offers: cleanOffers,
     };
 
     const url = editingId === 'new' ? '/api/products' : `/api/products/${editingId}`;
@@ -500,6 +555,58 @@ export default function AdminProductsCMS() {
               placeholder="Wastewater Aeration, Pond Aeration, Pneumatic Conveying"
               className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-transparent outline-none text-sm transition-all"
             />
+          </div>
+
+          {/* Genuine product offers */}
+          <div className="space-y-3 border-t border-gray-100 pt-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <label className="block text-[11px] font-bold text-gray-500 uppercase tracking-wider">
+                  Actual INR Prices / Variants
+                </label>
+                <p className="mt-1 text-xs text-gray-500">
+                  Add only current, genuine prices from your product catalog. Leave empty for quote-only products.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={addOffer}
+                className="flex items-center space-x-1 text-xs font-bold text-primary hover:text-accent"
+              >
+                <FaPlus size={10} /> <span>Add Offer</span>
+              </button>
+            </div>
+            {formData.offers.map((offer, index) => (
+              <div key={index} className="flex items-center gap-2">
+                <input
+                  type="text"
+                  aria-label={`Offer variant ${index + 1} name`}
+                  value={offer.name}
+                  onChange={(e) => updateOffer(index, 'name', e.target.value)}
+                  placeholder="Variant / capacity"
+                  className="w-1/2 rounded border border-gray-300 px-3 py-2 text-sm"
+                />
+                <input
+                  type="number"
+                  min="10000"
+                  max="200000"
+                  step="1"
+                  aria-label={`Offer variant ${index + 1} INR price`}
+                  value={offer.price}
+                  onChange={(e) => updateOffer(index, 'price', e.target.value)}
+                  placeholder="INR price"
+                  className="w-1/2 rounded border border-gray-300 px-3 py-2 text-sm"
+                />
+                <button
+                  type="button"
+                  onClick={() => removeOffer(index)}
+                  aria-label={`Remove offer variant ${index + 1}`}
+                  className="p-2 text-red-500 hover:text-red-700"
+                >
+                  <FaTrash size={14} />
+                </button>
+              </div>
+            ))}
           </div>
 
           {/* Images Upload */}

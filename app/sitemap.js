@@ -2,7 +2,7 @@ import connectDB from '@/lib/db';
 import Product from '@/models/Product';
 import Blog from '@/models/Blog';
 
-export const revalidate = 86400; // Revalidate sitemap daily
+export const dynamic = 'force-dynamic';
 
 export default async function sitemap() {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
@@ -24,31 +24,30 @@ export default async function sitemap() {
     priority,
   }));
 
-  try {
-    await connectDB();
+  await connectDB();
 
-    // Query products
-    const products = await Product.find({ status: 'published' }).lean();
-    const productRoutes = products.map((p) => ({
-      url: `${baseUrl}/products/${p.slug}`,
-      lastModified: p.updatedAt ? new Date(p.updatedAt) : currentDate,
-      changeFrequency: 'daily',
-      priority: 0.8,
-    }));
+  const [products, blogs] = await Promise.all([
+    Product.find({ status: 'published', slug: { $type: 'string', $ne: '' } })
+      .select('slug updatedAt')
+      .lean(),
+    Blog.find({ status: 'published', slug: { $type: 'string', $ne: '' } })
+      .select('slug updatedAt')
+      .lean(),
+  ]);
 
-    // Query blogs
-    const blogs = await Blog.find({ status: 'published' }).lean();
-    const blogRoutes = blogs.map((b) => ({
-      url: `${baseUrl}/blogs/${b.slug}`,
-      lastModified: b.updatedAt ? new Date(b.updatedAt) : currentDate,
-      changeFrequency: 'daily',
-      priority: 0.7,
-    }));
+  const productRoutes = products.map((product) => ({
+    url: `${baseUrl}/products/${product.slug}`,
+    lastModified: product.updatedAt ? new Date(product.updatedAt) : currentDate,
+    changeFrequency: 'daily',
+    priority: 0.8,
+  }));
 
-    return [...staticRoutes, ...productRoutes, ...blogRoutes];
-  } catch (error) {
-    console.error('Sitemap generator error:', error);
-    return staticRoutes;
-  }
+  const blogRoutes = blogs.map((blog) => ({
+    url: `${baseUrl}/blogs/${blog.slug}`,
+    lastModified: blog.updatedAt ? new Date(blog.updatedAt) : currentDate,
+    changeFrequency: 'daily',
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...productRoutes, ...blogRoutes];
 }
-
