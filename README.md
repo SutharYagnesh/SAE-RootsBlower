@@ -26,6 +26,24 @@ Manage genuine product variant prices in the admin product editor. Leave offers 
 
 To serve catalog images from Cloudflare R2, upload the WebP files in `public/images/products/` with their existing relative paths as object keys, then set `CLOUDFLARE_R2_PUBLIC_URL` to the public base URL for that bucket. Only matching product image paths are switched to R2; other images continue to use their existing source.
 
+## Importing the source product catalogue
+
+Set `MONGODB_URI` in the ignored `.env.local` file using a rotated database credential. Do not commit or paste database credentials into source files.
+
+Preview the catalogue and verify its primary images before importing:
+
+```bash
+npm run import:products -- --dry-run --verify-images
+```
+
+Run the importer to upsert the products into MongoDB, or rerun it later to refresh source descriptions, specifications, prices, images, and readable title-based slugs. Repeated titles receive category-based slugs, and previous product URLs redirect to their canonical slug:
+
+```bash
+npm run import:products
+```
+
+Product images and any linked PDFs remain at their original HTTPS URLs. Only source-linked PDF files are imported; no PDF download links were present in the scanned catalogue.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

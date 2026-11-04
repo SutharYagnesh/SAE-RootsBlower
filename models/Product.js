@@ -43,6 +43,22 @@ const ProductReviewSchema = new mongoose.Schema(
   { _id: false }
 );
 
+const ProductDocumentSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    url: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+  },
+  { _id: false }
+);
+
 const ProductSchema = new mongoose.Schema(
   {
     title: {
@@ -55,6 +71,34 @@ const ProductSchema = new mongoose.Schema(
       required: true,
       unique: true,
       lowercase: true,
+      trim: true,
+    },
+    previousSlugs: {
+      type: [String],
+      default: [],
+    },
+    sourceId: {
+      type: String,
+      unique: true,
+      sparse: true,
+      trim: true,
+    },
+    sourceUrl: {
+      type: String,
+      trim: true,
+    },
+    sourceCategory: {
+      type: String,
+      trim: true,
+    },
+    sourceCategories: [
+      {
+        type: String,
+        trim: true,
+      },
+    ],
+    sourcePrice: {
+      type: String,
       trim: true,
     },
     shortDescription: {
@@ -85,6 +129,10 @@ const ProductSchema = new mongoose.Schema(
         type: String, // Base64 encoded string
       },
     ],
+    documents: {
+      type: [ProductDocumentSchema],
+      default: [],
+    },
     offers: {
       type: [ProductOfferSchema],
       default: [],

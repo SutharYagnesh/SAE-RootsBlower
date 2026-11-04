@@ -1,5 +1,6 @@
 import connectDB from '@/lib/db';
 import Gallery from '@/models/Gallery';
+import Product from '@/models/Product';
 import GalleryClient from '@/components/GalleryClient';
 import Link from 'next/link';
 
@@ -26,7 +27,29 @@ export const dynamic = 'force-dynamic';
 
 export default async function GalleryPage() {
   await connectDB();
-  const items = await Gallery.find({}).sort({ createdAt: -1 });
+  const [galleryItems, products] = await Promise.all([
+    Gallery.find({}).sort({ createdAt: -1 }).lean(),
+    Product.find({ status: 'published' })
+      .select('title slug sourceCategory sourceCategories images createdAt')
+      .sort({ title: 1 })
+      .lean(),
+  ]);
+  const productImages = products.flatMap((product) =>
+    (product.images || [])
+      .filter((image) => typeof image === 'string' && image.trim())
+      .map((image, index) => ({
+        _id: `${product._id}-image-${index}`,
+        title: `${product.title} — Image ${index + 1}`,
+        category: product.sourceCategory || product.sourceCategories?.[0] || 'Products',
+        type: 'image',
+        image,
+        productSlug: product.slug,
+      }))
+  );
+  const items = [
+    ...galleryItems.map((item) => ({ ...item, _id: item._id.toString() })),
+    ...productImages,
+  ];
 
   return (
     <div className="flex flex-col min-h-screen bg-bg-custom">
@@ -34,9 +57,9 @@ export default async function GalleryPage() {
       <section className="bg-primary text-white py-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:30px_30px]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h1 className="text-4xl font-extrabold font-heading mb-4">Factory & Media Gallery</h1>
+          <h1 className="text-4xl font-extrabold font-heading mb-4">Product & Manufacturing Gallery</h1>
           <p className="text-white/80 text-lg max-w-2xl">
-            A visual overview of our manufacturing facilities, machining tools, and finished blower setups.
+            Explore product images from our full catalogue alongside factory, installation, and media highlights.
           </p>
         </div>
       </section>

@@ -21,7 +21,7 @@ export default async function Home() {
 
   const [products, blogs, savedSettings] = await Promise.all([
     Product.find({ status: 'published' })
-      .select('title slug shortDescription specifications images')
+      .select('title slug shortDescription specifications images sourceCategory sourceCategories sourcePrice')
       .limit(4),
     Blog.find({ status: 'published' })
       .select('title slug excerpt category featuredImage createdAt')
@@ -82,6 +82,13 @@ export default async function Home() {
     { name: 'Shant Procon', src: '/images/clients-logo/shant-procon-llp.webp' },
     { name: 'Sree Balaji', src: '/images/clients-logo/sree-balaji.webp' },
     { name: 'West Coast', src: '/images/clients-logo/west-cost-corporation.webp' },
+  ];
+
+  const productVideos = [
+    { id: 'Kf_7XA5c47U', title: 'Cast Iron Roots Blower' },
+    { id: 'CaqHhAvL5Yo', title: 'MS Roots Blower' },
+    { id: 'N-nH_PmRPDI', title: 'Roots Blower Price India' },
+    { id: 'QS4ajWhtgyY', title: 'Buy Roots Blower Online' },
   ];
 
   return (
@@ -281,7 +288,13 @@ export default async function Home() {
 
           <StaggerContainer>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {products.map((product) => (
+              {products.map((product) => {
+                const model = product.specifications.find(({ key }) =>
+                  /model|model name|model no/i.test(key)
+                );
+                const category = product.sourceCategory || product.sourceCategories?.[0];
+
+                return (
                 <StaggerItem key={product._id}>
                   <div className="bg-white border border-borders-custom rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between h-full group hover:border-accent/40">
                     <div className="p-5">
@@ -301,9 +314,19 @@ export default async function Home() {
                           <FaCogs className="w-12 h-12 text-gray-300" />
                         )}
                       </div>
+                      {category && (
+                        <span className="mb-2 inline-flex max-w-full truncate rounded-full bg-bg-custom px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-secondary">
+                          {category}
+                        </span>
+                      )}
                       <h3 className="text-base font-bold font-heading text-primary mb-2 line-clamp-1 group-hover:text-accent transition-colors">
                         {product.title}
                       </h3>
+                      {model?.value && (
+                        <p className="mb-2 text-[11px] font-semibold text-gray-500">
+                          Model: <span className="text-gray-700">{model.value}</span>
+                        </p>
+                      )}
                       <p className="text-gray-500 text-xs mb-4 line-clamp-3 leading-relaxed">
                         {product.shortDescription}
                       </p>
@@ -320,16 +343,30 @@ export default async function Home() {
                     </div>
 
                     <div className="p-5 pt-0">
-                      <Link
-                        href={`/products/${product.slug}`}
-                        className="block text-center w-full bg-primary hover:bg-accent hover:text-primary text-white font-bold py-2.5 rounded-lg text-xs transition-all duration-300 shadow-sm"
-                      >
-                        View Specifications
-                      </Link>
+                      {product.sourcePrice && (
+                        <p className="mb-3 text-center text-xs font-bold text-primary">
+                          {product.sourcePrice}
+                        </p>
+                      )}
+                      <div className="grid grid-cols-2 gap-2">
+                        <Link
+                          href={`/products/${product.slug}`}
+                          className="block rounded-lg border border-primary px-2 py-2.5 text-center text-xs font-bold text-primary transition hover:bg-primary hover:text-white"
+                        >
+                          Specifications
+                        </Link>
+                        <Link
+                          href={`/products/${product.slug}#request-quote`}
+                          className="block rounded-lg bg-accent px-2 py-2.5 text-center text-xs font-bold text-primary transition hover:bg-accent/80"
+                        >
+                          Get a Quote
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </StaggerItem>
-              ))}
+                );
+              })}
             </div>
           </StaggerContainer>
 
@@ -531,6 +568,47 @@ export default async function Home() {
                 <HomeContactForm products={JSON.parse(JSON.stringify(products))} />
               </FadeUp>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Product demonstration videos */}
+      <section className="py-20 bg-bg-custom border-t border-borders-custom">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <span className="text-secondary font-bold text-xs tracking-widest uppercase">
+              See Our Blowers in Action
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold font-heading text-primary mt-2">
+              Roots Blower Product Videos
+            </h2>
+            <p className="text-gray-500 mt-3 text-sm sm:text-base">
+              Watch product demonstrations of Shree Ambika Engineering roots blower systems.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {productVideos.map((video) => (
+              <article
+                key={video.id}
+                className="overflow-hidden rounded-xl border border-borders-custom bg-white shadow-sm"
+              >
+                <div className="aspect-video w-full bg-black">
+                  <iframe
+                    src={`https://www.youtube-nocookie.com/embed/${video.id}`}
+                    title={`${video.title} product demonstration`}
+                    className="h-full w-full"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                </div>
+                <h3 className="px-4 py-4 font-heading text-sm font-bold text-primary">
+                  {video.title}
+                </h3>
+              </article>
+            ))}
           </div>
         </div>
       </section>

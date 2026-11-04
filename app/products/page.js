@@ -2,6 +2,7 @@ import connectDB from '@/lib/db';
 import Product from '@/models/Product';
 import Gallery from '@/models/Gallery';
 import Link from 'next/link';
+import ProductsCatalog from '@/components/ProductsCatalog';
 import ImageCarousel from '@/components/ImageCarousel';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
@@ -27,7 +28,7 @@ export const dynamic = 'force-dynamic';
 export default async function ProductsPage() {
   await connectDB();
   const products = await Product.find({ status: 'published' })
-    .select('title slug shortDescription specifications images')
+    .select('title slug shortDescription specifications images sourceCategory sourceCategories sourcePrice')
     .sort({ createdAt: -1 });
 
   // Fetch gallery items for the Product Page Carousel
@@ -46,83 +47,32 @@ export default async function ProductsPage() {
           <p className="text-white/80 text-lg max-w-2xl">
             High-efficiency Twin Lobe Blowers, Tri Lobe Blowers & Positive Displacement Blower Systems. Request a competitive Roots Blower price & quotation.
           </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Link
+              href="#product-results"
+              className="rounded-lg bg-accent px-6 py-3 text-sm font-bold text-primary transition hover:bg-accent/85"
+            >
+              Browse Products
+            </Link>
+            <Link
+              href="/contact"
+              className="rounded-lg border border-white/40 px-6 py-3 text-sm font-bold text-white transition hover:bg-white hover:text-primary"
+            >
+              Contact Sales
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* Product Grid */}
-      <section className="py-20">
+      <section id="product-results" className="scroll-mt-28 py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {products.length === 0 ? (
-            <div className="text-center py-16 bg-white border border-borders-custom rounded-xl">
-              <p className="text-gray-500">No products published yet. Seed the database to view sample products.</p>
-              <Link
-                href="/api/seed"
-                className="mt-4 bg-primary text-white px-6 py-2.5 rounded hover:bg-accent hover:text-primary transition-colors inline-block"
-              >
-                Run Database Seeder
-              </Link>
+            <div className="rounded-xl border border-borders-custom bg-white py-16 text-center text-gray-500">
+              No published products are available yet.
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {products.map((product) => (
-                <div
-                  key={product._id}
-                  className="bg-white border border-borders-custom rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group"
-                >
-                  <div className="p-6">
-                    <div className="aspect-video w-full bg-gray-100 rounded-lg flex items-center justify-center mb-6 overflow-hidden border border-gray-150 relative">
-                      {product.images && product.images[0] ? (
-                        /* eslint-disable-next-line @next/next/no-img-element */
-                        <img
-                          src={product.images[0]}
-                          alt={`${product.title} - Industrial Roots Blower Supplier in India`}
-                          width={490}
-                          height={500}
-                          loading="lazy"
-                          className="object-contain h-full w-full p-4 group-hover:scale-105 transition-transform duration-300"
-                        />
-                      ) : (
-                        <svg
-                          className="w-12 h-12 text-gray-300"
-                          viewBox="0 0 100 100"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <circle cx="50" cy="50" r="24" stroke="currentColor" strokeWidth="6" strokeDasharray="12 6" />
-                        </svg>
-                      )}
-                    </div>
-
-                    <h3 className="text-xl font-bold font-heading text-primary mb-2 group-hover:text-accent transition-colors">
-                      {product.title}
-                    </h3>
-                    <p className="text-gray-500 text-sm mb-4 line-clamp-3">
-                      {product.shortDescription}
-                    </p>
-
-                    {/* Specifications List */}
-                    <div className="border-t border-gray-100 pt-4 space-y-2">
-                      <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Key Specifications</h4>
-                      {product.specifications.slice(0, 4).map((spec, sIdx) => (
-                        <div key={sIdx} className="flex justify-between text-xs py-1 border-b border-gray-50 last:border-0">
-                          <span className="text-gray-450">{spec.key}:</span>
-                          <span className="font-semibold text-gray-700">{spec.value}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="p-6 pt-0">
-                    <Link
-                      href={`/products/${product.slug}`}
-                      className="block text-center w-full bg-primary hover:bg-accent hover:text-primary text-white font-bold py-3 rounded-md text-sm transition-all duration-300 hover:scale-[1.02] shadow-sm cursor-pointer"
-                    >
-                      View Specifications & Quote
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <ProductsCatalog products={JSON.parse(JSON.stringify(products))} />
           )}
         </div>
       </section>

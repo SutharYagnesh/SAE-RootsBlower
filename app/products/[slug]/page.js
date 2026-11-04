@@ -1,14 +1,21 @@
 import connectDB from '@/lib/db';
 import Product from '@/models/Product';
-import { notFound } from 'next/navigation';
+import Settings from '@/models/Settings';
+import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
 import ProductInquiryForm from '@/components/ProductInquiryForm';
 import ProductImageGallery from '@/components/ProductImageGallery';
-import { FaCheck, FaIndustry, FaInfoCircle, FaFileAlt } from 'react-icons/fa';
+import { FaCheck, FaIndustry, FaInfoCircle, FaFileAlt, FaPhoneAlt, FaWhatsapp } from 'react-icons/fa';
 
 export const dynamic = 'force-dynamic';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
+
+function findProductBySlugOrAlias(slug) {
+  return Product.findOne({
+    $or: [{ slug }, { previousSlugs: slug }],
+  });
+}
 
 function getProductImageUrl(image) {
   if (typeof image !== 'string' || !image) {
@@ -49,7 +56,7 @@ function getAbsoluteHttpImageUrls(images) {
 export async function generateMetadata({ params }) {
   await connectDB();
   const { slug } = await params;
-  const product = await Product.findOne({ slug });
+  const product = await findProductBySlugOrAlias(slug);
 
   if (!product) {
     return { title: 'Product Not Found' };
@@ -87,9 +94,12 @@ export default async function ProductDetailPage({ params }) {
   await connectDB();
   const { slug } = await params;
 
-  const product = await Product.findOne({ slug });
+  const product = await findProductBySlugOrAlias(slug);
   if (!product) {
     notFound();
+  }
+  if (product.slug !== slug) {
+    redirect(`/products/${product.slug}`);
   }
 
   const canonical = new URL(`/products/${product.slug}`, siteUrl).toString();
@@ -123,6 +133,7 @@ export default async function ProductDetailPage({ params }) {
     '@type': 'Product',
     name: product.title,
     description: product.shortDescription,
+    ...(product.sourceCategory ? { category: product.sourceCategory } : {}),
     brand: {
       '@type': 'Brand',
       name: 'SAE Roots Blower',
@@ -210,12 +221,27 @@ export default async function ProductDetailPage({ params }) {
   });
 
   // Fetch related products
-  const relatedProducts = await Product.find({
+  const relatedFilter = {
     status: 'published',
     _id: { $ne: product._id },
-  })
-    .select('title slug shortDescription')
-    .limit(3);
+    ...(product.sourceCategory
+      ? {
+          $or: [
+            { sourceCategory: product.sourceCategory },
+            { sourceCategories: product.sourceCategory },
+          ],
+        }
+      : {}),
+  };
+  const [relatedProducts, contactSettings] = await Promise.all([
+    Product.find(relatedFilter).select('title slug shortDescription images').limit(3).lean(),
+    Settings.findOne({}).select('phone whatsappNumber').lean(),
+  ]);
+  const salesPhone = contactSettings?.phone?.split(',')[0].trim() || '+91 63545 86037';
+  const whatsappNumber = (contactSettings?.whatsappNumber || '+916354586037').replace(/\D/g, '');
+  const whatsappText = encodeURIComponent(
+    `Hello, I am interested in ${product.title}. Please share details and a quotation.`
+  );
 
   return (
     <div className="bg-bg-custom min-h-screen pb-20">
@@ -263,17 +289,41 @@ export default async function ProductDetailPage({ params }) {
                       )}
                     </>
                   ) : (
-                    <p className="text-sm font-semibold text-gray-600">
-                      Pricing available on request
-                    </p>
+                    product.sourcePrice ? (
+                      <p className="text-sm font-semibold text-gray-600">
+                        Approx. price from source listing: {product.sourcePrice}
+                      </p>
+                    ) : (
+                      <p className="text-sm font-semibold text-gray-600">
+                        Pricing available on request
+                      </p>
+                    )
                   )}
                 </div>
-                <Link
-                  href="#request-quote"
-                  className="inline-flex items-center justify-center rounded-md bg-accent px-6 py-3 text-sm font-bold text-primary shadow transition-colors hover:bg-accent/90"
-                >
-                  Request a Quote
-                </Link>
+                <div className="flex flex-wrap gap-2">
+                  <Link
+                    href="#request-quote"
+                    className="inline-flex items-center justify-center rounded-md bg-accent px-5 py-3 text-sm font-bold text-primary shadow transition-colors hover:bg-accent/90"
+                  >
+                    Get a Quote
+                  </Link>
+                  <a
+                    href={`tel:${salesPhone.replace(/[^\d+]/g, '')}`}
+                    className="inline-flex items-center justify-center gap-2 rounded-md border border-primary px-4 py-3 text-sm font-bold text-primary transition-colors hover:bg-primary hover:text-white"
+                  >
+                    <FaPhoneAlt aria-hidden="true" size={13} />
+                    Call Sales
+                  </a>
+                  <a
+                    href={`https://wa.me/${whatsappNumber}?text=${whatsappText}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-md bg-[#25D366] px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-[#20ba5a]"
+                  >
+                    <FaWhatsapp aria-hidden="true" size={16} />
+                    WhatsApp
+                  </a>
+                </div>
               </div>
 
               <ProductImageGallery images={productImages} productTitle={product.title} />
@@ -333,6 +383,29 @@ export default async function ProductDetailPage({ params }) {
               </div>
             )}
 
+            {product.documents && product.documents.length > 0 && (
+              <div className="bg-white p-6 sm:p-8 rounded-xl border border-borders-custom shadow-sm space-y-4">
+                <h3 className="text-lg font-bold font-heading text-primary flex items-center space-x-2">
+                  <FaFileAlt className="text-secondary" />
+                  <span>Product Documents</span>
+                </h3>
+                <ul className="space-y-2 text-sm">
+                  {product.documents.map((document) => (
+                    <li key={document.url}>
+                      <a
+                        href={document.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium text-primary underline-offset-2 hover:text-accent hover:underline"
+                      >
+                        {document.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             {/* Applications */}
             {product.applications && product.applications.length > 0 && (
               <div className="bg-white p-6 sm:p-8 rounded-xl border border-borders-custom shadow-sm space-y-4">
@@ -369,14 +442,30 @@ export default async function ProductDetailPage({ params }) {
                     <Link
                       key={rel._id}
                       href={`/products/${rel.slug}`}
-                      className="block group hover:bg-bg-custom p-3 rounded-lg border border-transparent hover:border-borders-custom transition-all"
+                      className="flex items-center gap-3 rounded-lg border border-transparent p-3 transition-all hover:border-borders-custom hover:bg-bg-custom"
                     >
-                      <h4 className="font-heading font-bold text-sm text-primary group-hover:text-accent transition-colors line-clamp-1">
-                        {rel.title}
-                      </h4>
-                      <p className="text-gray-500 text-xs mt-1 line-clamp-2">
-                        {rel.shortDescription}
-                      </p>
+                      {rel.images?.[0] && (
+                        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-md bg-white p-1">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={rel.images[0]}
+                            alt=""
+                            width={64}
+                            height={64}
+                            loading="lazy"
+                            decoding="async"
+                            className="h-full w-full object-contain"
+                          />
+                        </div>
+                      )}
+                      <div className="min-w-0">
+                        <h4 className="line-clamp-1 text-sm font-bold font-heading text-primary transition-colors group-hover:text-accent">
+                          {rel.title}
+                        </h4>
+                        <p className="mt-1 line-clamp-2 text-xs text-gray-500">
+                          {rel.shortDescription}
+                        </p>
+                      </div>
                     </Link>
                   ))}
                 </div>
