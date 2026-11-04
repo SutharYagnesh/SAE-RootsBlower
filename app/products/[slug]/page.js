@@ -127,6 +127,7 @@ export default async function ProductDetailPage({ params }) {
       review.datePublished &&
       !Number.isNaN(new Date(review.datePublished).getTime())
   );
+  const hasProductRichResultData = offers.length > 0 || reviews.length > 0;
   const prices = offers.map((offer) => Number(offer.price));
   const productSchema = {
     '@context': 'https://schema.org',
@@ -475,13 +476,14 @@ export default async function ProductDetailPage({ params }) {
         </div>
       </div>
 
-      {/* JSON-LD is rendered once on the server for this product page. */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(productSchema).replace(/</g, '\\u003c'),
-        }}
-      />
+      {hasProductRichResultData && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(productSchema).replace(/</g, '\\u003c'),
+          }}
+        />
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
