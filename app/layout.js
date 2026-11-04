@@ -7,6 +7,7 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 import CallButton from '@/components/CallButton';
 import connectDB from '@/lib/db';
 import Settings from '@/models/Settings';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const dynamic = 'force-dynamic';
 
@@ -183,6 +184,7 @@ export default function RootLayout({ children }) {
           <WhatsAppButton />
           <CallButton />
         </div>
+        <SpeedInsights />
       </body>
     </html>
   );
