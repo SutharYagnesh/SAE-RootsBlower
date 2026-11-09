@@ -196,6 +196,38 @@ export default async function ProductDetailPage({ params }) {
         }
       : {}),
   };
+  const productFaqs = [
+    {
+      question: `What is the warranty and expected design lifespan of the ${product.title}?`,
+      answer: `Shree Ambika Engineering provides a comprehensive 12-month manufacturer warranty. Built with precision CNC-machined alloy steel timing gears and heavy-duty spherical roller bearings, our blowers feature an operating design lifespan exceeding 50,000 hours with standard preventative maintenance.`,
+    },
+    {
+      question: `Is the air delivered by ${product.title} 100% oil-free?`,
+      answer: `Yes. All SAE positive displacement Roots blowers guarantee 100% oil-free air delivery certified for sensitive processes such as biological wastewater aeration, food powder conveying, and cleanroom air systems. Dual labyrinth seals and atmospheric breather vents physically isolate gear oil from the compression chamber.`,
+    },
+    {
+      question: `Can ${product.title} be exported to Dubai, UAE, Saudi Arabia, and other GCC countries?`,
+      answer: `Yes, SAE actively exports across the Middle East. We equip units with dual 50Hz/60Hz motors, IP55/IP65 ingress protection, and high-ambient heat dissipation jackets tested for 50°C+ ambient temperatures. Shipments include Certificate of Origin, SASO/Saber compliance, and sea-worthy export crating directly to Jebel Ali and Dammam ports.`,
+    },
+    {
+      question: `What is the standard delivery timeline for ${product.title}?`,
+      answer: `Standard bare-shaft and skid-mounted configurations are stocked for immediate dispatch (within 24 to 48 hours) from our Vatva GIDC facility in Ahmedabad. Customized assemblies and export orders are dispatched within 7 to 10 working days.`,
+    },
+  ];
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: productFaqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
+
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -426,6 +458,27 @@ export default async function ProductDetailPage({ params }) {
                 </div>
               </div>
             )}
+
+            {/* Product Technical FAQs */}
+            <div className="bg-white p-6 sm:p-8 rounded-xl border border-borders-custom shadow-sm space-y-6">
+              <h3 className="text-lg font-bold font-heading text-primary flex items-center space-x-2">
+                <FaInfoCircle className="text-accent" />
+                <span>Frequently Asked Technical Questions</span>
+              </h3>
+              <div className="space-y-4">
+                {productFaqs.map((faq, index) => (
+                  <div key={index} className="bg-bg-custom/40 border border-borders-custom/60 rounded-lg p-4 space-y-1.5">
+                    <h4 className="text-sm font-bold font-heading text-primary flex items-start space-x-2">
+                      <span className="text-accent font-extrabold">Q:</span>
+                      <span>{faq.question}</span>
+                    </h4>
+                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed pl-5">
+                      {faq.answer}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Right Column: Inquiry Form & Related Products */}
@@ -488,6 +541,12 @@ export default async function ProductDetailPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c'),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema).replace(/</g, '\\u003c'),
         }}
       />
     </div>

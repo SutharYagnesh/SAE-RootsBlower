@@ -1,6 +1,8 @@
 import connectDB from '@/lib/db';
 import Product from '@/models/Product';
 import Blog from '@/models/Blog';
+import { applicationsList } from '@/lib/applicationsData';
+import { locationsList } from '@/lib/locationsData';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,6 +15,7 @@ export default async function sitemap() {
     { route: '', priority: 1.0 },
     { route: '/products', priority: 0.9 },
     { route: '/applications', priority: 0.8 },
+    { route: '/locations', priority: 0.8 },
     { route: '/about', priority: 0.8 },
     { route: '/gallery', priority: 0.7 },
     { route: '/blogs', priority: 0.7 },
@@ -22,6 +25,22 @@ export default async function sitemap() {
     lastModified: currentDate,
     changeFrequency: 'daily',
     priority,
+  }));
+
+  // Dynamic application vertical pages
+  const applicationRoutes = applicationsList.map((app) => ({
+    url: `${baseUrl}/applications/${app.slug}`,
+    lastModified: currentDate,
+    changeFrequency: 'daily',
+    priority: 0.85,
+  }));
+
+  // Dynamic location landing pages (India & International)
+  const locationRoutes = locationsList.map((loc) => ({
+    url: `${baseUrl}/locations/${loc.region}/${loc.city}`,
+    lastModified: currentDate,
+    changeFrequency: 'daily',
+    priority: 0.85,
   }));
 
   await connectDB();
@@ -39,15 +58,15 @@ export default async function sitemap() {
     url: `${baseUrl}/products/${product.slug}`,
     lastModified: product.updatedAt ? new Date(product.updatedAt) : currentDate,
     changeFrequency: 'daily',
-    priority: 0.8,
+    priority: 0.9,
   }));
 
   const blogRoutes = blogs.map((blog) => ({
     url: `${baseUrl}/blogs/${blog.slug}`,
     lastModified: blog.updatedAt ? new Date(blog.updatedAt) : currentDate,
     changeFrequency: 'daily',
-    priority: 0.7,
+    priority: 0.75,
   }));
 
-  return [...staticRoutes, ...productRoutes, ...blogRoutes];
+  return [...staticRoutes, ...applicationRoutes, ...locationRoutes, ...productRoutes, ...blogRoutes];
 }

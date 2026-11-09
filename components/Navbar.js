@@ -65,16 +65,17 @@ export default function Navbar() {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Products', path: '/products' },
+    { name: 'Applications', path: '/applications' },
+    { name: 'Supply Hubs', path: '/locations' },
     {
       name: 'Company',
       dropdown: [
         { name: 'About Us', path: '/about' },
-        { name: 'Blogs', path: '/blogs' },
-        { name: 'Contact', path: '/contact' },
+        { name: 'Insights & Blogs', path: '/blogs' },
+        { name: 'Photo & Video Gallery', path: '/gallery' },
+        { name: 'Contact Us', path: '/contact' },
       ],
     },
-    { name: 'Applications', path: '/applications' },
-    { name: 'Gallery', path: '/gallery' },
   ];
 
   const isActive = (path) => {

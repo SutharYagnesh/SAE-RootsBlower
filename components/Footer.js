@@ -139,7 +139,12 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/applications" className="hover:text-accent hover:underline transition-colors">
-                  Applications
+                  Industrial Applications
+                </Link>
+              </li>
+              <li>
+                <Link href="/locations" className="hover:text-accent hover:underline transition-colors">
+                  Supply Network (India & GCC)
                 </Link>
               </li>
               <li>
@@ -149,7 +154,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/blogs" className="hover:text-accent hover:underline transition-colors">
-                  Insights & Blogs
+                  Insights & Buyer Guides
                 </Link>
               </li>
             </ul>
@@ -160,25 +165,40 @@ export default function Footer() {
             <h3 className="text-lg font-semibold font-heading mb-6 pb-2 border-b border-white/10 inline-block text-accent">
               Our Products
             </h3>
-            <ul className="space-y-3 text-sm text-white/70">
+            <ul className="space-y-2.5 text-sm text-white/70">
               <li>
                 <Link href="/products/twin-lobe-roots-blower" className="hover:text-accent hover:underline transition-colors">
                   Twin Lobe Roots Blower
                 </Link>
               </li>
               <li>
-                <Link href="/products/tri-lobe-roots-blower" className="hover:text-accent hover:underline transition-colors">
-                  Tri Lobe Roots Blower
+                <Link href="/products/water-treatment-plant-roots-blower" className="hover:text-accent hover:underline transition-colors">
+                  Water Treatment Plant Blower
+                </Link>
+              </li>
+              <li>
+                <Link href="/products/cement-bulker-unloading-system" className="hover:text-accent hover:underline transition-colors">
+                  Cement Bulker Unloading System
+                </Link>
+              </li>
+              <li>
+                <Link href="/products/roots-blower-motors" className="hover:text-accent hover:underline transition-colors">
+                  Roots Blower Motors (IE3/IE4)
+                </Link>
+              </li>
+              <li>
+                <Link href="/products/pneumatic-conveying-system" className="hover:text-accent hover:underline transition-colors">
+                  Pneumatic Conveying Systems
                 </Link>
               </li>
               <li>
                 <Link href="/products/water-cooled-roots-blower" className="hover:text-accent hover:underline transition-colors">
-                  Water Cooled Blower
+                  Water Cooled Roots Blower
                 </Link>
               </li>
               <li>
-                <Link href="/products/acoustic-hood-roots-blower-system" className="hover:text-accent hover:underline transition-colors">
-                  Acoustic Hood Blower System
+                <Link href="/products/industrial-air-blowers" className="hover:text-accent hover:underline transition-colors">
+                  Industrial Air Blowers
                 </Link>
               </li>
             </ul>
@@ -207,6 +227,52 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
+          </div>
+        </div>
+
+        {/* Global Supply & Regional Industrial Hubs */}
+        <div className="pt-8 border-t border-white/10 text-xs text-white/70 space-y-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div>
+              <h4 className="font-heading font-semibold text-accent text-sm mb-2">
+                GCC & International Export Markets:
+              </h4>
+              <p className="leading-relaxed flex flex-wrap gap-x-2 gap-y-1 text-white/60">
+                <Link href="/locations/international/dubai-uae" className="hover:text-accent underline">Dubai, UAE</Link>
+                <span>•</span>
+                <Link href="/locations/international/abu-dhabi" className="hover:text-accent underline">Abu Dhabi</Link>
+                <span>•</span>
+                <Link href="/locations/international/saudi-arabia" className="hover:text-accent underline">Saudi Arabia (KSA)</Link>
+                <span>•</span>
+                <Link href="/locations/international/riyadh" className="hover:text-accent underline">Riyadh</Link>
+                <span>•</span>
+                <Link href="/locations/international/jeddah" className="hover:text-accent underline">Jeddah</Link>
+                <span>•</span>
+                <Link href="/locations/international/qatar" className="hover:text-accent underline">Qatar (Doha)</Link>
+                <span>•</span>
+                <Link href="/locations/international/oman" className="hover:text-accent underline">Oman (Sohar)</Link>
+              </p>
+            </div>
+            <div>
+              <h4 className="font-heading font-semibold text-accent text-sm mb-2">
+                Domestic Industrial Supply Centers (India):
+              </h4>
+              <p className="leading-relaxed flex flex-wrap gap-x-2 gap-y-1 text-white/60">
+                <Link href="/locations/india/ahmedabad" className="hover:text-accent underline">Ahmedabad (Vatva GIDC)</Link>
+                <span>•</span>
+                <Link href="/locations/india/gujarat" className="hover:text-accent underline">Gujarat (Ankleshwar / Dahej)</Link>
+                <span>•</span>
+                <Link href="/locations/india/mumbai" className="hover:text-accent underline">Mumbai & Thane MIDC</Link>
+                <span>•</span>
+                <Link href="/locations/india/delhi" className="hover:text-accent underline">Delhi NCR & Faridabad</Link>
+                <span>•</span>
+                <Link href="/locations/india/chennai" className="hover:text-accent underline">Chennai & Sriperumbudur</Link>
+                <span>•</span>
+                <Link href="/locations/india/hyderabad" className="hover:text-accent underline">Hyderabad & Patancheru</Link>
+                <span>•</span>
+                <Link href="/locations/india/bangalore" className="hover:text-accent underline">Bangalore & Peenya</Link>
+              </p>
+            </div>
           </div>
         </div>
 
