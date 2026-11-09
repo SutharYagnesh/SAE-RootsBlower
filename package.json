@@ -16,6 +16,7 @@
     "import:products": "node scripts/import-products.mjs"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.4.1",
     "@vercel/speed-insights": "^2.0.0",
     "bcryptjs": "^3.0.3",
     "cheerio": "^1.2.0",
