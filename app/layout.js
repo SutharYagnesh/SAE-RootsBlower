@@ -8,6 +8,7 @@ import CallButton from '@/components/CallButton';
 import connectDB from '@/lib/db';
 import Settings from '@/models/Settings';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import Script from 'next/script';
 
 export const dynamic = 'force-dynamic';
 
@@ -164,6 +165,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} h-full antialiased overflow-x-hidden`} suppressHydrationWarning>
       <body className="overflow-x-hidden" suppressHydrationWarning>
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-9VLDYSKHTK');
+          `}
+        </Script>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-9VLDYSKHTK"
+          strategy="afterInteractive"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
