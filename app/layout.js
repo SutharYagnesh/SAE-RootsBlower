@@ -27,8 +27,8 @@ const poppins = Poppins({
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
 
 export async function generateMetadata() {
-  let metaTitle = 'Roots Blower Manufacturer in India | Shree Ambika Engineering';
-  let metaDesc = 'Shree Ambika Engineering is a leading Roots Blower Manufacturer in India offering high-performance twin lobe blowers, industrial roots blowers & positive displacement blowers.';
+  let metaTitle = 'Roots Blower Manufacturer in India | Twin Lobe & Tri Lobe | Shree Ambika Engineering';
+  let metaDesc = 'ISO 9001:2015 roots blower manufacturer in Ahmedabad, Gujarat. Twin lobe, tri lobe and water cooled blowers, 10-10,000 m3/hr. Get a quote today.';
 
   try {
     await connectDB();
@@ -41,27 +41,10 @@ export async function generateMetadata() {
     console.error('Metadata generation error:', error);
   }
 
-  const keywords = [
-    'Roots Blower Manufacturer in India',
-    'Roots Blower Manufacturer',
-    'Twin Lobe Blower Manufacturer',
-    'Roots Blower Supplier in India',
-    'Industrial Roots Blower',
-    'Positive Displacement Blower Manufacturer',
-    'Roots Blower Manufacturer in Ahmedabad',
-    'Roots Blower Manufacturer in Gujarat',
-    'Roots Blower Price in India',
-    'Roots Blower Supplier',
-    'Roots Blower Quotation',
-    'Buy Roots Blower',
-    'Shree Ambika Engineering',
-  ];
-
   return {
     metadataBase: new URL(siteUrl),
     title: metaTitle,
     description: metaDesc,
-    keywords: keywords.join(', '),
     icons: {
       icon: [
         { url: '/images/sae-logo.webp', type: 'image/webp' }
@@ -76,7 +59,7 @@ export async function generateMetadata() {
       title: metaTitle,
       description: metaDesc,
       url: siteUrl,
-      siteName: 'SAE Roots Blower',
+      siteName: 'Shree Ambika Engineering',
       images: [
         {
           url: `${siteUrl}/images/sae.png`,
@@ -98,7 +81,7 @@ export async function generateMetadata() {
       card: 'summary_large_image',
       title: metaTitle,
       description: metaDesc,
-      images: [`${siteUrl}/images/sae.png`],
+      images: [`${siteUrl}/images/sae-logo.webp`],
     },
     robots: {
       index: true,
@@ -117,14 +100,21 @@ export async function generateMetadata() {
 export default function RootLayout({ children }) {
   const organizationSchema = {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
+    '@type': ['Organization', 'LocalBusiness', 'Manufacturer'],
     '@id': `${siteUrl}/#organization`,
     name: 'Shree Ambika Engineering',
-    alternateName: 'SAE Roots Blower',
+    alternateName: 'SAE',
     url: siteUrl,
     logo: `${siteUrl}/images/sae.png`,
     image: `${siteUrl}/images/sae.png`,
-    description: 'Premier Roots Blower Manufacturer in India offering high-efficiency Twin Lobe & Tri Lobe Blowers, Vacuum Blowers, and Cement Feeding Machine Systems.',
+    description: 'Premier Roots Blower Manufacturer in India offering high-efficiency twin lobe and tri-lobe blowers, water cooled blowers, pneumatic conveying systems and cement unloading systems.',
+    foundingDate: '2011',
+    sameAs: [
+      'https://facebook.com/saerootsblower',
+      'https://linkedin.com/company/shree-ambika-engineering',
+      'https://instagram.com/saerootsblower',
+      'https://youtube.com/saerootsblower',
+    ],
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Vatva GIDC',

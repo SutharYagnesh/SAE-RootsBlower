@@ -23,7 +23,6 @@ export default function Navbar() {
     email: 'sales@saerootsblower.com',
     socialLinks: {
       facebook: 'https://facebook.com/saerootsblower',
-      twitter: 'https://twitter.com/saerootsblower',
       linkedin: 'https://linkedin.com/company/shree-ambika-engineering',
       youtube: 'https://youtube.com/saerootsblower',
       instagram: 'https://instagram.com/saerootsblower',
@@ -194,7 +193,7 @@ export default function Navbar() {
             />
             <div className="flex flex-col">
               <span className="text-white font-extrabold tracking-wide leading-none text-xs sm:text-sm md:text-base font-heading uppercase">
-                SHREE AMBIKE ENGINEERING
+                SHREE AMBIKA ENGINEERING
               </span>
               <span className="text-accent text-[8px] sm:text-[9px] font-bold tracking-widest uppercase mt-0.5">
                 Industrial Air Experts

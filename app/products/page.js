@@ -10,7 +10,6 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com'
 export const metadata = {
   title: 'Roots Blower Supplier & Price in India | Industrial Blower Catalog',
   description: 'Explore industrial roots blowers & twin lobe blowers from SAE. Request a Roots Blower quotation & competitive price in India today.',
-  keywords: 'Twin Lobe Blower Manufacturer, Industrial Roots Blower, Roots Blower Price in India, Roots Blower Supplier, Roots Blower Quotation, Buy Roots Blower',
   alternates: {
     canonical: `${siteUrl}/products`,
   },

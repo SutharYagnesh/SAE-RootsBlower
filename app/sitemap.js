@@ -17,6 +17,7 @@ export default async function sitemap() {
     { route: '/gallery', priority: 0.7 },
     { route: '/blogs', priority: 0.7 },
     { route: '/contact', priority: 0.8 },
+    { route: '/privacy-policy', priority: 0.3 },
   ].map(({ route, priority }) => ({
     url: `${baseUrl}${route}`,
     lastModified: currentDate,

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaTwitter, FaLinkedinIn, FaYoutube, FaInstagram } from 'react-icons/fa';
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaLinkedinIn, FaYoutube, FaInstagram } from 'react-icons/fa';
 
 export default function Footer() {
   const pathname = usePathname();
@@ -13,7 +13,6 @@ export default function Footer() {
     address: 'Plot No. 136, Phase 1, Nr Pushpak Industrial Estate, Vatva GIDC, Ahmedabad - 382418, Gujarat, India',
     socialLinks: {
       facebook: 'https://facebook.com/saerootsblower',
-      twitter: 'https://twitter.com/saerootsblower',
       linkedin: 'https://linkedin.com/company/shree-ambika-engineering',
       youtube: 'https://youtube.com/saerootsblower',
       instagram: 'https://instagram.com/saerootsblower',
@@ -69,17 +68,6 @@ export default function Footer() {
                   aria-label="Facebook"
                 >
                   <FaFacebookF size={16} />
-                </a>
-              )}
-              {settings.socialLinks?.twitter && (
-                <a
-                  href={settings.socialLinks.twitter}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="bg-white/10 hover:bg-accent hover:text-primary p-2.5 rounded-full transition-colors duration-300"
-                  aria-label="Twitter"
-                >
-                  <FaTwitter size={16} />
                 </a>
               )}
               {settings.socialLinks?.linkedin && (
@@ -216,12 +204,8 @@ export default function Footer() {
             &copy; {currentYear} Shree Ambika Engineering. All rights reserved.
           </p>
           <div className="flex space-x-4">
-            <Link href="/contact" className="hover:text-white transition-colors">
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">
               Privacy Policy
-            </Link>
-            <span>|</span>
-            <Link href="/admin" className="hover:text-accent font-semibold transition-colors">
-              Admin Access
             </Link>
           </div>
         </div>

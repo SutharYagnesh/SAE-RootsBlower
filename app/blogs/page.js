@@ -7,7 +7,6 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com'
 export const metadata = {
   title: 'Roots Blower Technical Guides & Engineering Insights | SAE',
   description: 'Technical articles and engineering resources on roots blower selection, aeration efficiency, and positive displacement blower maintenance.',
-  keywords: 'Roots blower technical guide, twin lobe blower design, aeration efficiency, positive displacement blower maintenance',
   alternates: {
     canonical: `${siteUrl}/blogs`,
   },

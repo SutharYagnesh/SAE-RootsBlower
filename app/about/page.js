@@ -5,7 +5,6 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com'
 export const metadata = {
   title: 'About SAE | Roots Blower Manufacturer in Ahmedabad, Gujarat',
   description: 'Shree Ambika Engineering is a leading Roots Blower Manufacturer in Ahmedabad, Gujarat, producing precision positive displacement blowers since 2011.',
-  keywords: 'Roots Blower Manufacturer in Ahmedabad, Roots Blower Manufacturer in Gujarat, Roots Blower Manufacturer, Twin Lobe Blower Manufacturer, Shree Ambika Engineering',
   alternates: {
     canonical: `${siteUrl}/about`,
   },

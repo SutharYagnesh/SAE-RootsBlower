@@ -37,7 +37,6 @@ export async function GET() {
         whatsappNumber: '+916354586037',
         socialLinks: {
           facebook: 'https://facebook.com/saerootsblower',
-          twitter: 'https://twitter.com/saerootsblower',
           linkedin: 'https://linkedin.com/company/shree-ambika-engineering',
           youtube: 'https://youtube.com/saerootsblower',
         },

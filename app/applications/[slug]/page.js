@@ -44,8 +44,8 @@ const applicationsData = {
     technicalTips: 'Water-cooled roots blowers are recommended for conveying heavy materials like cement over long distances, where continuous high back-pressures generate extreme compression heat.',
   },
   'chemical-processing': {
-    title: 'Chemical & Process Industries',
-    metaTitle: 'Chemical Plant Roots Blowers | Biogas Booster & Gas Handling',
+    title: 'Chemical Plant Roots Blowers',
+    metaTitle: 'Chemical Plant Roots Blowers | Biogas Booster & Process Gas Handling | SAE',
     metaDesc: 'Industrial rotary blowers for corrosive chemical processes, biogas boost, and industrial gas handling by Shree Ambika Engineering.',
     overview: 'Chemical reactors, gas boosters, and petrochemical processes require controlled air and gas displacement. In these settings, roots blowers are used for gas recovery, blending materials, or boosting pressures of inert gases like nitrogen.',
     requirements: [
@@ -68,6 +68,16 @@ export async function generateMetadata({ params }) {
   return {
     title: data.metaTitle,
     description: data.metaDesc,
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com'}/applications/${slug}`,
+    },
+    openGraph: {
+      title: data.metaTitle,
+      description: data.metaDesc,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com'}/applications/${slug}`,
+      siteName: 'Shree Ambika Engineering',
+      type: 'website',
+    },
   };
 }
 

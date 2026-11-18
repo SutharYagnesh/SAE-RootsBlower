@@ -9,7 +9,6 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com'
 export const metadata = {
   title: 'Roots Blower Manufacturing & Installation Gallery | SAE',
   description: 'Visual gallery of SAE roots blower manufacturing facility, CNC machining tooling, and on-site industrial installations.',
-  keywords: 'Roots blower photos, roots blower installation gallery, Shree Ambika Engineering manufacturing facility',
   alternates: {
     canonical: `${siteUrl}/gallery`,
   },

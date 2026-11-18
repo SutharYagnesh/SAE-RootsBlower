@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { FaShareAlt, FaWhatsapp, FaLinkedinIn, FaEnvelope } from 'react-icons/fa';
 
 export const dynamic = 'force-dynamic';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
 
 export async function generateMetadata({ params }) {
   await connectDB();
@@ -15,9 +16,31 @@ export async function generateMetadata({ params }) {
     return { title: 'Article Not Found' };
   }
 
+  const canonical = `${siteUrl}/blogs/${blog.slug}`;
+  const image = blog.featuredImage
+    ? new URL(blog.featuredImage, siteUrl).toString()
+    : `${siteUrl}/images/sae-logo.webp`;
+
   return {
     title: blog.seoTitle || `${blog.title} | Shree Ambika Engineering`,
     description: blog.seoDescription || blog.excerpt,
+    alternates: { canonical },
+    openGraph: {
+      title: blog.seoTitle || `${blog.title} | Shree Ambika Engineering`,
+      description: blog.seoDescription || blog.excerpt,
+      url: canonical,
+      siteName: 'Shree Ambika Engineering',
+      type: 'article',
+      publishedTime: blog.createdAt?.toISOString?.() || undefined,
+      modifiedTime: blog.updatedAt?.toISOString?.() || undefined,
+      images: [{ url: image }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: blog.seoTitle || `${blog.title} | Shree Ambika Engineering`,
+      description: blog.seoDescription || blog.excerpt,
+      images: [image],
+    },
   };
 }
 

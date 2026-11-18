@@ -37,8 +37,8 @@ export default async function Home() {
       'Plot No. 136, Phase 1, Nr Pushpak Industrial Estate, Vatva GIDC, Ahmedabad - 382418, Gujarat, India',
     googleMapEmbed:
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7346.752869004515!2d72.62734677770999!3d22.973181100000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e89b0e7cd54e5%3A0xd3ceb43cc42a6433!2sShree%20Ambika%20Engineering%2C%20Root%20blower%20manufacturer!5e0!3m2!1sen!2sus!4v1784869188802!5m2!1sen!2sus',
-    metaTitle: 'Roots Blower Manufacturer in India | Shree Ambika Engineering',
-    metaDescription: 'Shree Ambika Engineering is a leading Roots Blower Manufacturer in India offering high-performance twin lobe blowers, industrial roots blowers & positive displacement blowers.',
+    metaTitle: 'Roots Blower Manufacturer in India | Twin Lobe & Tri Lobe | Shree Ambika Engineering',
+    metaDescription: 'ISO 9001:2015 roots blower manufacturer in Ahmedabad, Gujarat. Twin lobe, tri lobe and water cooled blowers, 10-10,000 m3/hr. Get a quote today.',
   };
 
   const industries = [
@@ -65,7 +65,7 @@ export default async function Home() {
   ];
 
   const stats = [
-    { number: '10+', label: 'Years Of Experiences' },
+    { number: '15+', label: 'Years Of Experience' },
     { number: '150+', label: 'Happy Clients' },
     { number: '300+', label: 'Installations' },
     { number: '25k+', label: 'Sq. Ft. Manufacturing Area' },
@@ -257,7 +257,7 @@ export default async function Home() {
                     <div className="pt-2 flex justify-between items-center text-xs font-semibold text-primary">
                       <span className="text-secondary">Duty: Heavy-Duty Continuous</span>
                       <Link
-                        href="/products/twin-lobe-roots-blower"
+                        href="/products/cement-bulker-unloading-system"
                         className="text-primary hover:text-accent flex items-center gap-1 group-hover:translate-x-1 transition-transform"
                       >
                         Learn More <FaArrowRight size={10} />

@@ -5,7 +5,6 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com'
 export const metadata = {
   title: 'Roots Blower Applications | Sewage, Aquaculture & Pneumatic Conveying',
   description: 'Industrial applications of Roots blowers by SAE including STP & ETP aeration, pneumatic material conveying, chemical gas handling, and aquaculture oxygen supply.',
-  keywords: 'Roots blower applications, sewage aeration blower, aquaculture pond aeration, pneumatic conveying blower, industrial blower uses',
   alternates: {
     canonical: `${siteUrl}/applications`,
   },

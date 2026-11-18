@@ -159,7 +159,7 @@ ${formData.message}`;
 
         <div>
           <label htmlFor="product" className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
-            Product of Interest (Optional)
+            Product of Interest
           </label>
           <select
             id="product"
