@@ -117,7 +117,7 @@ export default function RootLayout({ children }) {
     ],
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Vatva GIDC',
+      streetAddress: 'Plot No. 136, Phase 1, Nr Pushpak Industrial Estate, Vatva GIDC',
       addressLocality: 'Ahmedabad',
       addressRegion: 'Gujarat',
       postalCode: '382418',
@@ -130,6 +130,54 @@ export default function RootLayout({ children }) {
     },
     telephone: '+91 63545 86037',
     priceRange: '₹₹₹',
+    areaServed: [
+      { '@type': 'Country', name: 'India' },
+      { '@type': 'Country', name: 'United Arab Emirates' },
+      { '@type': 'Country', name: 'Saudi Arabia' },
+      { '@type': 'Country', name: 'Qatar' },
+      { '@type': 'Country', name: 'Oman' },
+    ],
+    knowsAbout: [
+      'Roots Blowers',
+      'Twin Lobe Roots Blowers',
+      'Tri Lobe Roots Blowers',
+      'Water Cooled Blowers',
+      'Cement Bulker Unloading Systems',
+      'Pneumatic Conveying Systems',
+      'Roots Blower Motors',
+      'Sewage STP ETP Aeration Blowers',
+    ],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Roots Blowers & Pneumatic Systems',
+      itemListElement: [
+        {
+          '@type': 'OfferCatalog',
+          name: 'Twin Lobe Roots Blower',
+          url: `${siteUrl}/products/twin-lobe-roots-blower`,
+        },
+        {
+          '@type': 'OfferCatalog',
+          name: 'Water Treatment Plant Roots Blower',
+          url: `${siteUrl}/products/water-treatment-plant-roots-blower`,
+        },
+        {
+          '@type': 'OfferCatalog',
+          name: 'Cement Bulker Unloading System',
+          url: `${siteUrl}/products/cement-bulker-unloading-system`,
+        },
+        {
+          '@type': 'OfferCatalog',
+          name: 'Roots Blower Motors',
+          url: `${siteUrl}/products/roots-blower-motors`,
+        },
+        {
+          '@type': 'OfferCatalog',
+          name: 'Pneumatic Conveying System',
+          url: `${siteUrl}/products/pneumatic-conveying-system`,
+        },
+      ],
+    },
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',

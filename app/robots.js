@@ -15,6 +15,11 @@ export default function robots() {
         disallow: ['/admin/', '/api/', '/blogs?'],
       },
       {
+        userAgent: 'Bingbot',
+        allow: '/',
+        disallow: ['/admin/', '/api/'],
+      },
+      {
         userAgent: 'Google-Extended',
         allow: '/',
         disallow: ['/admin/', '/api/'],
