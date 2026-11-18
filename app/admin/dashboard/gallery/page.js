@@ -167,7 +167,7 @@ export default function AdminGalleryCMS() {
             <button
               type="button"
               onClick={() => setIsAdding(false)}
-              className="text-gray-400 hover:text-primary p-1 cursor-pointer"
+              className="text-gray-600 hover:text-primary p-1 cursor-pointer"
             >
               <FaTimes />
             </button>
@@ -227,7 +227,7 @@ export default function AdminGalleryCMS() {
                     onChange={handleImageUpload}
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                   />
-                  <div className="text-center space-y-1 text-gray-400 group-hover:text-primary transition-colors">
+                  <div className="text-center space-y-1 text-gray-600 group-hover:text-primary transition-colors">
                     <FaUpload className="mx-auto" size={18} />
                     <p className="text-[10px] font-semibold">Choose image file</p>
                   </div>
@@ -254,7 +254,7 @@ export default function AdminGalleryCMS() {
                 placeholder="e.g. https://www.youtube.com/embed/dQw4w9WgXcQ"
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-transparent outline-none text-xs transition-all"
               />
-              <p className="text-[10px] text-gray-400 mt-1 flex items-center">
+              <p className="text-[10px] text-gray-600 mt-1 flex items-center">
                 <FaLink className="mr-1" /> Use the embed url of YouTube/Vimeo (containing `/embed/` or `/video/`).
               </p>
             </div>
@@ -282,9 +282,9 @@ export default function AdminGalleryCMS() {
       {/* Media Directory listing */}
       <div className="bg-white rounded-xl border border-borders-custom p-6 shadow-sm">
         {loading ? (
-          <div className="text-center py-10 text-gray-400">Loading gallery items...</div>
+          <div className="text-center py-10 text-gray-600">Loading gallery items...</div>
         ) : items.length === 0 ? (
-          <div className="text-center py-10 text-gray-400">No media assets in library.</div>
+          <div className="text-center py-10 text-gray-600">No media assets in library.</div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-6">
             {items.map((item) => (
@@ -320,7 +320,7 @@ export default function AdminGalleryCMS() {
                     </span>
                     <span className="text-xs font-semibold text-primary truncate block">{item.title}</span>
                   </div>
-                  <div className="text-gray-400 text-xs">
+                  <div className="text-gray-600 text-xs">
                     {item.type === 'image' ? <FaImages /> : <FaVideo />}
                   </div>
                 </div>

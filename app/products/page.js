@@ -3,7 +3,7 @@ import Product from '@/models/Product';
 import Gallery from '@/models/Gallery';
 import Link from 'next/link';
 import ProductsCatalog from '@/components/ProductsCatalog';
-import ImageCarousel from '@/components/ImageCarousel';
+import LazyImageCarousel from '@/components/LazyImageCarousel';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
 
@@ -92,7 +92,7 @@ export default async function ProductsPage() {
               </p>
             </div>
 
-            <ImageCarousel items={JSON.parse(JSON.stringify(galleryItems))} />
+            <LazyImageCarousel items={JSON.parse(JSON.stringify(galleryItems))} />
           </div>
         </section>
       )}

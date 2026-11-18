@@ -2,6 +2,7 @@
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import Image from 'next/image';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -47,15 +48,26 @@ export default function ImageCarousel({ items }) {
           <SwiperSlide key={item._id || idx}>
             <div className="bg-white rounded-2xl overflow-hidden border border-borders-custom hover:border-accent/40 shadow-sm hover:shadow-lg transition-all duration-300 group flex flex-col h-[320px]">
               <div className="relative flex-grow overflow-hidden bg-gray-100">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  width={640}
-                  height={480}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
+                {item.image?.startsWith('/') ? (
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                ) : (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    width={640}
+                    height={480}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                )}
                 <span className="absolute top-3 left-3 bg-primary/95 backdrop-blur-sm text-white font-semibold px-3 py-1 rounded-full text-[10px] uppercase tracking-wider shadow-sm">
                   {item.category}
                 </span>

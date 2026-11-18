@@ -141,7 +141,7 @@ export default function AdminSettingsCMS() {
   };
 
   if (loading) {
-    return <div className="text-center py-10 text-gray-400">Loading website configuration...</div>;
+    return <div className="text-center py-10 text-gray-600">Loading website configuration...</div>;
   }
 
   return (
@@ -330,7 +330,7 @@ export default function AdminSettingsCMS() {
                     onChange={handleLogoUpload}
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                   />
-                  <span className="text-[10px] text-gray-400 font-semibold text-center group-hover:text-primary">
+                  <span className="text-[10px] text-gray-600 font-semibold text-center group-hover:text-primary">
                     Upload Logo
                   </span>
                 </div>
@@ -363,7 +363,7 @@ export default function AdminSettingsCMS() {
                     onChange={handleFaviconUpload}
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                   />
-                  <span className="text-[10px] text-gray-400 font-semibold text-center group-hover:text-primary">
+                  <span className="text-[10px] text-gray-600 font-semibold text-center group-hover:text-primary">
                     Upload Favicon
                   </span>
                 </div>

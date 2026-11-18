@@ -3,6 +3,7 @@ import Product from '@/models/Product';
 import Settings from '@/models/Settings';
 import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import ProductInquiryForm from '@/components/ProductInquiryForm';
 import ProductImageGallery from '@/components/ProductImageGallery';
 import { FaCheck, FaIndustry, FaInfoCircle, FaFileAlt, FaPhoneAlt, FaWhatsapp } from 'react-icons/fa';
@@ -500,16 +501,28 @@ export default async function ProductDetailPage({ params }) {
                     >
                       {rel.images?.[0] && (
                         <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-md bg-white p-1">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={rel.images[0]}
-                            alt=""
-                            width={64}
-                            height={64}
-                            loading="lazy"
-                            decoding="async"
-                            className="h-full w-full object-contain"
-                          />
+                          {rel.images[0].startsWith('/') ? (
+                            <Image
+                              src={rel.images[0]}
+                              alt=""
+                              width={64}
+                              height={64}
+                              sizes="64px"
+                              loading="lazy"
+                              className="h-full w-full object-contain"
+                            />
+                          ) : (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={rel.images[0]}
+                              alt=""
+                              width={64}
+                              height={64}
+                              loading="lazy"
+                              decoding="async"
+                              className="h-full w-full object-contain"
+                            />
+                          )}
                         </div>
                       )}
                       <div className="min-w-0">

@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 function ContentWrapper({ children }) {
   return <div>{children}</div>;
 }
@@ -40,13 +42,13 @@ export function ClientTicker({ items = [] }) {
               key={idx}
               className="inline-flex h-20 w-44 items-center justify-center p-4 bg-white rounded-xl border border-borders-custom shadow-sm hover:border-accent hover:shadow-md transition-all duration-300 group"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={logo.src}
                 alt={`${logo.name} logo`}
                 width={144}
                 height={48}
                 loading="lazy"
+                sizes="144px"
                 className="max-h-full max-w-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
               />
             </div>

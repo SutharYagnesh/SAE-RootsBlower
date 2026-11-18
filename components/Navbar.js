@@ -9,11 +9,11 @@ import {
   FaPhoneAlt,
   FaEnvelope,
   FaFacebookF,
-  FaTwitter,
   FaLinkedinIn,
   FaYoutube,
   FaInstagram,
 } from 'react-icons/fa';
+import Image from 'next/image';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,11 +55,6 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Close mobile menu when route changes
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -113,7 +108,7 @@ export default function Navbar() {
                 href={`tel:${displayPhone.replace(/\s+/g, '')}`}
                 className="flex items-center space-x-2 hover:text-accent transition-colors font-medium"
               >
-                <FaPhoneAlt size={10} className="text-accent" />
+                <FaPhoneAlt aria-hidden="true" size={10} className="text-accent" />
                 <span>{displayPhone}</span>
               </a>
             )}
@@ -122,7 +117,7 @@ export default function Navbar() {
                 href={`mailto:${settings.email}`}
                 className="flex items-center space-x-2 hover:text-accent transition-colors font-medium"
               >
-                <FaEnvelope size={10} className="text-accent" />
+                <FaEnvelope aria-hidden="true" size={10} className="text-accent" />
                 <span>{settings.email}</span>
               </a>
             )}
@@ -138,7 +133,7 @@ export default function Navbar() {
                 className="hover:text-accent text-white/80 transition-colors"
                 aria-label="LinkedIn"
               >
-                <FaLinkedinIn size={12} />
+                <FaLinkedinIn aria-hidden="true" size={12} />
               </a>
             )}
             {settings.socialLinks?.facebook && (
@@ -149,7 +144,7 @@ export default function Navbar() {
                 className="hover:text-accent text-white/80 transition-colors"
                 aria-label="Facebook"
               >
-                <FaFacebookF size={12} />
+                <FaFacebookF aria-hidden="true" size={12} />
               </a>
             )}
             <a
@@ -159,7 +154,7 @@ export default function Navbar() {
               className="hover:text-accent text-white/80 transition-colors"
               aria-label="Instagram"
             >
-              <FaInstagram size={12} />
+              <FaInstagram aria-hidden="true" size={12} />
             </a>
             {settings.socialLinks?.youtube && (
               <a
@@ -169,7 +164,7 @@ export default function Navbar() {
                 className="hover:text-accent text-white/80 transition-colors"
                 aria-label="YouTube"
               >
-                <FaYoutube size={12} />
+                <FaYoutube aria-hidden="true" size={12} />
               </a>
             )}
           </div>
@@ -184,12 +179,12 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo with Brand Text */}
           <Link href="/" className="flex items-center space-x-2.5 group">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src="/images/sae-logo.webp"
               alt="Shree Ambika Engineering Logo"
               width={150}
               height={104}
+              sizes="64px"
               className="h-11 w-auto bg-white/100 object-contain px-2 py-1 rounded shadow-sm group-hover:scale-102 transition-transform"
             />
             <div className="flex flex-col">
@@ -215,7 +210,7 @@ export default function Navbar() {
                         }`}
                     >
                       <span>{link.name}</span>
-                      <svg className="w-4 h-4 fill-current transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 20 20">
+                      <svg aria-hidden="true" className="w-4 h-4 fill-current transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 20 20">
                         <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                       </svg>
                     </button>
@@ -265,8 +260,10 @@ export default function Navbar() {
               type="button"
               className="text-white hover:text-accent focus:outline-none p-2"
               aria-label="Toggle menu"
+              aria-expanded={isOpen}
+              aria-controls="mobile-navigation"
             >
-              {isOpen ? <FaTimes className="h-6 w-6" /> : <FaBars className="h-6 w-6" />}
+              {isOpen ? <FaTimes aria-hidden="true" className="h-6 w-6" /> : <FaBars aria-hidden="true" className="h-6 w-6" />}
             </button>
           </div>
         </div>
@@ -274,6 +271,7 @@ export default function Navbar() {
 
       {/* Mobile Navigation Drawer */}
       <div
+        id="mobile-navigation"
         className={`md:hidden absolute top-full inset-x-0 bg-primary border-t border-white/10 shadow-lg transition-all duration-300 ease-in-out transform ${isOpen ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-4 invisible'
           }`}
       >
@@ -290,6 +288,7 @@ export default function Navbar() {
                       <Link
                         key={subLink.path}
                         href={subLink.path}
+                        onClick={() => setIsOpen(false)}
                         className={`block px-3 py-2 rounded-md text-sm font-semibold ${isActive(subLink.path)
                           ? 'bg-accent/15 text-accent'
                           : 'text-white/85 hover:bg-white/5 hover:text-white'
@@ -307,6 +306,7 @@ export default function Navbar() {
               <Link
                 key={link.path}
                 href={link.path}
+                onClick={() => setIsOpen(false)}
                 className={`block px-3 py-2.5 rounded-md text-base font-semibold ${isActive(link.path)
                   ? 'bg-accent/15 text-accent'
                   : 'text-white/85 hover:bg-white/5 hover:text-white'
@@ -319,6 +319,7 @@ export default function Navbar() {
           <div className="pt-4 px-3">
             <Link
               href="/contact"
+              onClick={() => setIsOpen(false)}
               className="block w-full text-center bg-accent hover:bg-accent/90 text-primary font-bold py-3 px-4 rounded-md transition-colors"
             >
               Get A Quote

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaLinkedinIn, FaYoutube, FaInstagram } from 'react-icons/fa';
+import Image from 'next/image';
 
 export default function Footer() {
   const pathname = usePathname();
@@ -44,13 +45,13 @@ export default function Footer() {
           {/* Column 1: About */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="/images/footer-logo.webp"
                 alt="Shree Ambika Engineering Footer Logo"
                 width={150}
                 height={104}
                 loading="lazy"
+                sizes="150px"
                 className="h-[104px] w-[150px] object-contain px-3 py-1.5 rounded shadow-sm"
               />
             </Link>
@@ -67,7 +68,7 @@ export default function Footer() {
                   className="bg-white/10 hover:bg-accent hover:text-primary p-2.5 rounded-full transition-colors duration-300"
                   aria-label="Facebook"
                 >
-                  <FaFacebookF size={16} />
+                  <FaFacebookF aria-hidden="true" size={16} />
                 </a>
               )}
               {settings.socialLinks?.linkedin && (
@@ -78,7 +79,7 @@ export default function Footer() {
                   className="bg-white/10 hover:bg-accent hover:text-primary p-2.5 rounded-full transition-colors duration-300"
                   aria-label="LinkedIn"
                 >
-                  <FaLinkedinIn size={16} />
+                  <FaLinkedinIn aria-hidden="true" size={16} />
                 </a>
               )}
               {settings.socialLinks?.youtube && (
@@ -89,7 +90,7 @@ export default function Footer() {
                   className="bg-white/10 hover:bg-accent hover:text-primary p-2.5 rounded-full transition-colors duration-300"
                   aria-label="YouTube"
                 >
-                  <FaYoutube size={16} />
+                  <FaYoutube aria-hidden="true" size={16} />
                 </a>
               )}
               <a
@@ -99,7 +100,7 @@ export default function Footer() {
                 className="bg-white/10 hover:bg-accent hover:text-primary p-2.5 rounded-full transition-colors duration-300"
                 aria-label="Instagram"
               >
-                <FaInstagram size={16} />
+                <FaInstagram aria-hidden="true" size={16} />
               </a>
             </div>
           </div>
@@ -199,17 +200,17 @@ export default function Footer() {
             </h3>
             <ul className="space-y-4 text-sm text-white/70">
               <li className="flex items-start space-x-3">
-                <FaMapMarkerAlt className="text-accent mt-1 flex-shrink-0" size={16} />
+                <FaMapMarkerAlt aria-hidden="true" className="text-accent mt-1 flex-shrink-0" size={16} />
                 <span>
                   {settings.address}
                 </span>
               </li>
               <li className="flex items-center space-x-3">
-                <FaPhoneAlt className="text-accent flex-shrink-0" size={15} />
+                <FaPhoneAlt aria-hidden="true" className="text-accent flex-shrink-0" size={15} />
                 <span>{settings.phone}</span>
               </li>
               <li className="flex items-center space-x-3">
-                <FaEnvelope className="text-accent flex-shrink-0" size={15} />
+                <FaEnvelope aria-hidden="true" className="text-accent flex-shrink-0" size={15} />
                 <a href={`mailto:${settings.email}`} className="hover:text-accent hover:underline">
                   {settings.email}
                 </a>

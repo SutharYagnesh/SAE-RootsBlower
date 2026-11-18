@@ -144,7 +144,7 @@ export default function AdminDashboardHome() {
             className="bg-white border border-borders-custom rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between"
           >
             <div className="space-y-2">
-              <span className="text-xs text-gray-400 font-semibold uppercase tracking-wider block">
+              <span className="text-xs text-gray-600 font-semibold uppercase tracking-wider block">
                 {card.title}
               </span>
               <span className="text-3xl font-extrabold font-heading text-primary block">
@@ -174,7 +174,7 @@ export default function AdminDashboardHome() {
         </div>
 
         {recentMessages.length === 0 ? (
-          <p className="text-sm text-gray-400 text-center py-6">No messages received yet.</p>
+          <p className="text-sm text-gray-600 text-center py-6">No messages received yet.</p>
         ) : (
           <div className="space-y-4">
             {recentMessages.map((msg) => (
@@ -187,12 +187,12 @@ export default function AdminDashboardHome() {
                 <div className="space-y-1">
                   <div className="flex items-center space-x-2">
                     <span className="font-semibold text-primary">{msg.name}</span>
-                    <span className="text-xs text-gray-400">({msg.email})</span>
+                    <span className="text-xs text-gray-600">({msg.email})</span>
                   </div>
                   <p className="text-xs text-gray-500">
                     Subject: <span className="font-medium text-gray-700">{msg.subject}</span>
                   </p>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-gray-600">
                     Received: {new Date(msg.createdAt).toLocaleString('en-US', {
                       month: 'short',
                       day: 'numeric',

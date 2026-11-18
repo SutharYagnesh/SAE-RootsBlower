@@ -108,11 +108,11 @@ export default async function ContactPage() {
 
                   {/* Operating Hours */}
                   <div className="flex items-start space-x-3 text-sm text-gray-600 pt-4 border-t border-gray-100">
-                    <FaClock className="text-gray-400 mt-1 flex-shrink-0" size={16} />
+                    <FaClock aria-hidden="true" className="text-gray-600 mt-1 flex-shrink-0" size={16} />
                     <div>
                       <h4 className="font-heading font-bold text-primary mb-0.5">Business Hours</h4>
                       <p>Monday - Saturday: 9:00 AM - 6:30 PM IST</p>
-                      <p className="text-xs text-gray-400 mt-0.5">Factory closed on Sundays & National Holidays</p>
+                      <p className="text-xs text-gray-600 mt-0.5">Factory closed on Sundays & National Holidays</p>
                     </div>
                   </div>
                 </div>

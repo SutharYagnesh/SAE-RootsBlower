@@ -1,6 +1,7 @@
 import connectDB from '@/lib/db';
 import Blog from '@/models/Blog';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
 
@@ -89,7 +90,16 @@ export default async function BlogsPage({ searchParams }) {
                     >
                       <div className="p-6">
                         <div className="aspect-video w-full bg-gray-150 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative border border-gray-100">
-                          {blog.featuredImage ? (
+                          {blog.featuredImage?.startsWith('/') ? (
+                            <Image
+                              src={blog.featuredImage}
+                              alt={blog.title}
+                              fill
+                              sizes="(max-width: 768px) 100vw, 33vw"
+                              loading="lazy"
+                              className="object-cover h-full w-full group-hover:scale-105 transition-transform duration-300"
+                            />
+                          ) : blog.featuredImage ? (
                             /* eslint-disable-next-line @next/next/no-img-element */
                             <img
                               src={blog.featuredImage}
@@ -100,7 +110,7 @@ export default async function BlogsPage({ searchParams }) {
                               className="object-cover h-full w-full group-hover:scale-105 transition-transform duration-300"
                             />
                           ) : (
-                            <span className="text-gray-400 text-xs">Technical Article</span>
+                            <span className="text-gray-600 text-xs">Technical Article</span>
                           )}
                         </div>
                         <span className="text-[10px] text-accent font-bold uppercase tracking-wider">
@@ -115,7 +125,7 @@ export default async function BlogsPage({ searchParams }) {
                       </div>
 
                       <div className="p-6 pt-0 flex justify-between items-center">
-                        <span className="text-[10px] text-gray-400 font-medium">
+                        <span className="text-[10px] text-gray-600 font-medium">
                           {new Date(blog.createdAt).toLocaleDateString('en-US', {
                             month: 'short',
                             day: 'numeric',
@@ -144,7 +154,9 @@ export default async function BlogsPage({ searchParams }) {
                   {activeCategory !== 'All' && (
                     <input type="hidden" name="category" value={activeCategory} />
                   )}
+                  <label htmlFor="blog-search" className="sr-only">Search blog posts</label>
                   <input
+                    id="blog-search"
                     type="text"
                     name="search"
                     defaultValue={searchQuery}

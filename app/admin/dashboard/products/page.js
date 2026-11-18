@@ -336,9 +336,9 @@ export default function AdminProductsCMS() {
           />
 
           {loading ? (
-            <div className="text-center py-10 text-gray-400">Loading catalog items...</div>
+            <div className="text-center py-10 text-gray-600">Loading catalog items...</div>
           ) : filteredProducts.length === 0 ? (
-            <div className="text-center py-10 text-gray-400">No products found.</div>
+            <div className="text-center py-10 text-gray-600">No products found.</div>
           ) : (
             <div className="overflow-x-auto text-sm">
               <table className="min-w-full divide-y divide-gray-200">
@@ -399,7 +399,7 @@ export default function AdminProductsCMS() {
             <button
               type="button"
               onClick={handleCancel}
-              className="text-gray-400 hover:text-primary p-2 cursor-pointer"
+              className="text-gray-600 hover:text-primary p-2 cursor-pointer"
             >
               <FaTimes size={18} />
             </button>
@@ -622,7 +622,7 @@ export default function AdminProductsCMS() {
                 onChange={handleImageUpload}
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
               />
-              <div className="text-center space-y-1.5 text-gray-400 group-hover:text-primary transition-colors">
+              <div className="text-center space-y-1.5 text-gray-600 group-hover:text-primary transition-colors">
                 <FaUpload className="mx-auto" size={24} />
                 <p className="text-xs font-semibold">Click or drag images to compress & upload</p>
                 <p className="text-[10px]">PNG, JPG, WEBP (Autocompressed under 100KB)</p>

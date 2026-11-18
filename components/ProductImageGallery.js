@@ -30,7 +30,7 @@ export default function ProductImageGallery({ images = [], productTitle }) {
           src={selectedImage}
           alt={`${productTitle} industrial roots blower`}
           fill
-          unoptimized
+          unoptimized={!selectedImage.startsWith('/')}
           sizes="(max-width: 768px) 100vw, 66vw"
           className="object-contain"
         />
@@ -52,7 +52,7 @@ export default function ProductImageGallery({ images = [], productTitle }) {
                 src={image}
                 alt={`${productTitle} product view ${index + 1}`}
                 fill
-                unoptimized
+                unoptimized={!image.startsWith('/')}
                 sizes="96px"
                 className="object-contain"
               />

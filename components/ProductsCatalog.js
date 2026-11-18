@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useMemo, useState } from 'react';
 import { FaArrowRight, FaCogs, FaSearch } from 'react-icons/fa';
 
@@ -44,7 +45,7 @@ export default function ProductsCatalog({ products = [] }) {
           <span className="sr-only">Search products and specifications</span>
           <FaSearch
             aria-hidden="true"
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-600"
           />
           <input
             type="search"
@@ -101,7 +102,16 @@ export default function ProductsCatalog({ products = [] }) {
                   className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-gray-50 p-5"
                   aria-label={`View ${product.title} details`}
                 >
-                  {product.images?.[0] ? (
+                  {product.images?.[0]?.startsWith('/') ? (
+                    <Image
+                      src={product.images[0]}
+                      alt={`${product.title} product`}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      loading="lazy"
+                      className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : product.images?.[0] ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={product.images[0]}

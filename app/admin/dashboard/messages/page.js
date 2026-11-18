@@ -98,9 +98,9 @@ export default function AdminMessagesCMS() {
         <div className="lg:col-span-2 space-y-4">
           <div className="bg-white rounded-xl border border-borders-custom p-6 shadow-sm">
             {loading ? (
-              <div className="text-center py-10 text-gray-400">Loading incoming messages...</div>
+              <div className="text-center py-10 text-gray-600">Loading incoming messages...</div>
             ) : messages.length === 0 ? (
-              <div className="text-center py-10 text-gray-400">No contact messages received yet.</div>
+              <div className="text-center py-10 text-gray-600">No contact messages received yet.</div>
             ) : (
               <div className="space-y-3">
                 {messages.map((msg) => (
@@ -123,7 +123,7 @@ export default function AdminMessagesCMS() {
                         )}
                       </div>
                       <p className="text-xs text-gray-500 truncate">{msg.subject}</p>
-                      <p className="text-[10px] text-gray-400">
+                      <p className="text-[10px] text-gray-600">
                         {new Date(msg.createdAt).toLocaleDateString('en-US', {
                           month: 'short',
                           day: 'numeric',
@@ -176,7 +176,7 @@ export default function AdminMessagesCMS() {
                 <button
                   type="button"
                   onClick={() => setActiveMessage(null)}
-                  className="text-gray-400 hover:text-primary p-1 cursor-pointer"
+                  className="text-gray-600 hover:text-primary p-1 cursor-pointer"
                 >
                   <FaTimes />
                 </button>
@@ -186,12 +186,12 @@ export default function AdminMessagesCMS() {
                 {/* Meta details */}
                 <div className="space-y-2">
                   <div>
-                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Sender Name</span>
+                    <span className="text-[10px] text-gray-600 font-bold uppercase tracking-wider block">Sender Name</span>
                     <span className="font-bold text-sm text-primary">{activeMessage.name}</span>
                   </div>
                   <div className="flex justify-between">
                     <div>
-                      <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Email</span>
+                      <span className="text-[10px] text-gray-600 font-bold uppercase tracking-wider block">Email</span>
                       <a
                         href={`mailto:${activeMessage.email}`}
                         className="text-primary hover:underline hover:text-accent font-semibold block truncate max-w-[150px]"
@@ -200,7 +200,7 @@ export default function AdminMessagesCMS() {
                       </a>
                     </div>
                     <div>
-                      <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Phone</span>
+                      <span className="text-[10px] text-gray-600 font-bold uppercase tracking-wider block">Phone</span>
                       <a
                         href={`tel:${activeMessage.phone}`}
                         className="text-primary hover:underline font-semibold flex items-center space-x-1"
@@ -212,14 +212,14 @@ export default function AdminMessagesCMS() {
 
                   {activeMessage.product && (
                     <div className="pt-2">
-                      <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Product Reference</span>
+                      <span className="text-[10px] text-gray-600 font-bold uppercase tracking-wider block">Product Reference</span>
                       <span className="bg-primary/5 text-primary border border-primary/10 rounded px-2.5 py-1 font-semibold inline-block mt-0.5">
                         {activeMessage.product.title}
                       </span>
                     </div>
                   )}
 
-                  <div className="flex items-center space-x-2 pt-2 text-gray-400">
+                  <div className="flex items-center space-x-2 pt-2 text-gray-600">
                     <FaCalendarAlt size={12} />
                     <span>
                       {new Date(activeMessage.createdAt).toLocaleString('en-US', {
@@ -235,7 +235,7 @@ export default function AdminMessagesCMS() {
 
                 {/* Message Body */}
                 <div className="pt-4 border-t border-gray-100 space-y-2">
-                  <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Requirement Details</span>
+                  <span className="text-[10px] text-gray-600 font-bold uppercase tracking-wider block">Requirement Details</span>
                   <div className="bg-bg-custom/60 border border-borders-custom p-4 rounded-lg text-gray-700 text-sm leading-relaxed whitespace-pre-line overflow-y-auto max-h-60">
                     {activeMessage.message}
                   </div>
@@ -262,7 +262,7 @@ export default function AdminMessagesCMS() {
             <div className="hidden lg:block bg-bg-custom/30 border border-dashed border-gray-300 rounded-xl p-8 text-center text-gray-450 sticky top-28">
               <FaEnvelope size={32} className="mx-auto text-gray-300 mb-3" />
               <p className="text-sm font-semibold">No Message Selected</p>
-              <p className="text-[11px] text-gray-400 mt-1">Select an inquiry from the listing on the left to read requirement details.</p>
+              <p className="text-[11px] text-gray-600 mt-1">Select an inquiry from the listing on the left to read requirement details.</p>
             </div>
           )}
         </div>

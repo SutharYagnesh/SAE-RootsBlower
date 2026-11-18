@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import Image from 'next/image';
 import { FaTimes, FaAngleLeft, FaAngleRight, FaVideo, FaSearch, FaExpandAlt } from 'react-icons/fa';
 
 const pageSize = 48;
@@ -66,7 +67,7 @@ export default function GalleryClient({ initialItems = [] }) {
           <span className="sr-only">Search gallery</span>
           <FaSearch
             aria-hidden="true"
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-600"
           />
           <input
             type="search"
@@ -127,16 +128,27 @@ export default function GalleryClient({ initialItems = [] }) {
               >
                 <div className="relative aspect-square overflow-hidden bg-gray-50">
                   {item.type === 'image' && item.image ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      width={500}
-                      height={500}
-                      loading="lazy"
-                      decoding="async"
-                      className="h-full w-full object-contain p-2 transition-transform duration-300 group-hover:scale-105"
-                    />
+                    item.image.startsWith('/') ? (
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                        loading="lazy"
+                        className="h-full w-full object-contain p-2 transition-transform duration-300 group-hover:scale-105"
+                      />
+                    ) : (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        width={500}
+                        height={500}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full object-contain p-2 transition-transform duration-300 group-hover:scale-105"
+                      />
+                    )
                   ) : (
                     <div className="flex h-full flex-col items-center justify-center bg-primary/10 p-4">
                       <FaVideo aria-hidden="true" className="mb-2 text-primary" size={32} />
@@ -224,18 +236,33 @@ export default function GalleryClient({ initialItems = [] }) {
           >
             {activeItem.type === 'image' && activeItem.image ? (
               <div className="max-h-[78vh] max-w-full overflow-auto">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={activeItem.image}
-                  alt={activeItem.title}
-                  width={1600}
-                  height={1200}
-                  decoding="async"
-                  onClick={() => setIsZoomed((zoomed) => !zoomed)}
-                  className={`max-h-[78vh] rounded-lg object-contain shadow-2xl transition-transform duration-200 ${
-                    isZoomed ? 'scale-150 cursor-zoom-out' : 'cursor-zoom-in'
-                  }`}
-                />
+                {activeItem.image.startsWith('/') ? (
+                  <Image
+                    src={activeItem.image}
+                    alt={activeItem.title}
+                    width={1024}
+                    height={1024}
+                    sizes="90vw"
+                    decoding="async"
+                    onClick={() => setIsZoomed((zoomed) => !zoomed)}
+                    className={`max-h-[78vh] rounded-lg object-contain shadow-2xl transition-transform duration-200 ${
+                      isZoomed ? 'scale-150 cursor-zoom-out' : 'cursor-zoom-in'
+                    }`}
+                  />
+                ) : (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={activeItem.image}
+                    alt={activeItem.title}
+                    width={1600}
+                    height={1200}
+                    decoding="async"
+                    onClick={() => setIsZoomed((zoomed) => !zoomed)}
+                    className={`max-h-[78vh] rounded-lg object-contain shadow-2xl transition-transform duration-200 ${
+                      isZoomed ? 'scale-150 cursor-zoom-out' : 'cursor-zoom-in'
+                    }`}
+                  />
+                )}
               </div>
             ) : (
               <div className="aspect-video w-full overflow-hidden rounded-lg bg-black shadow-2xl">

@@ -2,6 +2,7 @@ import connectDB from '@/lib/db';
 import Blog from '@/models/Blog';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { FaShareAlt, FaWhatsapp, FaLinkedinIn, FaEnvelope } from 'react-icons/fa';
 
 export const dynamic = 'force-dynamic';
@@ -91,7 +92,7 @@ export default async function BlogDetailPage({ params }) {
               <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-primary leading-tight">
                 {blog.title}
               </h1>
-              <div className="flex items-center text-xs text-gray-400 space-x-4 border-b border-gray-100 pb-4">
+              <div className="flex items-center text-xs text-gray-600 space-x-4 border-b border-gray-100 pb-4">
                 <span>By SAE Engineering Dept</span>
                 <span>•</span>
                 <span>
@@ -106,15 +107,25 @@ export default async function BlogDetailPage({ params }) {
 
             {/* Featured Image */}
             {blog.featuredImage && (
-              <div className="aspect-video w-full rounded-xl overflow-hidden bg-gray-50 border border-gray-100">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={blog.featuredImage}
-                  alt={blog.title}
-                  width={1200}
-                  height={675}
-                  className="w-full h-full object-cover"
-                />
+              <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-gray-50 border border-gray-100">
+                {blog.featuredImage.startsWith('/') ? (
+                  <Image
+                    src={blog.featuredImage}
+                    alt={blog.title}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 75vw"
+                    className="object-cover"
+                  />
+                ) : (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={blog.featuredImage}
+                    alt={blog.title}
+                    width={1200}
+                    height={675}
+                    className="w-full h-full object-cover"
+                  />
+                )}
               </div>
             )}
 
@@ -127,7 +138,7 @@ export default async function BlogDetailPage({ params }) {
             {/* Tags */}
             {blog.tags && blog.tags.length > 0 && (
               <div className="pt-6 border-t border-gray-100 flex flex-wrap gap-2 items-center">
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider mr-2">Tags:</span>
+                <span className="text-xs font-bold text-gray-600 uppercase tracking-wider mr-2">Tags:</span>
                 {blog.tags.map((tag, tIdx) => (
                   <span
                     key={tIdx}
@@ -141,8 +152,8 @@ export default async function BlogDetailPage({ params }) {
 
             {/* Social Share Buttons */}
             <div className="pt-6 border-t border-gray-100 flex items-center space-x-3 text-xs">
-              <span className="text-gray-400 font-bold uppercase tracking-wider flex items-center">
-                <FaShareAlt className="mr-1.5" /> Share Article:
+              <span className="text-gray-600 font-bold uppercase tracking-wider flex items-center">
+                <FaShareAlt aria-hidden="true" className="mr-1.5" /> Share Article:
               </span>
               <a
                 href={`https://api.whatsapp.com/send?text=${shareTitle}%20${shareUrl}`}
@@ -194,7 +205,7 @@ export default async function BlogDetailPage({ params }) {
                       <h4 className="font-heading font-bold text-sm text-primary group-hover:text-accent transition-colors line-clamp-2 mt-1">
                         {rec.title}
                       </h4>
-                      <span className="text-[10px] text-gray-400 block mt-1">
+                      <span className="text-[10px] text-gray-600 block mt-1">
                         {new Date(rec.createdAt).toLocaleDateString('en-US', {
                           month: 'short',
                           day: 'numeric',

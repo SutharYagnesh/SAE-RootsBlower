@@ -16,12 +16,14 @@ const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
+  display: 'swap',
 });
 
 const poppins = Poppins({
   variable: '--font-poppins',
   subsets: ['latin'],
   weight: ['600', '700', '800'],
+  display: 'swap',
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
@@ -203,7 +205,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} h-full antialiased overflow-x-hidden`} suppressHydrationWarning>
       <body className="overflow-x-hidden" suppressHydrationWarning>
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){window.dataLayer.push(arguments);}
@@ -213,7 +215,7 @@ export default function RootLayout({ children }) {
         </Script>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-9VLDYSKHTK"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
         <script
           type="application/ld+json"

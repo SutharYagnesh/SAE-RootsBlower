@@ -3,6 +3,7 @@ import Product from '@/models/Product';
 import Blog from '@/models/Blog';
 import Settings from '@/models/Settings';
 import Link from 'next/link';
+import Image from 'next/image';
 import HomeContactForm from '@/components/HomeContactForm';
 import { FaCogs, FaAward, FaShieldAlt, FaArrowRight, FaIndustry, FaCheckCircle } from 'react-icons/fa';
 import {
@@ -143,12 +144,12 @@ export default async function Home() {
                   <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-accent z-20 pointer-events-none"></div>
                   <div className="absolute bottom-14 right-3 w-8 h-8 border-b-2 border-r-2 border-accent z-20 pointer-events-none"></div>
                   <div className="relative w-full h-[320px] sm:h-[380px] lg:h-[400px] rounded-2xl overflow-hidden bg-white shadow-md flex items-center justify-center p-2">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                       src="/images/about-us/about-us-2.webp"
                       alt="Roots Blower Manufacturer in India - Shree Ambika Engineering Assembly"
-                      width={300}
-                      height={504}
+                      fill
+                      preload
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
                       className="w-full h-full object-contain hover:scale-[1.03] transition-transform duration-500"
                     />
                   </div>
@@ -234,12 +235,12 @@ export default async function Home() {
               <FadeUp delay={0.2}>
                 <div className="relative w-full max-w-[440px] bg-gradient-to-br from-bg-custom to-white p-4 sm:p-6 rounded-3xl border border-borders-custom shadow-xl group hover:shadow-2xl transition-all duration-300">
                   <div className="relative aspect-4/3 w-full rounded-2xl overflow-hidden bg-gray-100 border border-gray-200">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                       src="/images/products/cement-feeding-machine-system.webp"
                       alt="Cement Feeding Machine System - Industrial Roots Blower Manufacturer in India"
                       width={490}
                       height={500}
+                      sizes="(max-width: 1024px) 100vw, 440px"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
@@ -300,7 +301,17 @@ export default async function Home() {
                     <div className="p-5">
                       {/* Product Image */}
                       <div className="aspect-square w-full bg-gray-50 rounded-xl flex items-center justify-center mb-4 overflow-hidden border border-gray-100 p-4">
-                        {product.images && product.images[0] ? (
+                        {product.images?.[0]?.startsWith('/') ? (
+                          <Image
+                            src={product.images[0]}
+                            alt={`${product.title} - Roots Blower Manufacturer in India`}
+                            width={490}
+                            height={500}
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                            className="object-contain max-h-full max-w-full group-hover:scale-105 transition-transform duration-300"
+                            loading="lazy"
+                          />
+                        ) : product.images?.[0] ? (
                           /* eslint-disable-next-line @next/next/no-img-element */
                           <img
                             src={product.images[0]}
@@ -335,7 +346,7 @@ export default async function Home() {
                       <div className="border-t border-gray-100 pt-3 space-y-1.5">
                         {product.specifications.slice(0, 3).map((spec, sIdx) => (
                           <div key={sIdx} className="flex justify-between text-[11px] py-0.5">
-                            <span className="text-gray-400 font-medium">{spec.key}:</span>
+                            <span className="text-gray-600 font-medium">{spec.key}:</span>
                             <span className="font-semibold text-gray-700">{spec.value}</span>
                           </div>
                         ))}
@@ -403,12 +414,11 @@ export default async function Home() {
                   <div className="bg-bg-custom border border-borders-custom rounded-2xl overflow-hidden shadow-sm hover:border-accent hover:shadow-lg transition-all duration-300 flex flex-col justify-between h-full group">
                     <div>
                       <div className="aspect-video w-full overflow-hidden bg-gray-100 relative">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                        <Image
                           src={ind.image}
                           alt={`${ind.name} - SAE Industrial Roots Blower Application`}
-                          width={640}
-                          height={360}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           loading="lazy"
                         />
@@ -460,7 +470,17 @@ export default async function Home() {
                     <div className="p-5">
                       {/* Blog Image */}
                       <div className="aspect-video w-full bg-gray-50 rounded-xl flex items-center justify-center mb-4 overflow-hidden relative border border-gray-100">
-                        {blog.featuredImage ? (
+                        {blog.featuredImage?.startsWith('/') ? (
+                          <Image
+                            src={blog.featuredImage}
+                            alt={`${blog.title} - Roots Blower Engineering Article`}
+                            width={640}
+                            height={360}
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                            className="object-cover h-full w-full group-hover:scale-105 transition-transform duration-500"
+                            loading="lazy"
+                          />
+                        ) : blog.featuredImage ? (
                           /* eslint-disable-next-line @next/next/no-img-element */
                           <img
                             src={blog.featuredImage}
@@ -471,7 +491,7 @@ export default async function Home() {
                             loading="lazy"
                           />
                         ) : (
-                          <span className="text-gray-400 text-xs">Technical Article</span>
+                          <span className="text-gray-600 text-xs">Technical Article</span>
                         )}
                       </div>
                       <span className="text-[10px] text-accent font-bold uppercase tracking-wider block mb-1">
@@ -486,7 +506,7 @@ export default async function Home() {
                     </div>
 
                     <div className="p-5 pt-0 flex justify-between items-center text-xs border-t border-gray-50 mt-4">
-                      <span className="text-gray-400 font-medium">
+                      <span className="text-gray-600 font-medium">
                         {new Date(blog.createdAt).toLocaleDateString('en-US', {
                           month: 'short',
                           day: 'numeric',

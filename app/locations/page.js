@@ -128,7 +128,7 @@ export default function LocationsOverviewPage() {
                     <span className="text-xs font-bold uppercase tracking-wider text-accent bg-accent/10 px-2.5 py-0.5 rounded">
                       {loc.countryName}
                     </span>
-                    <FaMapMarkerAlt className="text-gray-400 group-hover:text-accent transition-colors" />
+                    <FaMapMarkerAlt aria-hidden="true" className="text-gray-600 group-hover:text-accent transition-colors" />
                   </div>
                   <h3 className="text-lg font-bold font-heading text-primary mb-2 group-hover:text-accent transition-colors">
                     {loc.title}
@@ -177,7 +177,7 @@ export default function LocationsOverviewPage() {
                     <span className="text-xs font-bold uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-0.5 rounded">
                       {loc.countryName}
                     </span>
-                    <FaMapMarkerAlt className="text-gray-400 group-hover:text-accent transition-colors" />
+                    <FaMapMarkerAlt aria-hidden="true" className="text-gray-600 group-hover:text-accent transition-colors" />
                   </div>
                   <h3 className="text-lg font-bold font-heading text-primary mb-2 group-hover:text-accent transition-colors">
                     {loc.title}

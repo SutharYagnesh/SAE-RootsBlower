@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
@@ -75,7 +76,7 @@ export default function AdminLogin() {
             </div>
           </div>
           <h2 className="text-xl font-bold font-heading text-primary">Login to Dashboard</h2>
-          <p className="text-xs text-gray-400">Configure products, blog posts, settings and view inquiries.</p>
+          <p className="text-xs text-gray-600">Configure products, blog posts, settings and view inquiries.</p>
         </div>
 
         {error && (
@@ -125,9 +126,9 @@ export default function AdminLogin() {
         </form>
 
         <div className="text-center pt-2">
-          <a href="/" className="text-xs text-gray-400 hover:text-primary hover:underline">
+          <Link href="/" className="text-xs text-gray-600 hover:text-primary hover:underline">
             &larr; Back to Public Website
-          </a>
+          </Link>
         </div>
       </div>
     </div>
