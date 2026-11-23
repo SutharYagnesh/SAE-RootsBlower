@@ -19,6 +19,7 @@ export default function AdminProductsCMS() {
     applications: [''],
     images: [],
     offers: [],
+    merchantAvailability: '',
     seoTitle: '',
     seoDescription: '',
     status: 'draft',
@@ -60,6 +61,7 @@ export default function AdminProductsCMS() {
         name: offer.name || '',
         price: offer.price?.toString() || '',
       })),
+      merchantAvailability: prod.merchantAvailability || '',
       seoTitle: prod.seoTitle || '',
       seoDescription: prod.seoDescription || '',
       status: prod.status || 'draft',
@@ -77,6 +79,7 @@ export default function AdminProductsCMS() {
       applications: ['Wastewater Treatment', 'Aquaculture Aeration'],
       images: [],
       offers: [],
+      merchantAvailability: '',
       seoTitle: '',
       seoDescription: '',
       status: 'draft',
@@ -607,6 +610,31 @@ export default function AdminProductsCMS() {
                 </button>
               </div>
             ))}
+          </div>
+
+          {/* Merchant availability */}
+          <div className="space-y-2 border-t border-gray-100 pt-4">
+            <label
+              htmlFor="merchant-availability"
+              className="block text-[11px] font-bold text-gray-500 uppercase tracking-wider"
+            >
+              Google Merchant Center Availability
+            </label>
+            <select
+              id="merchant-availability"
+              value={formData.merchantAvailability}
+              onChange={(e) =>
+                setFormData({ ...formData, merchantAvailability: e.target.value })
+              }
+              className="w-full max-w-sm rounded border border-gray-300 px-3 py-2 text-sm"
+            >
+              <option value="">Not set — exclude from feed</option>
+              <option value="in_stock">In stock</option>
+              <option value="out_of_stock">Out of stock</option>
+            </select>
+            <p className="text-xs text-gray-500">
+              Set the actual current status. Products need a price, image, and status to appear in the XML feed.
+            </p>
           </div>
 
           {/* Images Upload */}

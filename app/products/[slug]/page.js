@@ -321,6 +321,14 @@ export default async function ProductDetailPage({ params }) {
                           ))}
                         </ul>
                       )}
+                      {product.merchantAvailability && (
+                        <p className="mt-2 text-xs font-semibold text-gray-600">
+                          Availability:{' '}
+                          {product.merchantAvailability === 'in_stock'
+                            ? 'In stock'
+                            : 'Out of stock'}
+                        </p>
+                      )}
                     </>
                   ) : (
                     product.sourcePrice ? (

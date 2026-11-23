@@ -270,9 +270,21 @@ export default function Footer() {
           <p>
             &copy; {currentYear} Shree Ambika Engineering. All rights reserved.
           </p>
-          <div className="flex space-x-4">
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
             <Link href="/privacy-policy" className="hover:text-white transition-colors">
               Privacy Policy
+            </Link>
+            <Link href="/return-policy" className="hover:text-white transition-colors">
+              Returns & Warranty
+            </Link>
+            <Link href="/shipping-policy" className="hover:text-white transition-colors">
+              Shipping
+            </Link>
+            <Link href="/terms" className="hover:text-white transition-colors">
+              Terms
+            </Link>
+            <Link href="/sitemap.xml" className="hover:text-white transition-colors">
+              Sitemap
             </Link>
           </div>
         </div>

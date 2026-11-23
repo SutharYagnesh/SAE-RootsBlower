@@ -137,6 +137,11 @@ const ProductSchema = new mongoose.Schema(
       type: [ProductOfferSchema],
       default: [],
     },
+    merchantAvailability: {
+      type: String,
+      enum: ['in_stock', 'out_of_stock', null],
+      default: null,
+    },
     reviews: {
       type: [ProductReviewSchema],
       default: [],

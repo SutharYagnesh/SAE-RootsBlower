@@ -81,6 +81,16 @@ export async function POST(req) {
       );
     }
 
+    if (
+      data.merchantAvailability &&
+      !['in_stock', 'out_of_stock'].includes(data.merchantAvailability)
+    ) {
+      return NextResponse.json(
+        { error: 'Product availability must be in_stock or out_of_stock' },
+        { status: 400 }
+      );
+    }
+
     // Generate unique slug
     let baseSlug = slugify(title);
     let slug = baseSlug;
@@ -100,6 +110,7 @@ export async function POST(req) {
       applications: applications || [],
       images: images || [],
       offers: data.offers || [],
+      merchantAvailability: data.merchantAvailability || null,
       seoTitle: data.seoTitle || title,
       seoDescription: data.seoDescription || shortDescription,
       status: status || 'draft',

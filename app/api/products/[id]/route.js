@@ -67,6 +67,18 @@ export async function PUT(req, { params }) {
       );
     }
 
+    if (
+      data.merchantAvailability !== undefined &&
+      data.merchantAvailability !== null &&
+      data.merchantAvailability !== '' &&
+      !['in_stock', 'out_of_stock'].includes(data.merchantAvailability)
+    ) {
+      return NextResponse.json(
+        { error: 'Product availability must be in_stock or out_of_stock' },
+        { status: 400 }
+      );
+    }
+
     let product = await Product.findById(id);
     if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
@@ -93,6 +105,10 @@ export async function PUT(req, { params }) {
     product.applications = data.applications !== undefined ? data.applications : product.applications;
     product.images = data.images !== undefined ? data.images : product.images;
     product.offers = data.offers !== undefined ? data.offers : product.offers;
+    product.merchantAvailability =
+      data.merchantAvailability !== undefined
+        ? data.merchantAvailability || null
+        : product.merchantAvailability;
     product.seoTitle = data.seoTitle !== undefined ? data.seoTitle : product.seoTitle;
     product.seoDescription = data.seoDescription !== undefined ? data.seoDescription : product.seoDescription;
     product.status = data.status !== undefined ? data.status : product.status;
