@@ -8,6 +8,7 @@ import CallButton from '@/components/CallButton';
 import connectDB from '@/lib/db';
 import Settings from '@/models/Settings';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/next';
 import Script from 'next/script';
 
 export const dynamic = 'force-dynamic';
@@ -230,6 +231,7 @@ export default function RootLayout({ children }) {
           <CallButton />
         </div>
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
