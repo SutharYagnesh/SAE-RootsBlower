@@ -63,8 +63,36 @@ h1, h2, h3, h4, h5, h6 {
   animation: client-logo-marquee 25s linear infinite;
 }
 
+.client-logo-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes seo-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .seo-fade-up {
+    animation: seo-fade-up 0.65s ease-out both;
+  }
+
+  .seo-fade-delay-1 {
+    animation-delay: 0.12s;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .client-logo-marquee {
+  .client-logo-marquee,
+  .seo-fade-up {
     animation: none;
+    opacity: 1;
+    transform: none;
   }
 }

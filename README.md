@@ -26,6 +26,12 @@ Manage genuine product variant prices in the admin product editor. Leave offers 
 
 To serve catalog images from Cloudflare R2, upload the WebP files in `public/images/products/` with their existing relative paths as object keys, then set `CLOUDFLARE_R2_PUBLIC_URL` to the public base URL for that bucket. Only matching product image paths are switched to R2; other images continue to use their existing source.
 
+## Google Merchant Center feeds
+
+The product feed is available at `/merchant-feed.xml`. The product reviews feed is available at `/google-product-reviews.xml` and includes only valid reviews saved on published products. Add genuine customer reviews to those products before submitting the reviews feed; the feed links each review to its visible product-page review section.
+
+`fixtures/google-product-reviews-demo.xml` is synthetic test data only. It is not served by the site and must never be submitted to Google Merchant Center.
+
 ## Importing the source product catalogue
 
 Set `MONGODB_URI` in the ignored `.env.local` file using a rotated database credential. Do not commit or paste database credentials into source files.

@@ -66,9 +66,49 @@ export default async function BlogDetailPage({ params }) {
   // Sharing links (since this is SSR, we generate based on localhost for dev)
   const shareUrl = `https://saerootsblower.com/blogs/${blog.slug}`;
   const shareTitle = encodeURIComponent(blog.title);
+  const canonical = new URL(`/blogs/${blog.slug}`, siteUrl).toString();
+  const articleImage = blog.featuredImage && !blog.featuredImage.startsWith('data:')
+    ? new URL(blog.featuredImage, siteUrl).toString()
+    : `${siteUrl}/images/about-us/about-us-2.webp`;
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: blog.title,
+    description: blog.excerpt,
+    datePublished: new Date(blog.createdAt).toISOString(),
+    dateModified: new Date(blog.updatedAt || blog.createdAt).toISOString(),
+    author: {
+      '@type': 'Organization',
+      name: 'Shree Ambika Engineering',
+    },
+    publisher: { '@id': `${siteUrl}/#organization` },
+    mainEntityOfPage: canonical,
+    image: articleImage,
+  };
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
+      { '@type': 'ListItem', position: 2, name: 'Blogs', item: `${siteUrl}/blogs` },
+      { '@type': 'ListItem', position: 3, name: blog.title, item: canonical },
+    ],
+  };
 
   return (
     <div className="bg-bg-custom min-h-screen pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleSchema).replace(/</g, '\\u003c'),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c'),
+        }}
+      />
       {/* Breadcrumb */}
       <div className="bg-white border-b border-borders-custom py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-xs text-gray-500 flex items-center space-x-2">
@@ -134,6 +174,26 @@ export default async function BlogDetailPage({ params }) {
               className="prose max-w-none text-gray-650 text-sm leading-relaxed space-y-4 whitespace-normal"
               dangerouslySetInnerHTML={{ __html: blog.content }}
             />
+
+            <div className="flex flex-wrap items-center justify-between gap-4 rounded-lg bg-bg-custom p-5">
+              <p className="text-sm text-gray-700">
+                Looking for blower equipment for your process? Browse our product range or contact our team.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="/products"
+                  className="rounded-md border border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-white"
+                >
+                  Browse Products
+                </Link>
+                <Link
+                  href="/contact"
+                  className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90"
+                >
+                  Contact Us
+                </Link>
+              </div>
+            </div>
 
             {/* Tags */}
             {blog.tags && blog.tags.length > 0 && (
@@ -228,66 +288,17 @@ export default async function BlogDetailPage({ params }) {
               >
                 Contact Sales Team
               </Link>
+              <Link
+                href="/products"
+                className="border border-white/50 hover:bg-white/10 text-white font-bold px-4 py-2 rounded text-xs transition-all inline-block w-full"
+              >
+                Browse Products
+              </Link>
             </div>
           </aside>
         </div>
       </div>
 
-      {/* JSON-LD Schema.org Metadata */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Article',
-            headline: blog.title,
-            image: blog.featuredImage ? `https://saerootsblower.com${blog.featuredImage}` : '',
-            datePublished: blog.createdAt,
-            author: {
-              '@type': 'Organization',
-              name: 'SAE Roots Blower',
-            },
-            publisher: {
-              '@type': 'Organization',
-              name: 'SAE Roots Blower',
-              logo: {
-                '@type': 'ImageObject',
-                url: 'https://saerootsblower.com/images/sae-logo.webp',
-              },
-            },
-            description: blog.excerpt,
-          }),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BreadcrumbList',
-            itemListElement: [
-              {
-                '@type': 'ListItem',
-                position: 1,
-                name: 'Home',
-                item: 'https://saerootsblower.com',
-              },
-              {
-                '@type': 'ListItem',
-                position: 2,
-                name: 'Blogs',
-                item: 'https://saerootsblower.com/blogs',
-              },
-              {
-                '@type': 'ListItem',
-                position: 3,
-                name: blog.title,
-                item: `https://saerootsblower.com/blogs/${blog.slug}`,
-              },
-            ],
-          }),
-        }}
-      />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { trackLeadConversion } from '@/lib/analytics';
 
 export default function ProductInquiryForm({ productId, productTitle }) {
   const [formData, setFormData] = useState({
@@ -10,6 +11,9 @@ export default function ProductInquiryForm({ productId, productTitle }) {
     subject: `Inquiry for ${productTitle}`,
     message: `Hello, I would like to request technical catalogs and a price quotation for the ${productTitle}. My requirements are: `,
     product: productId,
+    flowRate: '',
+    pressure: '',
+    application: '',
   });
 
   const [status, setStatus] = useState({
@@ -43,10 +47,18 @@ export default function ProductInquiryForm({ productId, productTitle }) {
     setStatus({ submitting: true, success: false, error: null });
 
     try {
+      const technicalRequirements = [
+        formData.flowRate && `Required flow: ${formData.flowRate} m³/hr`,
+        formData.pressure && `Required pressure: ${formData.pressure} kg/cm²`,
+        formData.application && `Application: ${formData.application}`,
+      ].filter(Boolean);
+      const message = [formData.message.trim(), ...technicalRequirements]
+        .filter(Boolean)
+        .join('\n\n');
       const res = await fetch('/api/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, message }),
       });
 
       const data = await res.json();
@@ -54,6 +66,8 @@ export default function ProductInquiryForm({ productId, productTitle }) {
       if (!res.ok) {
         throw new Error(data.error || 'Something went wrong');
       }
+
+      trackLeadConversion('product-inquiry');
 
       // Construct WhatsApp message
       const whatsappText = `*Product Inquiry via Website*
@@ -63,7 +77,7 @@ export default function ProductInquiryForm({ productId, productTitle }) {
 📞 *Phone:* ${formData.phone}
 📧 *Email:* ${formData.email}
 📝 *Requirement details:*
-${formData.message}`;
+${message}`;
 
       const whatsappUrl = `https://wa.me/${whatsappNum}?text=${encodeURIComponent(whatsappText)}`;
 
@@ -78,6 +92,9 @@ ${formData.message}`;
         email: '',
         phone: '',
         message: `Hello, I would like to request technical catalogs and a price quotation for the ${productTitle}. My requirements are: `,
+        flowRate: '',
+        pressure: '',
+        application: '',
       }));
     } catch (err) {
       setStatus({ submitting: false, success: false, error: err.message });
@@ -148,6 +165,54 @@ ${formData.message}`;
             onChange={handleChange}
             placeholder="+91 63545 86037"
             className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-transparent outline-none text-sm transition-all"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div>
+            <label htmlFor="flowRate" className="mb-1 block text-[11px] font-bold uppercase tracking-wider text-gray-500">
+              Required Flow (m³/hr) <span className="normal-case font-normal">(optional)</span>
+            </label>
+            <input
+              type="number"
+              id="flowRate"
+              name="flowRate"
+              min="0"
+              step="any"
+              value={formData.flowRate}
+              onChange={handleChange}
+              className="w-full rounded border border-gray-300 px-3 py-2 text-sm outline-none transition-all focus:border-transparent focus:ring-1 focus:ring-primary"
+            />
+          </div>
+          <div>
+            <label htmlFor="pressure" className="mb-1 block text-[11px] font-bold uppercase tracking-wider text-gray-500">
+              Pressure (kg/cm²) <span className="normal-case font-normal">(optional)</span>
+            </label>
+            <input
+              type="number"
+              id="pressure"
+              name="pressure"
+              min="0"
+              step="any"
+              value={formData.pressure}
+              onChange={handleChange}
+              className="w-full rounded border border-gray-300 px-3 py-2 text-sm outline-none transition-all focus:border-transparent focus:ring-1 focus:ring-primary"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label htmlFor="application" className="mb-1 block text-[11px] font-bold uppercase tracking-wider text-gray-500">
+            Application <span className="normal-case font-normal">(optional)</span>
+          </label>
+          <input
+            type="text"
+            id="application"
+            name="application"
+            value={formData.application}
+            onChange={handleChange}
+            placeholder="For example, STP aeration or pneumatic conveying"
+            className="w-full rounded border border-gray-300 px-3 py-2 text-sm outline-none transition-all focus:border-transparent focus:ring-1 focus:ring-primary"
           />
         </div>
 

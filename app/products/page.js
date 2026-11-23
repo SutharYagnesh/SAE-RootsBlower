@@ -4,18 +4,19 @@ import Gallery from '@/models/Gallery';
 import Link from 'next/link';
 import ProductsCatalog from '@/components/ProductsCatalog';
 import LazyImageCarousel from '@/components/LazyImageCarousel';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
 
 export const metadata = {
-  title: 'Roots Blower Supplier & Price in India | Industrial Blower Catalog',
-  description: 'Explore industrial roots blowers & twin lobe blowers from SAE. Request a Roots Blower quotation & competitive price in India today.',
+  title: 'Roots Blower Products: Twin, Tri Lobe & Water Cooled | SAE',
+  description: 'Explore twin lobe, tri lobe, water-cooled and acoustic hood Roots blowers from 10 to 12,000 m³/hr. Made in Ahmedabad; request a quote.',
   alternates: {
     canonical: `${siteUrl}/products`,
   },
   openGraph: {
-    title: 'Roots Blower Supplier & Price in India | Industrial Blower Catalog',
-    description: 'Explore industrial twin lobe blowers & positive displacement blowers. Request an instant Roots Blower quotation.',
+    title: 'Roots Blower Products: Twin, Tri Lobe & Water Cooled | SAE',
+    description: 'Explore twin lobe, tri lobe, water-cooled and acoustic hood Roots blowers from 10 to 12,000 m³/hr. Made in Ahmedabad; request a quote.',
     url: `${siteUrl}/products`,
     siteName: 'SAE Roots Blower',
     images: [{ url: `${siteUrl}/images/about-us/about-us-2.webp` }],
@@ -42,9 +43,9 @@ export default async function ProductsPage() {
       <section className="bg-primary text-white py-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:30px_30px]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h1 className="text-4xl font-extrabold font-heading mb-4">Industrial Roots Blower Catalog</h1>
+          <h1 className="text-4xl font-extrabold font-heading mb-4">Roots Blower Products</h1>
           <p className="text-white/80 text-lg max-w-2xl">
-            High-efficiency Twin Lobe Blowers, Tri Lobe Blowers & Positive Displacement Blower Systems. Request a competitive Roots Blower price & quotation.
+            Explore twin lobe, tri lobe, water-cooled and acoustic hood Roots blower systems for industrial applications. Contact our Ahmedabad team for product selection and a quotation.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
@@ -62,6 +63,13 @@ export default async function ProductsPage() {
           </div>
         </div>
       </section>
+
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Products', href: '/products' },
+        ]}
+      />
 
       {/* Product Grid */}
       <section id="product-results" className="scroll-mt-28 py-16 sm:py-20">

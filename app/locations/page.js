@@ -1,19 +1,20 @@
 import Link from 'next/link';
 import { locationsList } from '@/lib/locationsData';
 import { FaMapMarkerAlt, FaGlobeAmericas, FaIndustry, FaShippingFast, FaCheckCircle } from 'react-icons/fa';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
 
 export const metadata = {
-  title: 'Global Supply & Distribution Network | India, UAE, Dubai & Saudi Arabia | SAE',
-  description: 'Shree Ambika Engineering distributes high-performance Roots blowers, cement bulker unloading systems, and aeration blowers across India (Ahmedabad, Mumbai, Delhi, Chennai) and GCC (Dubai, UAE, Saudi Arabia, Qatar, Oman).',
+  title: 'Roots Blower Supply in India & GCC | Shree Ambika',
+  description: 'Roots blower supply across Ahmedabad, Mumbai, Delhi, Chennai, Hyderabad, Bangalore, UAE, Saudi Arabia, Qatar and Oman.',
   keywords: 'Roots Blower Manufacturer India, Roots Blower Supplier Dubai, Roots Blower UAE, Roots Blower Saudi Arabia, Bulker Unloading System Supplier UAE, Industrial Air Blower Exporter',
   alternates: {
     canonical: `${siteUrl}/locations`,
   },
   openGraph: {
-    title: 'Global Industrial Roots Blower Supply Network | SAE',
-    description: 'Direct factory supply and international export network covering India and GCC industrial hubs.',
+    title: 'Roots Blower Supply in India & GCC | Shree Ambika',
+    description: 'Roots blower supply across Ahmedabad, Mumbai, Delhi, Chennai, Hyderabad, Bangalore, UAE, Saudi Arabia, Qatar and Oman.',
     url: `${siteUrl}/locations`,
     siteName: 'SAE Roots Blower',
     images: [{ url: `${siteUrl}/images/sae-logo.webp` }],
@@ -24,34 +25,8 @@ export default function LocationsOverviewPage() {
   const domesticLocations = locationsList.filter((loc) => loc.region === 'india');
   const internationalLocations = locationsList.filter((loc) => loc.region === 'international');
 
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: siteUrl,
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Supply Network & Locations',
-        item: `${siteUrl}/locations`,
-      },
-    ],
-  };
-
   return (
     <div className="flex flex-col min-h-screen bg-bg-custom">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c'),
-        }}
-      />
-
       {/* Hero Header */}
       <section className="bg-primary text-white py-16 sm:py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:30px_30px]"></div>
@@ -66,13 +41,20 @@ export default function LocationsOverviewPage() {
             <span>National Distribution & International Exports</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-extrabold font-heading mb-4 tracking-tight">
-            Roots Blower Supply Hubs: India & GCC Markets
+            Roots Blower Supply Locations: India & GCC Markets
           </h1>
           <p className="text-white/80 text-base sm:text-lg max-w-3xl leading-relaxed">
             From our primary manufacturing facility in Vatva GIDC, Ahmedabad, Shree Ambika Engineering delivers high-capacity twin-lobe blowers, bulker unloading machines, and pneumatic conveying systems to key industrial centers across India, the United Arab Emirates, Saudi Arabia, Qatar, and Oman.
           </p>
         </div>
       </section>
+
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Supply Network', href: '/locations' },
+        ]}
+      />
 
       {/* Trust Highlights */}
       <section className="bg-white border-b border-borders-custom py-8">

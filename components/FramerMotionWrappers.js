@@ -40,11 +40,12 @@ export function ClientTicker({ items = [] }) {
           {tripleItems.map((logo, idx) => (
             <div
               key={idx}
+              aria-hidden={idx >= items.length ? 'true' : undefined}
               className="inline-flex h-20 w-44 items-center justify-center p-4 bg-white rounded-xl border border-borders-custom shadow-sm hover:border-accent hover:shadow-md transition-all duration-300 group"
             >
               <Image
                 src={logo.src}
-                alt={`${logo.name} logo`}
+                alt={idx >= items.length ? '' : `${logo.name} logo`}
                 width={144}
                 height={48}
                 loading="lazy"

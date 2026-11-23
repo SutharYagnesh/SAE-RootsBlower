@@ -1,17 +1,18 @@
 import Link from 'next/link';
 import { applicationsList } from '@/lib/applicationsData';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
 
 export const metadata = {
-  title: 'Roots Blower Industrial Applications | 12 Industrial Sectors | SAE',
-  description: 'Explore industrial process applications of positive displacement rotary lobe Roots blowers by Shree Ambika Engineering: cement plants, STP/ETP aeration, chemical processing, pneumatic conveying, and food manufacturing.',
+  title: 'Roots Blower Applications: STP, Conveying & More | SAE',
+  description: 'See how Roots blowers support sewage treatment, aquaculture aeration, pneumatic conveying and chemical processing.',
   alternates: {
     canonical: `${siteUrl}/applications`,
   },
   openGraph: {
-    title: 'Roots Blower Industrial Applications | Shree Ambika Engineering',
-    description: 'Discover how Shree Ambika Engineering positive displacement blowers power essential processes across 12 industrial manufacturing sectors.',
+    title: 'Roots Blower Applications: STP, Conveying & More | SAE',
+    description: 'See how Roots blowers support sewage treatment, aquaculture aeration, pneumatic conveying and chemical processing.',
     url: `${siteUrl}/applications`,
     siteName: 'SAE Roots Blower',
     images: [{ url: `${siteUrl}/images/sae-logo.webp` }],
@@ -19,34 +20,8 @@ export const metadata = {
 };
 
 export default function ApplicationsPage() {
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: siteUrl,
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Industrial Applications',
-        item: `${siteUrl}/applications`,
-      },
-    ],
-  };
-
   return (
     <div className="flex flex-col min-h-screen bg-bg-custom">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c'),
-        }}
-      />
-
       {/* Header */}
       <section className="bg-primary text-white py-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:30px_30px]"></div>
@@ -57,13 +32,20 @@ export default function ApplicationsPage() {
             <span className="text-white">Applications</span>
           </nav>
           <h1 className="text-3xl sm:text-5xl font-extrabold font-heading mb-4 tracking-tight">
-            Industrial Applications & Engineering Solutions
+            Roots Blower Applications & Engineering Solutions
           </h1>
           <p className="text-white/80 text-base sm:text-lg max-w-3xl leading-relaxed">
             Discover how Shree Ambika Engineering positive displacement Roots blowers deliver continuous, 100% oil-free air to optimize efficiency and minimize downtime across 12 key industrial sectors.
           </p>
         </div>
       </section>
+
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Applications', href: '/applications' },
+        ]}
+      />
 
       {/* Grid */}
       <section className="py-16">

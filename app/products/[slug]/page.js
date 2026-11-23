@@ -138,8 +138,9 @@ export default async function ProductDetailPage({ params }) {
     ...(product.sourceCategory ? { category: product.sourceCategory } : {}),
     brand: {
       '@type': 'Brand',
-      name: 'SAE Roots Blower',
+      name: 'Shree Ambika Engineering',
     },
+    manufacturer: { '@id': `${siteUrl}/#organization` },
     url: canonical,
     ...(productImages.length > 0 ? { image: productImages } : {}),
     ...(offers.length === 1
@@ -465,7 +466,49 @@ export default async function ProductDetailPage({ params }) {
                     </span>
                   ))}
                 </div>
+                <Link
+                  href="/applications"
+                  className="inline-flex text-sm font-semibold text-primary underline-offset-2 hover:text-accent hover:underline"
+                >
+                  Explore Roots blower applications
+                </Link>
               </div>
+            )}
+
+            {reviews.length > 0 && (
+              <section
+                id="customer-reviews"
+                className="scroll-mt-28 rounded-xl border border-borders-custom bg-white p-6 shadow-sm sm:p-8"
+                aria-labelledby="customer-reviews-title"
+              >
+                <h2
+                  id="customer-reviews-title"
+                  className="mb-5 text-lg font-bold font-heading text-primary"
+                >
+                  Customer Reviews
+                </h2>
+                <div className="space-y-5">
+                  {reviews.map((review, index) => (
+                    <article
+                      key={`${review.author}-${review.datePublished}-${index}`}
+                      className="border-t border-gray-100 pt-4 first:border-0 first:pt-0"
+                    >
+                      <div className="flex flex-wrap items-baseline justify-between gap-2">
+                        <h3 className="text-sm font-bold text-primary">{review.author}</h3>
+                        <div className="flex items-center gap-3 text-xs text-gray-500">
+                          <span>{Number(review.ratingValue)}/5</span>
+                          <time dateTime={new Date(review.datePublished).toISOString()}>
+                            {new Date(review.datePublished).toLocaleDateString('en-IN')}
+                          </time>
+                        </div>
+                      </div>
+                      <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-gray-600">
+                        {review.reviewBody}
+                      </p>
+                    </article>
+                  ))}
+                </div>
+              </section>
             )}
 
             {/* Product Technical FAQs */}
@@ -488,6 +531,12 @@ export default async function ProductDetailPage({ params }) {
                 ))}
               </div>
             </div>
+            <Link
+              href="/blogs"
+              className="inline-flex text-sm font-semibold text-primary underline-offset-2 hover:text-accent hover:underline"
+            >
+              Read Roots blower guides and engineering articles
+            </Link>
           </div>
 
           {/* Right Column: Inquiry Form & Related Products */}

@@ -3,18 +3,19 @@ import Gallery from '@/models/Gallery';
 import Product from '@/models/Product';
 import GalleryClient from '@/components/GalleryClient';
 import Link from 'next/link';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
 
 export const metadata = {
-  title: 'Roots Blower Manufacturing & Installation Gallery | SAE',
-  description: 'Visual gallery of SAE roots blower manufacturing facility, CNC machining tooling, and on-site industrial installations.',
+  title: 'Roots Blower Photos & Factory Gallery | Shree Ambika',
+  description: 'See Roots blower manufacturing, testing and installation photos from Shree Ambika Engineering.',
   alternates: {
     canonical: `${siteUrl}/gallery`,
   },
   openGraph: {
-    title: 'Roots Blower Manufacturing & Installation Gallery | SAE',
-    description: 'Visual photo gallery of SAE roots blower manufacturing & installations.',
+    title: 'Roots Blower Photos & Factory Gallery | Shree Ambika',
+    description: 'See Roots blower manufacturing, testing and installation photos from Shree Ambika Engineering.',
     url: `${siteUrl}/gallery`,
     siteName: 'SAE Roots Blower',
     images: [{ url: `${siteUrl}/images/sae-logo.webp` }],
@@ -56,12 +57,19 @@ export default async function GalleryPage() {
       <section className="bg-primary text-white py-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:30px_30px]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h1 className="text-4xl font-extrabold font-heading mb-4">Product & Manufacturing Gallery</h1>
+          <h1 className="text-4xl font-extrabold font-heading mb-4">Roots Blower Factory & Installation Gallery</h1>
           <p className="text-white/80 text-lg max-w-2xl">
             Explore product images from our full catalogue alongside factory, installation, and media highlights.
           </p>
         </div>
       </section>
+
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Gallery', href: '/gallery' },
+        ]}
+      />
 
       {/* Content */}
       <section className="py-20">

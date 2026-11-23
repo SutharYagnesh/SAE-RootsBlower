@@ -2,18 +2,19 @@ import connectDB from '@/lib/db';
 import Blog from '@/models/Blog';
 import Link from 'next/link';
 import Image from 'next/image';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
 
 export const metadata = {
-  title: 'Roots Blower Technical Guides & Engineering Insights | SAE',
-  description: 'Technical articles and engineering resources on roots blower selection, aeration efficiency, and positive displacement blower maintenance.',
+  title: 'Roots Blower Guides & Technical Articles | Shree Ambika',
+  description: 'Buyer guides, sizing tips, price factors and maintenance advice for Roots blowers and pneumatic conveying systems.',
   alternates: {
     canonical: `${siteUrl}/blogs`,
   },
   openGraph: {
-    title: 'Roots Blower Technical Guides & Engineering Insights | SAE',
-    description: 'Technical engineering articles on rotary air blowers by Shree Ambika Engineering.',
+    title: 'Roots Blower Guides & Technical Articles | Shree Ambika',
+    description: 'Buyer guides, sizing tips, price factors and maintenance advice for Roots blowers and pneumatic conveying systems.',
     url: `${siteUrl}/blogs`,
     siteName: 'SAE Roots Blower',
     images: [{ url: `${siteUrl}/images/sae-logo.webp` }],
@@ -58,12 +59,19 @@ export default async function BlogsPage({ searchParams }) {
       <section className="bg-primary text-white py-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:30px_30px]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h1 className="text-4xl font-extrabold font-heading mb-4">Engineering Blog & News</h1>
+          <h1 className="text-4xl font-extrabold font-heading mb-4">Roots Blower Guides & Technical Articles</h1>
           <p className="text-white/80 text-lg max-w-2xl">
             In-depth guides, comparison sheets, and process solutions from our technical department.
           </p>
         </div>
       </section>
+
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Blogs', href: '/blogs' },
+        ]}
+      />
 
       {/* Main Section */}
       <section className="py-20">

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { trackLeadConversion } from '@/lib/analytics';
 
 export default function HomeContactForm({ products = [] }) {
   const [formData, setFormData] = useState({
@@ -10,6 +11,9 @@ export default function HomeContactForm({ products = [] }) {
     subject: 'General Inquiry',
     message: '',
     product: '',
+    flowRate: '',
+    pressure: '',
+    application: '',
   });
 
   const [status, setStatus] = useState({
@@ -43,10 +47,18 @@ export default function HomeContactForm({ products = [] }) {
     setStatus({ submitting: true, success: false, error: null });
 
     try {
+      const technicalRequirements = [
+        formData.flowRate && `Required flow: ${formData.flowRate} m³/hr`,
+        formData.pressure && `Required pressure: ${formData.pressure} kg/cm²`,
+        formData.application && `Application: ${formData.application}`,
+      ].filter(Boolean);
+      const message = [formData.message.trim(), ...technicalRequirements]
+        .filter(Boolean)
+        .join('\n\n');
       const res = await fetch('/api/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, message }),
       });
 
       const data = await res.json();
@@ -58,6 +70,7 @@ export default function HomeContactForm({ products = [] }) {
       // Find selected product title
       const selectedProduct = products.find((p) => p._id === formData.product);
       const productTitle = selectedProduct ? selectedProduct.title : '';
+      trackLeadConversion('homepage');
 
       // Construct WhatsApp message
       const whatsappText = `*New Blower Inquiry via Website*
@@ -67,7 +80,7 @@ export default function HomeContactForm({ products = [] }) {
 📧 *Email:* ${formData.email}
 ⚙️ *Product:* ${productTitle || 'General Inquiry'}
 📝 *Requirement details:*
-${formData.message}`;
+${message}`;
 
       const whatsappUrl = `https://wa.me/${whatsappNum}?text=${encodeURIComponent(whatsappText)}`;
 
@@ -83,6 +96,9 @@ ${formData.message}`;
         subject: 'General Inquiry',
         message: '',
         product: '',
+        flowRate: '',
+        pressure: '',
+        application: '',
       });
     } catch (err) {
       setStatus({ submitting: false, success: false, error: err.message });
@@ -97,7 +113,7 @@ ${formData.message}`;
 
       {status.success && (
         <div className="mb-6 p-4 bg-green-50 text-green-800 rounded-md border border-green-200">
-          Thank you for contacting us! We have received your inquiry and will get back to you within 24 hours.
+          Thank you for contacting us! We have received your inquiry and will be in touch soon.
         </div>
       )}
 
@@ -175,6 +191,54 @@ ${formData.message}`;
               </option>
             ))}
           </select>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <label htmlFor="flowRate" className="mb-1 block text-xs font-semibold uppercase tracking-wider text-gray-700">
+              Required Flow (m³/hr) <span className="normal-case font-normal">(optional)</span>
+            </label>
+            <input
+              type="number"
+              id="flowRate"
+              name="flowRate"
+              min="0"
+              step="any"
+              value={formData.flowRate}
+              onChange={handleChange}
+              className="w-full rounded-md border border-gray-300 px-4 py-2.5 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-primary"
+            />
+          </div>
+          <div>
+            <label htmlFor="pressure" className="mb-1 block text-xs font-semibold uppercase tracking-wider text-gray-700">
+              Pressure (kg/cm²) <span className="normal-case font-normal">(optional)</span>
+            </label>
+            <input
+              type="number"
+              id="pressure"
+              name="pressure"
+              min="0"
+              step="any"
+              value={formData.pressure}
+              onChange={handleChange}
+              className="w-full rounded-md border border-gray-300 px-4 py-2.5 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-primary"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label htmlFor="application" className="mb-1 block text-xs font-semibold uppercase tracking-wider text-gray-700">
+            Application <span className="normal-case font-normal">(optional)</span>
+          </label>
+          <input
+            type="text"
+            id="application"
+            name="application"
+            value={formData.application}
+            onChange={handleChange}
+            placeholder="For example, STP aeration or pneumatic conveying"
+            className="w-full rounded-md border border-gray-300 px-4 py-2.5 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-primary"
+          />
         </div>
 
         <div>

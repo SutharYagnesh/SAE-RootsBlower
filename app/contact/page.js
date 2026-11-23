@@ -3,18 +3,19 @@ import Settings from '@/models/Settings';
 import Product from '@/models/Product';
 import HomeContactForm from '@/components/HomeContactForm';
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaWhatsapp } from 'react-icons/fa';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
 
 export const metadata = {
-  title: 'Contact Us | Get Roots Blower Quotation & Price | SAE',
-  description: 'Contact Shree Ambika Engineering for Roots Blower prices in India, custom technical parameters & factory direct quotations. Vatva GIDC, Ahmedabad, Gujarat.',
+  title: 'Contact Roots Blower Manufacturer in Ahmedabad | SAE',
+  description: 'Call +91 63545 86037 or email sales@saerootsblower.com for Roots blower quotations, product catalogs and technical support.',
   alternates: {
     canonical: `${siteUrl}/contact`,
   },
   openGraph: {
-    title: 'Contact Us | Get Roots Blower Quotation & Price | SAE',
-    description: 'Contact Shree Ambika Engineering for instant Roots Blower quotations & pricing.',
+    title: 'Contact Roots Blower Manufacturer in Ahmedabad | SAE',
+    description: 'Call +91 63545 86037 or email sales@saerootsblower.com for Roots blower quotations, product catalogs and technical support.',
     url: `${siteUrl}/contact`,
     siteName: 'SAE Roots Blower',
     images: [{ url: `${siteUrl}/images/sae-logo.webp` }],
@@ -42,12 +43,19 @@ export default async function ContactPage() {
       <section className="bg-primary text-white py-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:30px_30px]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h1 className="text-4xl font-extrabold font-heading mb-4">Contact Our Factory</h1>
+          <h1 className="text-4xl font-extrabold font-heading mb-4">Contact Our Roots Blower Factory in Ahmedabad</h1>
           <p className="text-white/80 text-lg max-w-2xl">
             Get in touch with our sales department and engineering experts for technical consultations.
           </p>
         </div>
       </section>
+
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Contact', href: '/contact' },
+        ]}
+      />
 
       {/* Main Content */}
       <section className="py-20">

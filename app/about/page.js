@@ -1,10 +1,11 @@
 import { FaCheckCircle, FaIndustry, FaBullseye, FaSearchPlus } from 'react-icons/fa';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
 
 export const metadata = {
-  title: 'About SAE | Roots Blower Manufacturer in Ahmedabad, Gujarat',
-  description: 'Shree Ambika Engineering is a leading Roots Blower Manufacturer in Ahmedabad, Gujarat, producing precision positive displacement blowers since 2011.',
+  title: 'About Shree Ambika Engineering | Roots Blower Manufacturer',
+  description: 'Learn about Shree Ambika Engineering, a Roots blower manufacturer in Vatva GIDC, Ahmedabad, operating since 2011.',
   alternates: {
     canonical: `${siteUrl}/about`,
   },
@@ -41,12 +42,19 @@ export default function About() {
       <section className="bg-primary text-white py-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:30px_30px]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h1 className="text-4xl font-extrabold font-heading mb-4">About Our Company</h1>
+          <h1 className="text-4xl font-extrabold font-heading mb-4">About Shree Ambika Engineering</h1>
           <p className="text-white/80 text-lg max-w-2xl">
             Established in 2011, Shree Ambika Engineering has grown into a leading manufacturer of high-precision positive displacement rotary air blowers.
           </p>
         </div>
       </section>
+
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'About', href: '/about' },
+        ]}
+      />
 
       {/* Company Story & Mission */}
       <section className="py-20 bg-white">
@@ -110,7 +118,7 @@ export default function About() {
             <div className="bg-white p-8 rounded-xl border border-borders-custom shadow-sm space-y-4">
               <h3 className="text-lg font-bold font-heading text-primary">Dynamic Balancing Bay</h3>
               <p className="text-gray-550 text-sm leading-relaxed">
-                Rotor shafts undergo dynamic balancing to reduce bearing wear and prevent mechanical vibration, which directly extends the blower\'s operating lifetime.
+                Rotor shafts undergo dynamic balancing to reduce bearing wear and prevent mechanical vibration, which directly extends the blower&apos;s operating lifetime.
               </p>
             </div>
             <div className="bg-white p-8 rounded-xl border border-borders-custom shadow-sm space-y-4">

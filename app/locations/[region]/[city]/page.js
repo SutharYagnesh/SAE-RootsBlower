@@ -94,28 +94,6 @@ export default async function LocationDetailPage({ params }) {
     ],
   };
 
-  const localBusinessSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'IndustrialBusiness',
-    '@id': `${siteUrl}/locations/${data.region}/${data.city}/#business`,
-    name: `Shree Ambika Engineering - ${data.cityName}`,
-    url: `${siteUrl}/locations/${data.region}/${data.city}`,
-    logo: `${siteUrl}/images/sae-logo.webp`,
-    image: `${siteUrl}/images/sae.png`,
-    description: data.metaDesc,
-    telephone: '+91-6354586037',
-    priceRange: '₹₹₹',
-    areaServed: {
-      '@type': isInternational ? 'Country' : 'AdministrativeArea',
-      name: data.countryName,
-    },
-    parentOrganization: {
-      '@type': 'Organization',
-      name: 'Shree Ambika Engineering',
-      url: siteUrl,
-    },
-  };
-
   const faqSchema = data.faqs && data.faqs.length > 0 ? {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -139,12 +117,6 @@ export default async function LocationDetailPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c'),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(localBusinessSchema).replace(/</g, '\\u003c'),
         }}
       />
       {faqSchema && (
