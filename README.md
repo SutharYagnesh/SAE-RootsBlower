@@ -28,7 +28,7 @@ To serve catalog images from Cloudflare R2, upload the WebP files in `public/ima
 
 ## Google Merchant Center feeds
 
-The product feed is available at `/merchant-feed.xml`. The product reviews feed is available at `/google-product-reviews.xml` and includes only valid reviews saved on published products. Add genuine customer reviews to those products before submitting the reviews feed; the feed links each review to its visible product-page review section.
+The product feed is available at `/merchant-feed.xml`. The product reviews feed is available at `/google-product-reviews.xml` and includes only valid reviews saved on published products. Add genuine customer reviews and linked technical documents in the admin product editor; reviews appear on the product page and in the reviews feed, which links each review to its visible product-page review section.
 
 `fixtures/google-product-reviews-demo.xml` is synthetic test data only. It is not served by the site and must never be submitted to Google Merchant Center.
 

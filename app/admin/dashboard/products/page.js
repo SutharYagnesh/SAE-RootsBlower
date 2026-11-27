@@ -18,7 +18,9 @@ export default function AdminProductsCMS() {
     features: [''],
     applications: [''],
     images: [],
+    documents: [],
     offers: [],
+    reviews: [],
     merchantAvailability: '',
     seoTitle: '',
     seoDescription: '',
@@ -57,9 +59,21 @@ export default function AdminProductsCMS() {
       features: prod.features && prod.features.length > 0 ? [...prod.features] : [''],
       applications: prod.applications && prod.applications.length > 0 ? [...prod.applications] : [''],
       images: prod.images || [],
+      documents: (prod.documents || []).map((document) => ({
+        title: document.title || '',
+        url: document.url || '',
+      })),
       offers: (prod.offers || []).map((offer) => ({
         name: offer.name || '',
         price: offer.price?.toString() || '',
+      })),
+      reviews: (prod.reviews || []).map((review) => ({
+        author: review.author || '',
+        ratingValue: review.ratingValue?.toString() || '',
+        reviewBody: review.reviewBody || '',
+        datePublished: review.datePublished
+          ? new Date(review.datePublished).toISOString().slice(0, 10)
+          : '',
       })),
       merchantAvailability: prod.merchantAvailability || '',
       seoTitle: prod.seoTitle || '',
@@ -78,7 +92,9 @@ export default function AdminProductsCMS() {
       features: [''],
       applications: ['Wastewater Treatment', 'Aquaculture Aeration'],
       images: [],
+      documents: [],
       offers: [],
+      reviews: [],
       merchantAvailability: '',
       seoTitle: '',
       seoDescription: '',
@@ -130,6 +146,55 @@ export default function AdminProductsCMS() {
     setFormData((prev) => ({
       ...prev,
       offers: prev.offers.filter((_, offerIndex) => offerIndex !== index),
+    }));
+  };
+
+  const addDocument = () => {
+    setFormData((prev) => ({
+      ...prev,
+      documents: [...prev.documents, { title: '', url: '' }],
+    }));
+  };
+
+  const updateDocument = (index, field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      documents: prev.documents.map((document, documentIndex) =>
+        documentIndex === index ? { ...document, [field]: value } : document
+      ),
+    }));
+  };
+
+  const removeDocument = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      documents: prev.documents.filter((_, documentIndex) => documentIndex !== index),
+    }));
+  };
+
+  const addReview = () => {
+    setFormData((prev) => ({
+      ...prev,
+      reviews: [
+        ...prev.reviews,
+        { author: '', ratingValue: '5', reviewBody: '', datePublished: '' },
+      ],
+    }));
+  };
+
+  const updateReview = (index, field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      reviews: prev.reviews.map((review, reviewIndex) =>
+        reviewIndex === index ? { ...review, [field]: value } : review
+      ),
+    }));
+  };
+
+  const removeReview = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      reviews: prev.reviews.filter((_, reviewIndex) => reviewIndex !== index),
     }));
   };
 
@@ -232,6 +297,16 @@ export default function AdminProductsCMS() {
     const enteredOffers = formData.offers.filter(
       (offer) => offer.name.trim() || offer.price !== ''
     );
+    const enteredDocuments = formData.documents.filter(
+      (document) => document.title.trim() || document.url.trim()
+    );
+    const enteredReviews = formData.reviews.filter(
+      (review) =>
+        review.author.trim() ||
+        review.reviewBody.trim() ||
+        review.ratingValue !== '' ||
+        review.datePublished
+    );
 
     if (
       enteredOffers.some(
@@ -254,6 +329,38 @@ export default function AdminProductsCMS() {
       name: offer.name.trim(),
       price: Number(offer.price),
     }));
+    if (
+      enteredDocuments.some(
+        (document) => !document.title.trim() || !document.url.trim()
+      )
+    ) {
+      setMessage({
+        type: 'error',
+        text: 'Complete each document with a title and URL, or remove the empty row.',
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (
+      enteredReviews.some(
+        (review) =>
+          !review.author.trim() ||
+          !review.reviewBody.trim() ||
+          !Number.isFinite(Number(review.ratingValue)) ||
+          Number(review.ratingValue) < 1 ||
+          Number(review.ratingValue) > 5 ||
+          !review.datePublished ||
+          Number.isNaN(new Date(review.datePublished).getTime())
+      )
+    ) {
+      setMessage({
+        type: 'error',
+        text: 'Complete each review with the real reviewer, a 1-5 rating, review text, and publication date, or remove the empty row.',
+      });
+      setIsSubmitting(false);
+      return;
+    }
 
     const payload = {
       ...formData,
@@ -261,6 +368,16 @@ export default function AdminProductsCMS() {
       features: cleanFeatures,
       applications: cleanApps,
       offers: cleanOffers,
+      documents: enteredDocuments.map((document) => ({
+        title: document.title.trim(),
+        url: document.url.trim(),
+      })),
+      reviews: enteredReviews.map((review) => ({
+        author: review.author.trim(),
+        ratingValue: Number(review.ratingValue),
+        reviewBody: review.reviewBody.trim(),
+        datePublished: new Date(`${review.datePublished}T00:00:00.000Z`).toISOString(),
+      })),
     };
 
     const url = editingId === 'new' ? '/api/products' : `/api/products/${editingId}`;
@@ -635,6 +752,125 @@ export default function AdminProductsCMS() {
             <p className="text-xs text-gray-500">
               Set the actual current status. Products need a price, image, and status to appear in the XML feed.
             </p>
+          </div>
+
+          <div className="space-y-3 border-t border-gray-100 pt-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <label className="block text-[11px] font-bold text-gray-500 uppercase tracking-wider">
+                  Technical Documents
+                </label>
+                <p className="mt-1 text-xs text-gray-500">
+                  Add links to genuine product manuals, catalogues, or technical sheets.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={addDocument}
+                className="flex items-center space-x-1 text-xs font-bold text-primary hover:text-accent"
+              >
+                <FaPlus size={10} /> <span>Add Document</span>
+              </button>
+            </div>
+            {formData.documents.map((document, index) => (
+              <div key={index} className="flex items-center gap-2">
+                <input
+                  type="text"
+                  aria-label={`Document ${index + 1} title`}
+                  value={document.title}
+                  onChange={(e) => updateDocument(index, 'title', e.target.value)}
+                  placeholder="Document title"
+                  className="w-1/3 rounded border border-gray-300 px-3 py-2 text-sm"
+                />
+                <input
+                  type="url"
+                  aria-label={`Document ${index + 1} URL`}
+                  value={document.url}
+                  onChange={(e) => updateDocument(index, 'url', e.target.value)}
+                  placeholder="https://..."
+                  className="min-w-0 flex-1 rounded border border-gray-300 px-3 py-2 text-sm"
+                />
+                <button
+                  type="button"
+                  onClick={() => removeDocument(index)}
+                  aria-label={`Remove document ${index + 1}`}
+                  className="p-2 text-red-500 hover:text-red-700"
+                >
+                  <FaTrash size={14} />
+                </button>
+              </div>
+            ))}
+          </div>
+
+          <div className="space-y-3 border-t border-gray-100 pt-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <label className="block text-[11px] font-bold text-gray-500 uppercase tracking-wider">
+                  Customer Reviews
+                </label>
+                <p className="mt-1 text-xs text-gray-500">
+                  Publish only genuine customer reviews. Saved reviews appear on the product page and in the Google reviews feed.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={addReview}
+                className="flex items-center space-x-1 text-xs font-bold text-primary hover:text-accent"
+              >
+                <FaPlus size={10} /> <span>Add Review</span>
+              </button>
+            </div>
+            {formData.reviews.map((review, index) => (
+              <div key={index} className="space-y-2 rounded-lg border border-gray-200 p-3">
+                <div className="flex flex-wrap gap-2">
+                  <input
+                    type="text"
+                    aria-label={`Review ${index + 1} author`}
+                    value={review.author}
+                    onChange={(e) => updateReview(index, 'author', e.target.value)}
+                    placeholder="Customer name"
+                    className="min-w-48 flex-1 rounded border border-gray-300 px-3 py-2 text-sm"
+                  />
+                  <select
+                    aria-label={`Review ${index + 1} rating`}
+                    value={review.ratingValue}
+                    onChange={(e) => updateReview(index, 'ratingValue', e.target.value)}
+                    className="rounded border border-gray-300 bg-white px-3 py-2 text-sm"
+                  >
+                    <option value="5">5 stars</option>
+                    <option value="4">4 stars</option>
+                    <option value="3">3 stars</option>
+                    <option value="2">2 stars</option>
+                    <option value="1">1 star</option>
+                  </select>
+                  <input
+                    type="date"
+                    aria-label={`Review ${index + 1} publication date`}
+                    value={review.datePublished}
+                    onChange={(e) =>
+                      updateReview(index, 'datePublished', e.target.value)
+                    }
+                    className="rounded border border-gray-300 px-3 py-2 text-sm"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeReview(index)}
+                    aria-label={`Remove review ${index + 1}`}
+                    className="p-2 text-red-500 hover:text-red-700"
+                  >
+                    <FaTrash size={14} />
+                  </button>
+                </div>
+                <textarea
+                  aria-label={`Review ${index + 1} text`}
+                  rows={3}
+                  value={review.reviewBody}
+                  onChange={(e) => updateReview(index, 'reviewBody', e.target.value)}
+                  placeholder="Customer's review"
+                  className="w-full rounded border border-gray-300 px-3 py-2 text-sm"
+                />
+              </div>
+            ))}
           </div>
 
           {/* Images Upload */}

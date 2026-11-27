@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import connectDB from '@/lib/db';
 import Product from '@/models/Product';
 import { getAuthUser } from '@/lib/auth';
+import { isValidProductContent } from '@/lib/product-content';
 
 function slugify(text) {
   return text
@@ -79,6 +80,13 @@ export async function PUT(req, { params }) {
       );
     }
 
+    if (!isValidProductContent(data.documents, data.reviews)) {
+      return NextResponse.json(
+        { error: 'Documents need a title and HTTP(S) URL. Reviews need an author, review text, a rating from 1 to 5, and a valid publication date.' },
+        { status: 400 }
+      );
+    }
+
     let product = await Product.findById(id);
     if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
@@ -104,7 +112,9 @@ export async function PUT(req, { params }) {
     product.features = data.features !== undefined ? data.features : product.features;
     product.applications = data.applications !== undefined ? data.applications : product.applications;
     product.images = data.images !== undefined ? data.images : product.images;
+    product.documents = data.documents !== undefined ? data.documents : product.documents;
     product.offers = data.offers !== undefined ? data.offers : product.offers;
+    product.reviews = data.reviews !== undefined ? data.reviews : product.reviews;
     product.merchantAvailability =
       data.merchantAvailability !== undefined
         ? data.merchantAvailability || null

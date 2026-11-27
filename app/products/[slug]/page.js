@@ -107,6 +107,11 @@ export default async function ProductDetailPage({ params }) {
   const productImages = [
     ...new Set((product.images || []).map(getProductImageUrl).filter(Boolean)),
   ];
+  const productHighlights = (product.specifications || [])
+    .filter((spec) => spec?.key?.trim() && spec?.value?.trim())
+    .slice(0, 4);
+  const productCategory =
+    product.sourceCategory || product.sourceCategories?.[0] || 'Roots Blower';
   const offers = (product.offers || []).filter(
     (offer) =>
       offer &&
@@ -296,7 +301,35 @@ export default async function ProductDetailPage({ params }) {
           {/* Left/Middle Columns: Details */}
           <div className="lg:col-span-2 space-y-8">
             <div className="bg-white p-6 sm:p-8 rounded-xl border border-borders-custom shadow-sm space-y-6">
-              <h1 className="text-3xl font-extrabold font-heading text-primary">{product.title}</h1>
+              <div className="space-y-3">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-secondary">
+                  {productCategory}
+                </p>
+                <h1 className="text-3xl font-extrabold font-heading text-primary">
+                  {product.title}
+                </h1>
+                <p className="max-w-3xl text-sm leading-relaxed text-gray-600">
+                  {product.shortDescription}
+                </p>
+              </div>
+
+              {productHighlights.length > 0 && (
+                <dl className="grid grid-cols-2 gap-3 border-y border-gray-100 py-5 sm:grid-cols-4">
+                  {productHighlights.map((spec, index) => (
+                    <div
+                      key={`${spec.key}-${index}`}
+                      className="min-w-0 border-l-2 border-accent pl-3"
+                    >
+                      <dt className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
+                        {spec.key}
+                      </dt>
+                      <dd className="mt-1 break-words text-sm font-bold text-primary">
+                        {spec.value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
               
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>

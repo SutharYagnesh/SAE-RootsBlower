@@ -87,8 +87,11 @@ export async function GET() {
   <version>2.3</version>
   <publisher>
     <name>Shree Ambika Engineering</name>
+    <favicon>${xmlEscape(new URL('/images/sae-logo.webp', siteUrl).toString())}</favicon>
   </publisher>
-${reviews.length > 0 ? `  <reviews>\n${reviews.join('\n')}\n  </reviews>\n` : ''}
+  <reviews>
+${reviews.join('\n')}
+  </reviews>
 </feed>`;
 
     return new Response(xml, {

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import connectDB from '@/lib/db';
 import Product from '@/models/Product';
 import { getAuthUser } from '@/lib/auth';
+import { isValidProductContent } from '@/lib/product-content';
 
 // Helper to generate a unique slug
 function slugify(text) {
@@ -91,6 +92,13 @@ export async function POST(req) {
       );
     }
 
+    if (!isValidProductContent(data.documents, data.reviews)) {
+      return NextResponse.json(
+        { error: 'Documents need a title and HTTP(S) URL. Reviews need an author, review text, a rating from 1 to 5, and a valid publication date.' },
+        { status: 400 }
+      );
+    }
+
     // Generate unique slug
     let baseSlug = slugify(title);
     let slug = baseSlug;
@@ -109,7 +117,9 @@ export async function POST(req) {
       features: features || [],
       applications: applications || [],
       images: images || [],
+      documents: data.documents || [],
       offers: data.offers || [],
+      reviews: data.reviews || [],
       merchantAvailability: data.merchantAvailability || null,
       seoTitle: data.seoTitle || title,
       seoDescription: data.seoDescription || shortDescription,
