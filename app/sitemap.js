@@ -6,28 +6,66 @@ import { locationsList } from '@/lib/locationsData';
 
 export const dynamic = 'force-dynamic';
 
+function getSitemapImageUrl(image, slug, index, baseUrl) {
+  if (typeof image !== 'string' || !image.trim()) {
+    return null;
+  }
+
+  if (/^data:image\/(?:jpeg|png|webp|gif);base64,[a-z0-9+/=\s]+$/i.test(image)) {
+    return new URL(
+      `/merchant-feed/images/${encodeURIComponent(slug)}/${index}`,
+      baseUrl
+    ).toString();
+  }
+
+  try {
+    const imageUrl = new URL(image, baseUrl);
+    if (!['http:', 'https:'].includes(imageUrl.protocol)) {
+      return null;
+    }
+
+    const siteHost = new URL(baseUrl).hostname;
+    const cdnUrl = process.env.CLOUDFLARE_R2_PUBLIC_URL;
+    if (
+      cdnUrl &&
+      imageUrl.hostname === siteHost &&
+      imageUrl.pathname.startsWith('/images/products/')
+    ) {
+      return new URL(
+        imageUrl.pathname.replace(/^\/+/, ''),
+        `${cdnUrl.replace(/\/+$/, '')}/`
+      ).toString();
+    }
+
+    return imageUrl.toString();
+  } catch {
+    return null;
+  }
+}
+
 export default async function sitemap() {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saerootsblower.com';
   const currentDate = new Date();
 
-  // Core static routes with daily update frequency
+  // Core routes with per-page update frequency and priority.
   const staticRoutes = [
-    { route: '', priority: 1.0 },
-    { route: '/products', priority: 0.9 },
-    { route: '/applications', priority: 0.8 },
-    { route: '/locations', priority: 0.8 },
-    { route: '/about', priority: 0.8 },
-    { route: '/gallery', priority: 0.7 },
-    { route: '/blogs', priority: 0.7 },
-    { route: '/contact', priority: 0.8 },
-    { route: '/privacy-policy', priority: 0.3 },
-    { route: '/return-policy', priority: 0.3 },
-    { route: '/shipping-policy', priority: 0.3 },
-    { route: '/terms', priority: 0.3 },
-  ].map(({ route, priority }) => ({
+    { route: '', priority: 1.0, changeFrequency: 'daily' },
+    { route: '/products', priority: 0.95, changeFrequency: 'daily' },
+    { route: '/applications', priority: 0.8, changeFrequency: 'monthly' },
+    { route: '/locations', priority: 0.8, changeFrequency: 'monthly' },
+    { route: '/about', priority: 0.75, changeFrequency: 'monthly' },
+    { route: '/gallery', priority: 0.7, changeFrequency: 'weekly' },
+    { route: '/blogs', priority: 0.8, changeFrequency: 'weekly' },
+    { route: '/contact', priority: 0.85, changeFrequency: 'weekly' },
+    { route: '/privacy-policy', priority: 0.3, changeFrequency: 'monthly' },
+    { route: '/return-policy', priority: 0.3, changeFrequency: 'monthly' },
+    { route: '/shipping-policy', priority: 0.3, changeFrequency: 'monthly' },
+    { route: '/terms', priority: 0.3, changeFrequency: 'monthly' },
+  ].map(({ route, priority, changeFrequency }) => ({
     url: `${baseUrl}${route}`,
     lastModified: currentDate,
-    changeFrequency: 'daily',
+    ...(route === '' ? { images: [`${baseUrl}/images/sae-logo.webp`] } : {}),
+    changeFrequency,
     priority,
   }));
 
@@ -51,7 +89,7 @@ export default async function sitemap() {
 
   const [products, blogs] = await Promise.all([
     Product.find({ status: 'published', slug: { $type: 'string', $ne: '' } })
-      .select('slug updatedAt')
+      .select('slug updatedAt images')
       .lean(),
     Blog.find({ status: 'published', slug: { $type: 'string', $ne: '' } })
       .select('slug updatedAt')
@@ -63,6 +101,12 @@ export default async function sitemap() {
     lastModified: product.updatedAt ? new Date(product.updatedAt) : currentDate,
     changeFrequency: 'daily',
     priority: 0.9,
+    images: (product.images || [])
+      .map((image, index) =>
+        getSitemapImageUrl(image, product.slug, index, baseUrl)
+      )
+      .filter(Boolean)
+      .slice(0, 1000),
   }));
 
   const blogRoutes = blogs.map((blog) => ({
